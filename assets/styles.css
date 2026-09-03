@@ -49,15 +49,13 @@ a:focus-visible { border-radius: 0.3rem; outline: 0.2rem solid var(--primary); o
 .site-nav a { color: var(--text-muted); font-size: 0.94rem; font-weight: 600; text-decoration: none; }
 .site-nav a:hover { color: var(--text); }
 .page { padding-block: clamp(3rem, 8vw, 7rem); }
-.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 0.65fr); align-items: center; gap: clamp(2.5rem, 7vw, 6rem); }
+.hero { max-width: 56rem; }
 .eyebrow { margin: 0 0 0.8rem; color: var(--primary); font-size: 0.82rem; font-weight: 750; letter-spacing: 0.12em; text-transform: uppercase; }
 h1, h2, h3 { margin-top: 0; line-height: 1.15; letter-spacing: -0.035em; }
-h1 { max-width: 13ch; margin-bottom: 1.25rem; font-size: clamp(2.6rem, 7vw, 5rem); }
+h1 { max-width: 18ch; margin-bottom: 1.25rem; font-size: clamp(2.6rem, 7vw, 5rem); }
 h2 { margin-bottom: 1rem; font-size: clamp(1.65rem, 4vw, 2.35rem); }
 h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 .hero-copy, .lead { max-width: 42rem; color: var(--text-muted); font-size: clamp(1.05rem, 2vw, 1.22rem); }
-.hero-mark { display: grid; width: min(100%, 18rem); aspect-ratio: 1; place-items: center; justify-self: center; border: 1px solid var(--outline); border-radius: 32%; background: radial-gradient(circle at 50% 42%, var(--primary-soft), var(--surface)); box-shadow: var(--shadow); }
-.hero-mark img { width: 72%; height: 72%; }
 .section { padding-top: clamp(4rem, 9vw, 7rem); }
 .section-header { max-width: 44rem; margin-bottom: 1.75rem; }
 .app-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1.5rem; padding: clamp(1.3rem, 4vw, 2rem); border: 1px solid var(--outline); border-radius: 1.5rem; background: var(--surface); box-shadow: var(--shadow); }
@@ -76,8 +74,6 @@ h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 .site-footer { display: flex; min-height: 6rem; align-items: center; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--outline); color: var(--text-muted); font-size: 0.9rem; }
 .site-footer p { margin: 0; }
 @media (max-width: 46rem) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-mark { width: min(70vw, 15rem); }
     .app-card { grid-template-columns: auto minmax(0, 1fr); }
     .app-card .button-link { grid-column: 1 / -1; }
     .site-footer { align-items: flex-start; flex-direction: column; justify-content: center; }

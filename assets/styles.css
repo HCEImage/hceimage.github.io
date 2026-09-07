@@ -59,7 +59,9 @@ h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 .section { padding-top: clamp(4rem, 9vw, 7rem); }
 .section-header { max-width: 44rem; margin-bottom: 1.75rem; }
 .app-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1.5rem; padding: clamp(1.3rem, 4vw, 2rem); border: 1px solid var(--outline); border-radius: 1.5rem; background: var(--surface); box-shadow: var(--shadow); }
-.app-icon { width: 7rem; height: 7rem; }
+.app-icon { width: 7rem; height: 7rem; border-radius: 1.4rem; }
+.app-card + .app-card { margin-top: 1.5rem; }
+.app-card .app-status { margin-bottom: 0.65rem; color: var(--primary); font-size: 0.85rem; font-weight: 650; }
 .app-card p { max-width: 44rem; margin: 0; color: var(--text-muted); }
 .button-link { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; padding: 0.7rem 1.1rem; border-radius: 999px; background: var(--primary); color: var(--background); font-weight: 720; text-decoration: none; white-space: nowrap; }
 .button-link:hover { filter: brightness(1.05); text-decoration: none; }
@@ -82,3 +84,9 @@ h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
     .app-card .button-link { grid-column: 1 / -1; }
     .site-footer { align-items: flex-start; flex-direction: column; justify-content: center; }
 }
+
+@media (max-width: 30rem) {
+    .app-card { gap: 1rem; grid-template-columns: 1fr; }
+    .app-icon { width: 5rem; height: 5rem; border-radius: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

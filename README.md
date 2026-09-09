@@ -17,9 +17,11 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 ## Availability
 
 HCE Test Tool 0.1.10 (10) is published in open testing as of September 9, 2026.
-The developer verified tester enrollment and Google Play installation availability.
+The developer verified tester enrollment, completed Google Play installations and startup on
+Pixel and Samsung, and discovery through Google Play search.
 The home page links to [Join the test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
-EMV Card Analyzer remains in development.
+EMV Card Analyzer remains in development. Both privacy links use the same presentation and
+align horizontally on desktop; mobile actions align left with the card content.
 
 ## Maintenance
 

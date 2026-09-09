@@ -9,7 +9,8 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 - [HCE Test Tool privacy policy](hce-test-tool/privacy-policy/index.html) — local history,
   notes, reports, clipboard, diagnostic logs, NFC, Android backup and support contact.
 - [EMV Card Analyzer privacy policy](emv-card-analyzer/privacy-policy/index.html) — current
-  0.1.0 foundation; card reading and saved analysis are not implemented yet.
+  0.1.0 development build with local contactless reading and APDU diagnostics; persistent
+  history and export remain planned.
 - [Shared styles](assets/styles.css) — responsive layouts and light/dark appearance.
 - [Sitemap](sitemap.xml) — public canonical pages.
 
@@ -36,3 +37,9 @@ not update the public site until they are pushed and the GitHub Pages deployment
 The September 7, 2026 review checked all three pages at mobile and desktop widths in light and
 dark themes (12 browser views), with valid local links, loaded resources and no horizontal overflow.
 Policy sections match their application Markdown sources; icon artwork matches the distribution SVGs.
+
+The September 9, 2026 live-site review verified all three pages at mobile (390 px) and desktop
+(1440 px) widths in light and dark themes. Page resources and internal navigation passed with
+no horizontal overflow or browser errors. Public home HTML and CSS matched the repository;
+the Applications section padding was 48 px on mobile and 72 px on desktop. The stylesheet is
+served with a ten-minute cache lifetime, so an existing browser tab may need a forced reload.

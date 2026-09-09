@@ -14,6 +14,13 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 - [Shared styles](assets/styles.css) — responsive layouts and light/dark appearance.
 - [Sitemap](sitemap.xml) — public canonical pages.
 
+## Availability
+
+HCE Test Tool 0.1.10 (10) is published in open testing as of September 9, 2026.
+The developer verified tester enrollment and Google Play installation availability.
+The home page links to [Join the test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
+EMV Card Analyzer remains in development.
+
 ## Maintenance
 
 Keep public descriptions aligned with implemented features and clearly label planned functionality.

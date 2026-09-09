@@ -56,7 +56,7 @@ h1 { max-width: 18ch; margin-bottom: 1.25rem; font-size: clamp(2.6rem, 7vw, 5rem
 h2 { margin-bottom: 1rem; font-size: clamp(1.65rem, 4vw, 2.35rem); }
 h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 .hero-copy, .lead { max-width: 42rem; color: var(--text-muted); font-size: clamp(1.05rem, 2vw, 1.22rem); }
-.section { padding-top: clamp(4rem, 9vw, 7rem); }
+.section { padding-top: clamp(3rem, 6vw, 4.5rem); }
 .section-header { max-width: 44rem; margin-bottom: 1.75rem; }
 .app-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1.5rem; padding: clamp(1.3rem, 4vw, 2rem); border: 1px solid var(--outline); border-radius: 1.5rem; background: var(--surface); box-shadow: var(--shadow); }
 .app-icon { width: 7rem; height: 7rem; border-radius: 1.4rem; }

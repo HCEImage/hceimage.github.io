@@ -25,12 +25,12 @@
         <p class="eyebrow">EMV Card Analyzer</p>
         <h1>Privacy Policy</h1>
         <p class="effective-date">Effective date: September 8, 2026</p>
-        <p class="lead">HCEImage is developing EMV Card Analyzer as a utility for EMV payment card inspection and diagnostics. This policy describes the current application foundation.</p>
+        <p class="lead">HCEImage is developing EMV Card Analyzer as a utility for EMV payment card inspection and diagnostics. This policy describes local card analysis and diagnostic processing.</p>
     </header>
     <div class="policy-content">
         <section aria-labelledby="scope">
             <h2 id="scope">Current application scope</h2>
-            <p>This policy describes the initial 0.1.0 application. It displays application information and local NFC availability and can open Android NFC settings. Card reading, APDU exchange, saved analysis history, diagnostic reports and USB readers are not implemented in this version.</p>
+            <p>This policy describes the 0.1.0 development application. It reads supported contactless payment applications over NFC and displays APDU exchanges and decoded data. Persistent analysis history, diagnostic report export and USB readers are not implemented.</p>
         </section>
         <section aria-labelledby="collection">
             <h2 id="collection">Data collection and sharing</h2>
@@ -38,15 +38,19 @@
         </section>
         <section aria-labelledby="local-data">
             <h2 id="local-data">Device information and local state</h2>
-            <p>The application checks whether the device has an NFC adapter and whether NFC is enabled. This status is used locally to display device readiness. The current version does not read payment card data or create persistent card-analysis history. The application stores the selected theme, diagnostic detail preference and acknowledged development-use notice version locally on the device. These settings survive restarts and are removed when application data is cleared or the app is uninstalled. No card-analysis history is stored. Application backup is disabled.</p>
+            <p>The application checks whether the device has an NFC adapter and whether NFC is enabled. Card application data and raw APDU exchanges are processed locally and retained in memory for the current analysis, until a new analysis starts, the user leaves Analyzer or the foreground, or the Activity is recreated. Depending on the card, these data may include account numbers, expiry dates, cardholder information or other sensitive values. The application does not automatically save card-analysis history. It stores the selected theme, diagnostic detail preference and acknowledged development-use notice version locally. Settings survive restarts and are removed when app data is cleared or the app is uninstalled. Application backup is disabled.</p>
+        </section>
+        <section aria-labelledby="diagnostics">
+            <h2 id="diagnostics">Local diagnostics</h2>
+            <p>The diagnostic preference controls Android Logcat output. Errors logs failures; Sessions adds session events; APDUs also logs raw commands and responses, which may contain sensitive card data. APDUs is the default. Android manages these logs separately from the current analysis; clearing the screen does not clear system logs. Users can choose a lower detail level in Settings. Copying displayed data or sharing device logs is a user-controlled action, not an automatic upload by the application.</p>
         </section>
         <section aria-labelledby="nfc">
             <h2 id="nfc">NFC permission</h2>
-            <p>The application declares the Android NFC permission and uses local adapter status. It does not activate NFC reader mode or exchange commands with cards in this version. Opening NFC settings is an explicit user action.</p>
+            <p>The Android NFC permission is used to read cards after the user selects Start analysis. Reader mode is released on Stop, leaving the Analyzer screen, Activity pause and completion or failure. Opening NFC settings is an explicit user action. The app does not perform payments or change the default payment service.</p>
         </section>
         <section aria-labelledby="future">
             <h2 id="future">Future features</h2>
-            <p>Card reading and analysis are planned. This policy will be reviewed and updated before releasing features that access, store, export or otherwise handle card data. The current statements do not describe those future features as available.</p>
+            <p>This policy will be reviewed before adding persistent card-analysis history, diagnostic report export or other changes to card-data handling.</p>
         </section>
         <section aria-labelledby="children">
             <h2 id="children">Children&#x27;s privacy</h2>

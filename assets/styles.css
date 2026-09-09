@@ -83,6 +83,7 @@ h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 @media (max-width: 46rem) {
     .app-card { grid-template-columns: auto minmax(0, 1fr); }
     .app-card > .button-link, .app-card > .app-actions { grid-column: 1 / -1; }
+    .app-actions { align-items: flex-start; }
     .site-footer { align-items: flex-start; flex-direction: column; justify-content: center; }
 }
 

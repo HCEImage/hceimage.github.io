@@ -11,6 +11,8 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 - [EMV Card Analyzer privacy policy](emv-card-analyzer/privacy-policy/index.html) — current
   0.1.0 development build with local contactless reading and APDU diagnostics; persistent
   history and export remain planned.
+- [ECR Test Tool privacy policy](ecr-test-tool/privacy-policy/index.html) — current 0.1.0
+  development foundation; live ECR-B communication, transaction history and reports remain planned.
 - [Shared styles](assets/styles.css) — responsive layouts and light/dark appearance.
 - [Sitemap](sitemap.xml) — public canonical pages.
 
@@ -20,14 +22,14 @@ HCE Test Tool 0.1.10 (10) is published in open testing as of September 9, 2026.
 The developer verified tester enrollment, completed Google Play installations and startup on
 Pixel and Samsung, and discovery through Google Play search.
 The home page links to [Join the test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
-EMV Card Analyzer remains in development. Both privacy links use the same presentation and
-align horizontally on desktop; mobile actions align left with the card content.
+EMV Card Analyzer and ECR Test Tool remain in development. All privacy links use the same
+presentation and align horizontally on desktop; mobile actions align left with the card content.
 
 ## Maintenance
 
 Keep public descriptions aligned with implemented features and clearly label planned functionality.
 Synchronize each policy's wording and effective date with its application repository's
-`play/privacy-policy.md`. Website SVG icons mirror each application's `play/assets/icon-source.svg`;
+`play/privacy-policy.md`. Website SVG icons mirror each application's `play/assets/icon-source.svg`.
 The website uses a tighter `16 16 76 76` viewBox for readability at small sizes; paths, gradients
 and transforms remain identical. CSS supplies rounded presentation corners.
 
@@ -39,7 +41,7 @@ Recheck it whenever data handling changes.
 ## Local verification
 
 Serve the repository root with `python3 -m http.server 8080 --bind 127.0.0.1` and open
-`http://127.0.0.1:8080`. Check home and both policies at desktop and mobile widths in both
+`http://127.0.0.1:8080`. Check home and all three policies at desktop and mobile widths in both
 color schemes, navigation, asset paths, canonical URLs and sitemap entries. Local commits do
 not update the public site until they are pushed and the GitHub Pages deployment succeeds.
 

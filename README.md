@@ -21,8 +21,10 @@ HCE Test Tool 0.1.11 (11) is published in open testing as of September 11, 2026.
 The developer verified tester enrollment, Google Play update delivery and startup on Pixel and
 Samsung, quick functional checks, and discovery through Google Play search.
 The home page links to [Join the test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
-EMV Card Analyzer 0.1.0 (1) was published to internal testing on September 11, 2026. Tester
-enrollment, Google Play installation and application startup were confirmed. ECR Test Tool remains
+EMV Card Analyzer 0.1.0 (1) was submitted for closed testing review on September 11, 2026.
+The preceding internal test confirmed tester enrollment, Google Play installation and application
+startup. Closed testing remains restricted to selected testers, so the home page does not expose a
+public enrollment link. ECR Test Tool remains
 in development. All privacy links use the same
 
 presentation and align horizontally on desktop; mobile actions align left with the card content.
@@ -58,8 +60,9 @@ the Applications section padding was 48 px on mobile and 72 px on desktop. The s
 served with a ten-minute cache lifetime, so an existing browser tab may need a forced reload.
 
 The September 11, 2026 preparation updates the EMV Card Analyzer application card and publishes
-policy wording for local history, notes, retention and report export. After the first release was
-confirmed, the home page status was updated to Internal testing.
+policy wording for local history, notes, retention and report export. After the internal release was
+confirmed and the closed release was submitted for review, the home page status was updated to
+Closed testing.
 
 The September 11, 2026 dark-mode compatibility update declares light and dark support in every
 page before styles load and marks application icons as light-only surfaces. The home page serves

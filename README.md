@@ -60,6 +60,8 @@ policy wording for local history, notes, retention and report export. The home p
 internal testing until Play Console publication is confirmed.
 
 The September 11, 2026 dark-mode compatibility update declares light and dark support in every
-page before styles load and marks application icons as light-only surfaces. This preserves their
-intentional white artwork background when an embedded browser or WebView applies automatic dark
-color transformations.
+page before styles load and marks application icons as light-only surfaces. The home page serves
+512 px PNG renditions of the SVG source artwork because Samsung Internet applies an unavoidable
+forced-dark color transformation to small SVG images. The raster renditions preserve the intended
+light icon surfaces in that browser. The primary action uses dedicated light and dark colors so it
+retains sufficient contrast after Samsung Internet applies its forced-dark transformation.

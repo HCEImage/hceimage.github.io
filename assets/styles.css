@@ -7,6 +7,8 @@
     --text-muted: #5c6472;
     --primary: #496fba;
     --primary-soft: #dce7fb;
+    --button-background: #005ac2;
+    --button-content: #ffffff;
     --outline: #d5dbe6;
     --accent: #ba1a1a;
     --shadow: 0 18px 48px rgb(34 45 68 / 10%);
@@ -21,6 +23,8 @@
         --text-muted: #b9c0cd;
         --primary: #9ebcf3;
         --primary-soft: #263957;
+        --button-background: #9ebcf3;
+        --button-content: #111318;
         --outline: #343a45;
         --accent: #ffb4ab;
         --shadow: 0 22px 64px rgb(0 0 0 / 28%);
@@ -64,7 +68,7 @@ h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 .app-card .app-status { margin-bottom: 0.65rem; color: var(--primary); font-size: 0.85rem; font-weight: 650; }
 .app-card p { max-width: 44rem; margin: 0; color: var(--text-muted); }
 .app-actions { min-width: 10rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
-.button-link { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; padding: 0.7rem 1.1rem; border-radius: 999px; background: var(--primary); color: var(--background); font-weight: 720; text-decoration: none; white-space: nowrap; }
+.button-link { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; padding: 0.7rem 1.1rem; border-radius: 999px; background: var(--button-background); color: var(--button-content); font-weight: 720; text-decoration: none; white-space: nowrap; }
 .button-link:hover { filter: brightness(1.05); text-decoration: none; }
 .policy-page { width: min(100% - 2rem, 52rem); }
 .policy-header { padding-bottom: 2rem; border-bottom: 1px solid var(--outline); }

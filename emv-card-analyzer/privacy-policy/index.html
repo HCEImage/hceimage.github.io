@@ -24,50 +24,20 @@
     <header class="policy-header">
         <p class="eyebrow">EMV Card Analyzer</p>
         <h1>Privacy Policy</h1>
-        <p class="effective-date">Effective date: September 8, 2026</p>
-        <p class="lead">HCEImage is developing EMV Card Analyzer as a utility for EMV payment card inspection and diagnostics. This policy describes local card analysis and diagnostic processing.</p>
+        <p class="effective-date">Effective date: September 10, 2026</p>
+        <p class="lead">HCEImage is developing EMV Card Analyzer as a utility for EMV payment card inspection and diagnostics. This policy describes local card analysis, history and diagnostic processing.</p>
     </header>
     <div class="policy-content">
-        <section aria-labelledby="scope">
-            <h2 id="scope">Current application scope</h2>
-            <p>This policy describes the 0.1.0 development application. It reads supported contactless payment applications over NFC and displays APDU exchanges and decoded data. Persistent analysis history, diagnostic report export and USB readers are not implemented.</p>
-        </section>
-        <section aria-labelledby="collection">
-            <h2 id="collection">Data collection and sharing</h2>
-            <p>EMV Card Analyzer does not automatically collect or send personal data to HCEImage or third-party services. The application has no account, advertising, analytics, crash reporting, tracking or network services. Support messages sent by the user are described below.</p>
-        </section>
-        <section aria-labelledby="local-data">
-            <h2 id="local-data">Device information and local state</h2>
-            <p>The application checks whether the device has an NFC adapter and whether NFC is enabled. Card application data and raw APDU exchanges are processed locally and retained in memory for the current analysis, until a new analysis starts, the user leaves Analyzer or the foreground, or the Activity is recreated. Depending on the card, these data may include account numbers, expiry dates, cardholder information or other sensitive values. The application does not automatically save card-analysis history. It stores the selected theme, diagnostic detail preference and acknowledged development-use notice version locally. Settings survive restarts and are removed when app data is cleared or the app is uninstalled. Application backup is disabled.</p>
-        </section>
-        <section aria-labelledby="diagnostics">
-            <h2 id="diagnostics">Local diagnostics</h2>
-            <p>The diagnostic preference controls Android Logcat output. Errors logs failures; Sessions adds session events; APDUs also logs raw commands and responses, which may contain sensitive card data. APDUs is the default. Android manages these logs separately from the current analysis; clearing the screen does not clear system logs. Users can choose a lower detail level in Settings. Copying displayed data or sharing device logs is a user-controlled action, not an automatic upload by the application.</p>
-        </section>
-        <section aria-labelledby="nfc">
-            <h2 id="nfc">NFC permission</h2>
-            <p>The Android NFC permission is used to read cards after the user selects Start analysis. Reader mode is released on Stop, leaving the Analyzer screen, Activity pause and completion or failure. Opening NFC settings is an explicit user action. The app does not perform payments or change the default payment service.</p>
-        </section>
-        <section aria-labelledby="future">
-            <h2 id="future">Future features</h2>
-            <p>This policy will be reviewed before adding persistent card-analysis history, diagnostic report export or other changes to card-data handling.</p>
-        </section>
-        <section aria-labelledby="children">
-            <h2 id="children">Children&#x27;s privacy</h2>
-            <p>EMV Card Analyzer is a specialized developer utility and is not directed to children.</p>
-        </section>
-        <section aria-labelledby="hosting">
-            <h2 id="hosting">Policy website hosting</h2>
-            <p>This public policy page is hosted by GitHub Pages. GitHub logs visitor IP addresses for security purposes under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>. This website hosting is separate from the application data practices described above.</p>
-        </section>
-        <section aria-labelledby="changes">
-            <h2 id="changes">Changes to this policy</h2>
-            <p>This policy may be updated when the application's functionality or data practices change. The effective date above identifies the current version.</p>
-        </section>
-        <section aria-labelledby="contact">
-            <h2 id="contact">Contact</h2>
-            <p>For privacy or support questions, contact HCEImage at <a href="mailto:hceimage@gmail.com">hceimage@gmail.com</a>. If you email us, we receive your email address, message and any attachments you choose to send, and use them to respond to your request. Do not include real payment card data or other sensitive information in support messages.</p>
-        </section>
+        <section aria-labelledby="scope"><h2 id="scope">Current application scope</h2><p>This policy describes the 0.1.0 application. It reads supported contactless payment applications over NFC, displays and locally saves terminal analysis snapshots, and can export user-selected diagnostic reports. External USB readers are not implemented.</p></section>
+        <section aria-labelledby="collection"><h2 id="collection">Data collection and sharing</h2><p>EMV Card Analyzer does not automatically collect or send personal data to HCEImage or third-party services. The application has no account, advertising, analytics, crash reporting, tracking or network services. A report leaves the application only when the user explicitly saves or shares it. Support messages sent by the user are described below.</p></section>
+        <section aria-labelledby="local-data"><h2 id="local-data">Device information and local state</h2><p>The application checks whether the device has an NFC adapter and whether NFC is enabled. Card application data and raw APDU exchanges are processed locally. After a card read reaches a terminal state, its snapshot is saved automatically in an application-private Room database. The newest 100 analyses are retained by default. Settings can retain 100, 500, 1,000 or Unlimited analyses. A finite limit removes the oldest excess records; Unlimited keeps records until the user deletes them and can use increasing device storage. Users can delete individual rows or clear all history. Depending on the card, history may include account numbers, expiry dates, cardholder information or other sensitive values. An optional user note is stored with its analysis.</p><p>The selected theme, diagnostic detail preference and acknowledged development-use notice version are stored locally. Local data survives restarts and is removed when app data is cleared or the app is uninstalled. Application backup is disabled.</p></section>
+        <section aria-labelledby="reports"><h2 id="reports">Reports and sharing</h2><p>Reports are created only after the user chooses Save or Share in a saved analysis. Summary reports exclude the PAN and raw APDU commands and responses. Detailed reports include raw APDUs and may therefore contain sensitive card data. Save uses Android's document picker. Share uses Android's Sharesheet and grants the selected receiving application temporary read access to the generated file. The chosen destination then handles the file under its own privacy practices.</p></section>
+        <section aria-labelledby="diagnostics"><h2 id="diagnostics">Local diagnostics</h2><p>The diagnostic preference controls Android Logcat output. Errors logs failures; Sessions adds session events; APDUs also logs raw commands and responses, which may contain sensitive card data. APDUs is the default. Android manages these logs separately from analysis history. Users can choose a lower detail level in Settings. Copying displayed data or sharing device logs is a user-controlled action, not an automatic upload by the application.</p></section>
+        <section aria-labelledby="nfc"><h2 id="nfc">NFC permission</h2><p>The Android NFC permission is used to read cards after the user selects Start analysis. Reader mode is released on Stop, leaving the Analyzer screen, Activity pause and completion or failure when the default analyzer behavior is enabled. Opening NFC settings is an explicit user action. The app does not perform payments or change the default payment service.</p></section>
+        <section aria-labelledby="children"><h2 id="children">Children's privacy</h2><p>EMV Card Analyzer is a specialized developer utility and is not directed to children.</p></section>
+        <section aria-labelledby="hosting"><h2 id="hosting">Policy website hosting</h2><p>This public policy page is hosted by GitHub Pages. GitHub logs visitor IP addresses for security purposes under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>. This website hosting is separate from the application data practices described above.</p></section>
+        <section aria-labelledby="changes"><h2 id="changes">Changes to this policy</h2><p>This policy may be updated when the application's functionality or data practices change. The effective date above identifies the current version.</p></section>
+        <section aria-labelledby="contact"><h2 id="contact">Contact</h2><p>For privacy or support questions, contact HCEImage at <a href="mailto:hceimage@gmail.com">hceimage@gmail.com</a>. If you email us, we receive your email address, message and any attachments you choose to send, and use them to respond to your request. Do not include real payment card data or other sensitive information in support messages.</p></section>
     </div>
 </main>
 <footer class="site-footer"><p>© 2026 HCEImage</p><p><a href="/">HCEImage home</a></p></footer>

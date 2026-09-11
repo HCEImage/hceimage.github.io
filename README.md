@@ -9,8 +9,7 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 - [HCE Test Tool privacy policy](hce-test-tool/privacy-policy/index.html) — local history,
   notes, reports, clipboard, diagnostic logs, NFC, Android backup and support contact.
 - [EMV Card Analyzer privacy policy](emv-card-analyzer/privacy-policy/index.html) — current
-  0.1.0 development build with local contactless reading and APDU diagnostics; persistent
-  history and export remain planned.
+  0.1.0 build with local contactless reading, persistent history, notes and explicit report export.
 - [ECR Test Tool privacy policy](ecr-test-tool/privacy-policy/index.html) — current 0.1.0
   development foundation; live ECR-B communication, transaction history and reports remain planned.
 - [Shared styles](assets/styles.css) — responsive layouts and light/dark appearance.
@@ -22,7 +21,8 @@ HCE Test Tool 0.1.10 (10) is published in open testing as of September 9, 2026.
 The developer verified tester enrollment, completed Google Play installations and startup on
 Pixel and Samsung, and discovery through Google Play search.
 The home page links to [Join the test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
-EMV Card Analyzer and ECR Test Tool remain in development. All privacy links use the same
+EMV Card Analyzer 0.1.0 is prepared for internal testing; ECR Test Tool remains in development. All privacy links use the same
+
 presentation and align horizontally on desktop; mobile actions align left with the card content.
 
 ## Maintenance
@@ -54,3 +54,7 @@ The September 9, 2026 live-site review verified all three pages at mobile (390 p
 no horizontal overflow or browser errors. Public home HTML and CSS matched the repository;
 the Applications section padding was 48 px on mobile and 72 px on desktop. The stylesheet is
 served with a ten-minute cache lifetime, so an existing browser tab may need a forced reload.
+
+The September 11, 2026 preparation updates the EMV Card Analyzer application card and publishes
+policy wording for local history, notes, retention and report export. The home page says Preparing
+internal testing until Play Console publication is confirmed.

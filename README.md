@@ -21,11 +21,12 @@ HCE Test Tool 0.1.11 (11) is published in open testing as of September 11, 2026.
 The developer verified tester enrollment, Google Play update delivery and startup on Pixel and
 Samsung, quick functional checks, and discovery through Google Play search.
 The home page links to [Join the test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
-EMV Card Analyzer 0.1.0 (1) was published to closed testing on September 11, 2026. Installation,
-startup and an authorized card analysis were confirmed from the closed channel, after which the
-internal track was paused. The verified release was submitted for open-testing review on September
-11, 2026. The home page remains labeled Closed testing and does not expose a public enrollment link
-until Google Play publishes the open channel. ECR Test Tool remains in development. All privacy links use
+EMV Card Analyzer 0.1.0 (1) was published in open testing on September 12, 2026. Installation,
+startup and an authorized card analysis were previously confirmed from the closed channel, after which
+the internal track was paused. The home page links to
+[Join the test](https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer). Public enrollment,
+Play delivery and an authorized analysis from the open-testing installation remain to be verified.
+ECR Test Tool remains in development. All privacy links use
 the same presentation and align horizontally on desktop; mobile actions align left with the card content.
 
 ## Maintenance

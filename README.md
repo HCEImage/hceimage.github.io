@@ -25,7 +25,8 @@ EMV Card Analyzer 0.1.0 (1) was published in open testing on September 12, 2026.
 startup and an authorized card analysis were previously confirmed from the closed channel, after which
 the internal track was paused. The home page links to
 [Join the test](https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer). Public enrollment,
-Play delivery and an authorized analysis from the open-testing installation remain to be verified.
+Play delivery, installation, startup and basic operation were confirmed on September 12, 2026.
+An authorized card analysis from the open-testing installation remains to be verified.
 ECR Test Tool remains in development. All privacy links use
 the same presentation and align horizontally on desktop; mobile actions align left with the card content.
 

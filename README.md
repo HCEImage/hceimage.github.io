@@ -11,7 +11,7 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 - [EMV Card Analyzer privacy policy](emv-card-analyzer/privacy-policy/index.html) — current
   0.1.0 build with local contactless reading, persistent history, notes and explicit report export.
 - [ECR Test Tool privacy policy](ecr-test-tool/privacy-policy/index.html) — current 0.1.0
-  development foundation; live ECR-B communication, transaction history and reports remain planned.
+  development build with V5/V4 TCP profiles and a built-in Local POI; persistent history and reports remain planned.
 - [Shared styles](assets/styles.css) — responsive layouts and light/dark appearance.
 - [Sitemap](sitemap.xml) — public canonical pages.
 
@@ -27,7 +27,9 @@ the internal track was paused. The home page links to
 [Join the test](https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer). Public enrollment,
 Play delivery, installation, startup and basic operation were confirmed on September 12, 2026.
 An authorized card analysis from the open-testing installation remains to be verified.
-ECR Test Tool remains in development. All privacy links use
+ECR Test Tool remains in development. Its current Android and desktop build supports nexo Retailer V5 and V4
+over TCP, direct terminal connections, and an optional Local POI Sale simulation. Persistent history, full CASP-family
+execution and reports remain planned. All privacy links use
 the same presentation and align horizontally on desktop; mobile actions align left with the card content.
 
 ## Maintenance
@@ -70,3 +72,6 @@ page before styles load and marks application icons as light-only surfaces. The 
 forced-dark color transformation to small SVG images. The raster renditions preserve the intended
 light icon surfaces in that browser. The primary action uses dedicated light and dark colors so it
 retains sufficient contrast after Samsung Internet applies its forced-dark transformation.
+
+The September 13, 2026 ECR update replaces the obsolete ECR-B placeholder with the implemented nexo Retailer V5
+and V4 profiles, TCP connection behavior, Local POI Sale simulation and current volatile-data boundary.

@@ -17,14 +17,14 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 
 ## Availability
 
-HCE Test Tool 0.1.11 (11) is published in open testing as of September 11, 2026.
+HCE Test Tool 0.1.11 (11) is currently available as an Android application and is published in open testing as of September 11, 2026.
 The developer verified tester enrollment, Google Play update delivery and startup on Pixel and
 Samsung, quick functional checks, and discovery through Google Play search.
-The home page links to [Join the test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
-EMV Card Analyzer 0.1.0 (1) was published in open testing on September 12, 2026. Installation,
+The home page links to [Join the Android test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
+EMV Card Analyzer 0.1.0 (1) is currently available as an Android application and was published in open testing on September 12, 2026. Installation,
 startup and an authorized card analysis were previously confirmed from the closed channel, after which
 the internal track was paused. The home page links to
-[Join the test](https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer). Public enrollment,
+[Join the Android test](https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer). Public enrollment,
 Play delivery, installation, startup and basic operation were confirmed on September 12, 2026.
 An authorized card analysis from the open-testing installation remains to be verified.
 ECR Test Tool remains in development. Its current Android and desktop build supports nexo Retailer V5 and V4
@@ -75,3 +75,7 @@ retains sufficient contrast after Samsung Internet applies its forced-dark trans
 
 The September 13, 2026 ECR update replaces the obsolete ECR-B placeholder with the implemented nexo Retailer V5
 and V4 profiles, TCP connection behavior, Local POI Sale simulation and current volatile-data boundary.
+
+The September 14, 2026 availability update identifies HCE Test Tool and EMV Card Analyzer as Android applications
+and labels their Google Play actions as Android open-test enrollment. ECR Test Tool remains identified as a
+multiplatform Android and desktop application. Application data handling did not change, so the privacy policies remain unchanged.

@@ -88,5 +88,5 @@ APDU results handled through the existing history, diagnostics, clipboard and re
 Analyzer and ECR Test Tool content is unchanged.
 
 The September 15, 2026 EMV Card Analyzer update makes the public policy version-independent
-and refreshes the home-page summary around built-in NFC reading, contextual decoding, explicit result
+and refreshes the home-page summary around transport-neutral EMV inspection, contextual decoding, explicit result
 states, offline references, local history and reports. The underlying data practices remain unchanged.

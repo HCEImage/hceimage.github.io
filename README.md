@@ -26,9 +26,8 @@ post-publication verification are tracked in the application repository.
 The home page links to [Join the Android test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
 EMV Card Analyzer 0.1.1 (2) is currently available as an Android application in open testing. Google Play
 confirmed and published the signed update, refreshed store listing and current phone screenshots on September 15,
-2026; the internal and closed tracks remain paused. Public enrollment, exact 0.1.1 Play delivery, installation
-and startup are confirmed. One authorized-card analysis from that exact update remains tracked separately in
-the application repository. The home page links to
+2026; the internal and closed tracks remain paused. Public enrollment, exact 0.1.1 Play delivery,
+installation, startup and an authorized test-card analysis are confirmed. The home page links to
 [Join the Android test](https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer).
 ECR Test Tool remains in development. Its current Android and desktop build supports nexo Retailer V5 and V4
 over TCP, direct terminal connections, and an optional Local POI Sale simulation. Persistent history, full CASP-family

@@ -25,18 +25,23 @@
     <header class="policy-header">
         <p class="eyebrow">HCE Test Tool</p>
         <h1>Privacy Policy</h1>
-        <p class="effective-date">Effective date: September 7, 2026</p>
+        <p class="effective-date">Effective date: September 15, 2026</p>
         <p class="lead">HCEImage provides HCE Test Tool as a development and testing utility for controlled contactless payment integration environments.</p>
     </header>
     <div class="policy-content">
         <section aria-labelledby="collection">
             <h2 id="collection">Data collection and sharing</h2>
-            <p>HCE Test Tool does not automatically send personal data, test-session data or diagnostics to HCEImage or third-party services. The application does not include advertising, analytics, crash reporting, tracking or other network services. User-initiated copying, report exports and support contact are described below.</p>
+            <p>HCE Test Tool does not automatically send personal data, emulation-session data or diagnostics to HCEImage or third-party services. The application does not include advertising, analytics, crash reporting, tracking or other network services. User-initiated copying, report exports and support contact are described below.</p>
         </section>
         <section aria-labelledby="local-data">
             <h2 id="local-data">Data stored on the device</h2>
-            <p>The application stores test-session history, settings, APDU exchanges, validation results and optional notes locally on the user's device. Bundled card profiles contain synthetic test data only. This information provides the application's testing and diagnostic features.</p>
+            <p>The application stores emulation-session history, settings, APDU exchanges, validation results and optional notes locally on the user's device. Bundled card profiles contain synthetic test data only. This information provides the application's testing and diagnostic features.</p>
             <p>Users can delete individual history records or clear all stored history from within the application. Uninstalling removes local application data, subject to the operating system's backup and restore behavior. Android backup is enabled; backup and restoration depend on the device, operating system and user settings. Deleting history does not delete separately exported reports, clipboard copies or system diagnostic logs.</p>
+        </section>
+        <section aria-labelledby="test-security-data">
+            <h2 id="test-security-data">Test security data</h2>
+            <p>For supported card profiles, users can optionally enter synthetic application-cryptogram keys, offline-authentication keys or legacy verification values for an emulation run. The entered values are masked, validated and held only in application memory until the run ends, the defaults are restored or the application process closes. They are not saved to card profiles, settings, history, reports, logs, clipboard output or Android backups.</p>
+            <p>The application may use these values to generate synthetic card responses. Those generated APDU responses and their decoded results are handled like other emulation-session data and may appear in history, diagnostic logs, clipboard copies or user-exported reports as described in this policy. Production issuer keys, real payment credentials and other live secrets must never be entered.</p>
         </section>
         <section aria-labelledby="clipboard-logs">
             <h2 id="clipboard-logs">Copying and diagnostic logs</h2>
@@ -45,7 +50,7 @@
         </section>
         <section aria-labelledby="reports">
             <h2 id="reports">Exporting and sharing reports</h2>
-            <p>Users may explicitly save or share diagnostic reports in Markdown, HTML or PDF format. Reports may include test-session data, raw APDUs, decoded values and saved notes. Export and sharing occur only after a user action and use the destination or application selected by the user. A selected destination may store or transmit the report under its own policies. HCEImage does not receive reports unless the user chooses to send them to us.</p>
+            <p>Users may explicitly save or share diagnostic reports in Markdown, HTML or PDF format. Reports may include emulation-session data, raw APDUs, decoded values and saved notes. Export and sharing occur only after a user action and use the destination or application selected by the user. A selected destination may store or transmit the report under its own policies. HCEImage does not receive reports unless the user chooses to send them to us.</p>
         </section>
         <section aria-labelledby="nfc">
             <h2 id="nfc">NFC and contactless card emulation</h2>

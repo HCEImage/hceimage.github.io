@@ -17,9 +17,12 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 
 ## Availability
 
-HCE Test Tool 0.1.11 (11) is currently available as an Android application and is published in open testing as of September 11, 2026.
-The developer verified tester enrollment, Google Play update delivery and startup on Pixel and
-Samsung, quick functional checks, and discovery through Google Play search.
+HCE Test Tool is available as an Android application in open testing. It supports synthetic EMV
+contactless card profiles, optional in-memory test-security overrides, structured APDU inspection,
+flow validation, local history, notes and user-initiated diagnostic report export. The developer
+previously verified tester enrollment, Google Play update delivery and startup on Pixel and Samsung,
+quick functional checks, and discovery through Google Play search. Release-specific publication and
+post-publication verification are tracked in the application repository.
 The home page links to [Join the Android test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
 EMV Card Analyzer 0.1.0 (1) is currently available as an Android application and was published in open testing on September 12, 2026. Installation,
 startup and an authorized card analysis were previously confirmed from the closed channel, after which
@@ -40,7 +43,7 @@ Synchronize each policy's wording and effective date with its application reposi
 The website uses a tighter `16 16 76 76` viewBox for readability at small sizes; paths, gradients
 and transforms remain identical. CSS supplies rounded presentation corners.
 
-Privacy wording was reviewed on September 7, 2026 against application data flows and the
+Privacy wording was reviewed on September 15, 2026 against application data flows and the
 [Google Play User Data guidance](https://support.google.com/googleplay/android-developer/answer/10144311)
 and [GitHub Pages hosting behavior](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 Recheck it whenever data handling changes.
@@ -79,3 +82,8 @@ and V4 profiles, TCP connection behavior, Local POI Sale simulation and current 
 The September 14, 2026 availability update identifies HCE Test Tool and EMV Card Analyzer as Android applications
 and labels their Google Play actions as Android open-test enrollment. ECR Test Tool remains identified as a
 multiplatform Android and desktop application. Application data handling did not change, so the privacy policies remain unchanged.
+
+The September 15, 2026 HCE Test Tool update refreshes its evergreen application summary. Its privacy
+policy now distinguishes optional Test security data, which remains in memory, from generated synthetic
+APDU results handled through the existing history, diagnostics, clipboard and report flows. EMV Card
+Analyzer and ECR Test Tool content is unchanged.

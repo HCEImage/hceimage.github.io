@@ -24,10 +24,11 @@ previously verified tester enrollment, Google Play update delivery and startup o
 quick functional checks, and discovery through Google Play search. Release-specific publication and
 post-publication verification are tracked in the application repository.
 The home page links to [Join the Android test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
-EMV Card Analyzer 0.1.0 (1) is currently available as an Android application in open testing. Public enrollment,
-Play delivery, installation, startup and an authorized card analysis were confirmed on September 12, 2026;
-the internal and closed tracks are paused. Version 0.1.1 (2), its refreshed store listing and current phone
-screenshots are prepared for open-testing review. The home page links to
+EMV Card Analyzer 0.1.1 (2) is currently available as an Android application in open testing. Google Play
+confirmed and published the signed update, refreshed store listing and current phone screenshots on September 15,
+2026; the internal and closed tracks remain paused. Public enrollment, exact 0.1.1 Play delivery, installation
+and startup are confirmed. One authorized-card analysis from that exact update remains tracked separately in
+the application repository. The home page links to
 [Join the Android test](https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer).
 ECR Test Tool remains in development. Its current Android and desktop build supports nexo Retailer V5 and V4
 over TCP, direct terminal connections, and an optional Local POI Sale simulation. Persistent history, full CASP-family
@@ -90,3 +91,7 @@ Analyzer and ECR Test Tool content is unchanged.
 The September 15, 2026 EMV Card Analyzer update makes the public policy version-independent
 and refreshes the home-page summary around transport-neutral EMV inspection, contextual decoding, explicit result
 states, offline references, local history and reports. The underlying data practices remain unchanged.
+
+The September 15, 2026 publication record confirms EMV Card Analyzer 0.1.1 (2), its updated en-US
+listing and eight refreshed screenshots in Google Play open testing. No visible website or privacy-policy
+change was required because the public pages already described the released behavior.

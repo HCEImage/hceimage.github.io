@@ -65,6 +65,7 @@ h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 .app-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1.5rem; padding: clamp(1.3rem, 4vw, 2rem); border: 1px solid var(--outline); border-radius: 1.5rem; background: var(--surface); box-shadow: var(--shadow); }
 .app-icon { width: 7rem; height: 7rem; border-radius: 1.4rem; background: #ffffff; color-scheme: only light; }
 .app-card + .app-card { margin-top: 1.5rem; }
+.app-card h3, .guide-card h2 { margin-bottom: 0.75rem; font-size: clamp(1.35rem, 2.5vw, 1.75rem); }
 .app-card .app-status { margin-bottom: 0.65rem; color: var(--primary); font-size: 0.85rem; font-weight: 650; }
 .app-card p { max-width: 44rem; margin: 0; color: var(--text-muted); }
 .app-actions { min-width: 10rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
@@ -72,14 +73,15 @@ h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 .button-link:hover { filter: brightness(1.05); text-decoration: none; }
 .policy-header, .policy-content, .guide-header, .guide-content { max-width: 52rem; }
 .policy-header { padding-bottom: 2rem; border-bottom: 1px solid var(--outline); }
-.policy-header h1 { max-width: none; font-size: clamp(2.25rem, 6vw, 4rem); }
+.policy-header h1, .guide-header h1 { font-size: clamp(2.25rem, 6vw, 4rem); }
+.policy-header h1 { max-width: none; }
 .effective-date { color: var(--text-muted); font-size: 0.95rem; font-weight: 650; }
 .policy-content { padding-top: 1rem; }
 .policy-content section { padding-top: 2rem; }
 .policy-content p, .policy-content li { color: var(--text-muted); }
 .notice { padding: 1rem 1.15rem; border-left: 0.25rem solid var(--accent); border-radius: 0.5rem; background: var(--surface-muted); }
 .guide-header { padding-bottom: 2rem; border-bottom: 1px solid var(--outline); }
-.guide-header h1 { max-width: 18ch; font-size: clamp(2.25rem, 6vw, 4rem); }
+.guide-header h1 { max-width: 18ch; }
 .guide-header .lead { margin-bottom: 0; }
 .breadcrumbs { display: flex; min-height: 1.5rem; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.9rem; }
 .breadcrumbs a { color: var(--text-muted); }
@@ -93,7 +95,7 @@ h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 .guide-content p, .guide-content li { color: var(--text-muted); }
 .guide-content ol, .guide-content ul { padding-left: 1.35rem; }
 .guide-content li + li { margin-top: 0.65rem; }
-.guide-content h2 { font-size: clamp(1.45rem, 3vw, 2rem); }
+.policy-content h2, .guide-content h2 { font-size: clamp(1.45rem, 3vw, 2rem); }
 .guide-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; padding-top: 2rem; }
 .guide-note { padding: 1rem 1.15rem; border-left: 0.25rem solid var(--primary); border-radius: 0.5rem; background: var(--surface-muted); }
 .guide-note p { margin: 0; }

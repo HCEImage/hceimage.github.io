@@ -70,7 +70,7 @@ h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 .app-actions { min-width: 10rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
 .button-link { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; padding: 0.7rem 1.1rem; border-radius: 999px; background: var(--button-background); color: var(--button-content); font-weight: 720; text-decoration: none; white-space: nowrap; }
 .button-link:hover { filter: brightness(1.05); text-decoration: none; }
-.policy-page { width: min(100% - 2rem, 52rem); }
+.policy-header, .policy-content, .guide-header, .guide-content { max-width: 52rem; }
 .policy-header { padding-bottom: 2rem; border-bottom: 1px solid var(--outline); }
 .policy-header h1 { max-width: none; font-size: clamp(2.25rem, 6vw, 4rem); }
 .effective-date { color: var(--text-muted); font-size: 0.95rem; font-weight: 650; }
@@ -78,18 +78,17 @@ h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 .policy-content section { padding-top: 2rem; }
 .policy-content p, .policy-content li { color: var(--text-muted); }
 .notice { padding: 1rem 1.15rem; border-left: 0.25rem solid var(--accent); border-radius: 0.5rem; background: var(--surface-muted); }
-.guide-page { width: min(100% - 2rem, 64rem); }
-.guide-header { max-width: 48rem; padding-bottom: 2rem; border-bottom: 1px solid var(--outline); }
+.guide-header { padding-bottom: 2rem; border-bottom: 1px solid var(--outline); }
 .guide-header h1 { max-width: 18ch; font-size: clamp(2.25rem, 6vw, 4rem); }
 .guide-header .lead { margin-bottom: 0; }
-.breadcrumbs { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.9rem; }
+.breadcrumbs { display: flex; min-height: 1.5rem; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.9rem; }
 .breadcrumbs a { color: var(--text-muted); }
-.guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; padding-top: 2rem; }
+.guide-grid { display: grid; max-width: 64rem; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; padding-top: 2rem; }
 .guide-card { display: flex; min-height: 100%; flex-direction: column; padding: clamp(1.3rem, 4vw, 2rem); border: 1px solid var(--outline); border-radius: 1.5rem; background: var(--surface); box-shadow: var(--shadow); }
 .guide-card .app-icon { margin-bottom: 1.25rem; }
 .guide-card p { margin: 0 0 1.25rem; color: var(--text-muted); }
 .guide-card a:last-child { margin-top: auto; font-weight: 700; }
-.guide-content { max-width: 48rem; padding-top: 1rem; }
+.guide-content { padding-top: 1rem; }
 .guide-content section { padding-top: 2.25rem; }
 .guide-content p, .guide-content li { color: var(--text-muted); }
 .guide-content ol, .guide-content ul { padding-left: 1.35rem; }

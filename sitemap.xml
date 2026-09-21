@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url><loc>https://hceimage.github.io/</loc></url>
+    <url><loc>https://hceimage.github.io/guides/</loc></url>
+    <url><loc>https://hceimage.github.io/guides/hce-test-tool/</loc></url>
+    <url><loc>https://hceimage.github.io/guides/emv-card-analyzer/</loc></url>
     <url><loc>https://hceimage.github.io/hce-test-tool/privacy-policy/</loc></url>
     <url><loc>https://hceimage.github.io/emv-card-analyzer/privacy-policy/</loc></url>
     <url><loc>https://hceimage.github.io/ecr-test-tool/privacy-policy/</loc></url>

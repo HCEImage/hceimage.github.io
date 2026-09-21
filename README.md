@@ -6,6 +6,12 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 ## Content
 
 - [Home](index.html) — application descriptions and current availability.
+- [Developer guides](guides/index.html) — public application guidance, separated into
+  HCE Test Tool and EMV Card Analyzer sections.
+- [HCE Test Tool guide](guides/hce-test-tool/index.html) — controlled card-profile emulation,
+  APDU inspection, validation, history, reports and optional test-security overrides.
+- [EMV Card Analyzer guide](guides/emv-card-analyzer/index.html) — bounded contactless analysis,
+  result states, APDU inspection, history and reports.
 - [HCE Test Tool privacy policy](hce-test-tool/privacy-policy/index.html) — local history,
   notes, reports, clipboard, diagnostic logs, NFC, Android backup and support contact.
 - [EMV Card Analyzer privacy policy](emv-card-analyzer/privacy-policy/index.html) — current Android

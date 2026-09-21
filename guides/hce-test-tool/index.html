@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="Use HCE Test Tool to emulate synthetic EMV contactless card profiles, inspect APDU exchanges and validate controlled terminal tests.">
+    <meta name="theme-color" content="#111318">
+    <link rel="canonical" href="https://hceimage.github.io/guides/hce-test-tool/">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260921-1">
+    <title>HCE Test Tool developer guide · HCEImage</title>
+</head>
+<body>
+<header class="site-header">
+    <div class="header-content">
+        <a class="brand" href="/" aria-label="HCEImage home">HCEImage</a>
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a href="/#applications">Applications</a>
+            <a href="/guides/" aria-current="page">Developer guides</a>
+            <a href="mailto:hceimage@gmail.com">Contact</a>
+        </nav>
+    </div>
+</header>
+<main class="page guide-page">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><a href="/guides/">Developer guides</a><span aria-hidden="true">/</span><span>HCE Test Tool</span>
+    </nav>
+    <header class="guide-header">
+        <p class="eyebrow">HCE Test Tool</p>
+        <h1>Test contactless terminal flows with synthetic card profiles</h1>
+        <p class="lead">Use Android host card emulation to present a selected test profile, inspect the APDU exchange and review the resulting flow in one place.</p>
+    </header>
+    <article class="guide-content">
+        <section aria-labelledby="before-starting">
+            <h2 id="before-starting">Before starting</h2>
+            <ul>
+                <li>Use an Android device with NFC host card emulation support and NFC enabled.</li>
+                <li>Use only an authorized external contactless reader or payment terminal configured for testing.</li>
+                <li>Keep the test host and terminal configuration available when interpreting authorization or kernel-specific behavior.</li>
+            </ul>
+            <div class="guide-note">
+                <p>HCE Test Tool contains synthetic test card data and is intended exclusively for development, integration testing and controlled test environments. It cannot perform real payments.</p>
+            </div>
+        </section>
+        <section aria-labelledby="test-flow">
+            <h2 id="test-flow">Run a test</h2>
+            <ol>
+                <li>Choose the payment brand and a card profile that matches the scenario you want to exercise.</li>
+                <li>Review the profile summary and open its test guidance for profile-specific expectations.</li>
+                <li>If the authorized test host requires different test credentials, configure supported values under <strong>Test security data</strong>. Profile defaults remain unchanged when no override is applied.</li>
+                <li>Start emulation and present the Android device to the reader or terminal.</li>
+                <li>Keep the device in position until the application reports a completed, failed or interrupted outcome.</li>
+            </ol>
+        </section>
+        <section aria-labelledby="inspect-exchange">
+            <h2 id="inspect-exchange">Inspect the exchange</h2>
+            <p>The live timeline records commands and responses as the terminal communicates with the selected profile. Open an entry to inspect the raw APDU together with contextual command headers, status words, BER-TLV data, DOL values and recognized payment-scheme tags.</p>
+            <p>The result view compares the observed exchange with the expected profile flow. A failed or interrupted result is diagnostic context, not by itself proof of a terminal defect: reader configuration, terminal kernels and processing outside the emulator can affect the outcome.</p>
+        </section>
+        <section aria-labelledby="history-reports">
+            <h2 id="history-reports">Use history and reports</h2>
+            <p>Completed, failed and interrupted attempts are kept locally. History filters help isolate an outcome, while session details preserve validation checks, the APDU timeline and optional test notes. Diagnostic reports can be saved or shared in Markdown, HTML or PDF when an integration result needs to be reviewed outside the application.</p>
+        </section>
+        <section aria-labelledby="security-data">
+            <h2 id="security-data">Handle test security data carefully</h2>
+            <p>Only explicitly authorized test values belong in Test security data. Custom values are masked by default, validated before use and retained in memory only. They are not written to card profiles, history, reports, logs, clipboard output or backups. Never enter production issuer keys.</p>
+        </section>
+        <div class="guide-actions">
+            <a class="button-link" href="https://play.google.com/apps/testing/com.hceimage.hcetesttool">Join the Android test</a>
+            <a href="/hce-test-tool/privacy-policy/">Privacy policy</a>
+            <a href="/guides/">All developer guides</a>
+        </div>
+    </article>
+</main>
+<footer class="site-footer">
+    <p>© 2026 HCEImage</p>
+    <p><a href="mailto:hceimage@gmail.com">hceimage@gmail.com</a></p>
+</footer>
+</body>
+</html>

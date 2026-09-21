@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="Use EMV Card Analyzer for bounded contactless application reading, contextual APDU inspection and local diagnostic reports.">
+    <meta name="theme-color" content="#111318">
+    <link rel="canonical" href="https://hceimage.github.io/guides/emv-card-analyzer/">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260921-1">
+    <title>EMV Card Analyzer developer guide · HCEImage</title>
+</head>
+<body>
+<header class="site-header">
+    <div class="header-content">
+        <a class="brand" href="/" aria-label="HCEImage home">HCEImage</a>
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a href="/#applications">Applications</a>
+            <a href="/guides/" aria-current="page">Developer guides</a>
+            <a href="mailto:hceimage@gmail.com">Contact</a>
+        </nav>
+    </div>
+</header>
+<main class="page guide-page">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><a href="/guides/">Developer guides</a><span aria-hidden="true">/</span><span>EMV Card Analyzer</span>
+    </nav>
+    <header class="guide-header">
+        <p class="eyebrow">EMV Card Analyzer</p>
+        <h1>Inspect supported contactless card applications</h1>
+        <p class="lead">Run a bounded EMV analysis over Android NFC, follow the APDU exchange and preserve diagnostic results locally.</p>
+    </header>
+    <article class="guide-content">
+        <section aria-labelledby="before-starting">
+            <h2 id="before-starting">Before starting</h2>
+            <ul>
+                <li>Use an Android device with NFC enabled.</li>
+                <li>Analyze only cards and test media that you are authorized to inspect.</li>
+                <li>Keep other NFC cards and tags away, and hold the card steadily within the phone's NFC field during analysis.</li>
+            </ul>
+            <div class="guide-note">
+                <p>EMV Card Analyzer is a bounded diagnostic reader, not a payment kernel. It does not authorize transactions, validate issuer cryptography or determine whether a card is genuine.</p>
+            </div>
+        </section>
+        <section aria-labelledby="analysis-flow">
+            <h2 id="analysis-flow">Run an analysis</h2>
+            <ol>
+                <li>Open the Analyzer and confirm that NFC is available and enabled.</li>
+                <li>Start an analysis, then hold the contactless card against the device's NFC antenna.</li>
+                <li>Keep the card in place while the application performs bounded directory selection, application selection, processing-options retrieval and supported AFL record reading.</li>
+                <li>Wait for a completed, partial, interrupted or failed result before removing the card.</li>
+            </ol>
+        </section>
+        <section aria-labelledby="result-states">
+            <h2 id="result-states">Understand the result</h2>
+            <p>A completed result means that the supported analysis procedure reached its normal boundary. Partial results preserve useful data when one or more applications could not be read completely. Interrupted results identify loss of communication, while failed results provide the available diagnostic reason.</p>
+            <p>Compatibility varies between cards, devices and application profiles. An incomplete analysis does not by itself establish that a card is invalid.</p>
+        </section>
+        <section aria-labelledby="inspect-data">
+            <h2 id="inspect-data">Inspect APDU and EMV data</h2>
+            <p>Application details organize discovered records and tags. The APDU timeline exposes raw commands and responses with contextual command, status-word and BER-TLV decoding where their meaning is known. Bundled offline references help interpret recognized values without sending analysis data to a network service.</p>
+        </section>
+        <section aria-labelledby="history-reports">
+            <h2 id="history-reports">Use history and reports</h2>
+            <p>Analysis snapshots and optional notes are stored locally on the device. History supports later review, deletion and diagnostic report export through Android system interfaces. Choose a summary or detailed report according to how much APDU and decoded context the recipient needs.</p>
+        </section>
+        <div class="guide-actions">
+            <a class="button-link" href="https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer">Join the Android test</a>
+            <a href="/emv-card-analyzer/privacy-policy/">Privacy policy</a>
+            <a href="/guides/">All developer guides</a>
+        </div>
+    </article>
+</main>
+<footer class="site-footer">
+    <p>© 2026 HCEImage</p>
+    <p><a href="mailto:hceimage@gmail.com">hceimage@gmail.com</a></p>
+</footer>
+</body>
+</html>

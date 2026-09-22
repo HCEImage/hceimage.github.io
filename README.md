@@ -23,16 +23,15 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 
 ## Availability
 
-HCE Test Tool 0.1.12 (13) remains available as an Android application in open testing. The same
-Play-accepted bundle, its updated en-US listing and its 177-country production configuration are
-now under Google Play production review. Production availability has not yet been confirmed. The
-application supports synthetic EMV contactless card profiles, optional in-memory test-security
-overrides, structured APDU inspection, flow validation, local history, notes and user-initiated
-diagnostic report export. The developer previously verified tester enrollment, Google Play update
-delivery and startup on Pixel and Samsung, quick functional checks, and discovery through Google
-Play search. Release-specific publication and post-publication verification are tracked in the
-application repository. Until production availability is confirmed, the home page labels the review
-state and links to [Join the open test](https://play.google.com/apps/testing/com.hceimage.hcetesttool).
+HCE Test Tool 0.1.12 (13) is available in Google Play production across 177 configured countries and
+regions. Production availability was verified on September 22, 2026 before the open-testing track
+was paused; production is now its only active distribution track. The application supports synthetic
+EMV contactless card profiles, optional in-memory test-security overrides, structured APDU inspection,
+flow validation, local history, notes and user-initiated diagnostic report export. Previous tester
+enrollment, Google Play delivery and startup on Pixel and Samsung, quick functional checks, and Play
+search discovery were also confirmed. Release-specific publication and post-publication verification
+are tracked in the application repository. The home page links to the
+[production listing](https://play.google.com/store/apps/details?id=com.hceimage.hcetesttool).
 EMV Card Analyzer 0.1.1 (2) is currently available as an Android application in open testing. Google Play
 confirmed and published the signed update, refreshed store listing and current phone screenshots on September 15,
 2026; the internal and closed tracks remain paused. Public enrollment, exact 0.1.1 Play delivery,
@@ -56,7 +55,7 @@ Privacy wording was reviewed on September 15, 2026 against application data flow
 and [GitHub Pages hosting behavior](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 Recheck it whenever data handling changes.
 
-The HCE Test Tool policy was reviewed again during production preparation on September 22, 2026.
+The HCE Test Tool policy was reviewed again during production publication on September 22, 2026.
 The production promotion and store-listing refinements do not change collection, storage, backup,
 clipboard, logging, report sharing, NFC or support-email behavior. The September 15 effective date,
 public wording and stable `/hce-test-tool/privacy-policy/` URL therefore remain unchanged.
@@ -109,9 +108,8 @@ The September 15, 2026 publication record confirms EMV Card Analyzer 0.1.1 (2), 
 listing and eight refreshed screenshots in Google Play open testing. No visible website or privacy-policy
 change was required because the public pages already described the released behavior.
 
-The September 22, 2026 HCE Test Tool production update records submission of the existing 0.1.12
-bundle, its updated en-US listing and its 177-country configuration for Google Play production
-review. The home page identifies the pending review while retaining the working open-test enrollment
-action. After Google Play confirms production availability, replace that action with the production
-store listing and change the status to Android availability on Google Play. The developer guide,
-privacy-policy URL and policy wording remain valid.
+The September 22, 2026 HCE Test Tool production update records publication of the existing 0.1.12
+bundle, its updated en-US listing and its 177-country Google Play production configuration. Public
+production availability was verified before open testing was paused. The home page and developer
+guide now link to the production store listing and identify the Android production channel.
+The privacy-policy URL and policy wording remain valid.

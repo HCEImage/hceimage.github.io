@@ -16,14 +16,14 @@ are served by GitHub Pages; there is no application backend, analytics or build 
   notes, reports, clipboard, diagnostic logs, NFC, Android backup and support contact.
 - [EMV Card Analyzer privacy policy](emv-card-analyzer/privacy-policy/index.html) — current Android
   application with local contactless reading, persistent history, notes and explicit report export.
-- [ECR Test Tool privacy policy](ecr-test-tool/privacy-policy/index.html) — current 0.1.0
-  development build with V5/V4 TCP profiles and a built-in Local POI; persistent history and reports remain planned.
+- [ECR Test Tool privacy policy](ecr-test-tool/privacy-policy/index.html) — current development
+  build with V5/V4 TCP profiles and a built-in Local POI; persistent history and reports remain planned.
 - [Shared styles](assets/styles.css) — responsive layouts and light/dark appearance.
 - [Sitemap](sitemap.xml) — public canonical pages.
 
 ## Availability
 
-HCE Test Tool 0.1.12 (13) is available in Google Play production across 177 configured countries and
+HCE Test Tool is available in Google Play production across 177 configured countries and
 regions. Production availability was verified on September 22, 2026 before the open-testing track
 was paused; production is now its only active distribution track. The application supports synthetic
 EMV contactless card profiles, optional in-memory test-security overrides, structured APDU inspection,
@@ -32,9 +32,9 @@ enrollment, Google Play delivery and startup on Pixel and Samsung, quick functio
 search discovery were also confirmed. Release-specific publication and post-publication verification
 are tracked in the application repository. The home page links to the
 [production listing](https://play.google.com/store/apps/details?id=com.hceimage.hcetesttool).
-EMV Card Analyzer 0.1.1 (2) is currently available as an Android application in open testing. Google Play
+EMV Card Analyzer is currently available as an Android application in open testing. Google Play
 confirmed and published the signed update, refreshed store listing and current phone screenshots on September 15,
-2026; the internal and closed tracks remain paused. Public enrollment, exact 0.1.1 Play delivery,
+2026; the internal and closed tracks remain paused. Public enrollment, Play delivery,
 installation, startup and an authorized test-card analysis are confirmed. The home page links to
 [Join the open test](https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer).
 ECR Test Tool remains in development. Its current Android and desktop build supports nexo Retailer V5 and V4
@@ -104,12 +104,12 @@ The September 15, 2026 EMV Card Analyzer update makes the public policy version-
 and refreshes the home-page summary around transport-neutral EMV inspection, contextual decoding, explicit result
 states, offline references, local history and reports. The underlying data practices remain unchanged.
 
-The September 15, 2026 publication record confirms EMV Card Analyzer 0.1.1 (2), its updated en-US
+The September 15, 2026 publication record confirms the EMV Card Analyzer update, its updated en-US
 listing and eight refreshed screenshots in Google Play open testing. No visible website or privacy-policy
 change was required because the public pages already described the released behavior.
 
-The September 22, 2026 HCE Test Tool production update records publication of the existing 0.1.12
-bundle, its updated en-US listing and its 177-country Google Play production configuration. Public
+The September 22, 2026 HCE Test Tool production update records publication of the existing bundle,
+its updated en-US listing and its 177-country Google Play production configuration. Public
 production availability was verified before open testing was paused. The home page and developer
 guide now link to the production store listing and identify the Android production channel.
 The privacy-policy URL and policy wording remain valid.

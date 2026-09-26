@@ -116,7 +116,6 @@ production availability was verified before open testing was paused. The home pa
 guide now link to the production store listing and identify the Android production channel.
 The privacy-policy URL and policy wording remain valid.
 
-The September 26, 2026 EMV preparation updates the public copy and policy source for portable
-diagnostic traces, an optional local import preview and Full evidence/Redacted exports. Keep these
-public-page changes unpushed until the corresponding app update is submitted so the live site
-continues to describe the published application.
+The September 26, 2026 EMV update aligns the public copy and policy with portable diagnostic
+traces, an optional local import preview and Full evidence/Redacted exports before the app update
+is submitted for review.

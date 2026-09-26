@@ -17,7 +17,7 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 - [EMV Card Analyzer privacy policy](emv-card-analyzer/privacy-policy/index.html) — current Android
   application with local contactless reading, persistent history, notes and explicit report export.
 - [ECR Test Tool privacy policy](ecr-test-tool/privacy-policy/index.html) — current development
-  build with V5/V4 TCP profiles and a built-in Local POI; persistent history and reports remain planned.
+  build with TCP terminal connections, a built-in Local POI, persistent history and diagnostic reports.
 - [Shared styles](assets/styles.css) — responsive layouts and light/dark appearance.
 - [Sitemap](sitemap.xml) — public canonical pages.
 
@@ -37,9 +37,10 @@ confirmed and published the signed update, refreshed store listing and current p
 2026; the internal and closed tracks remain paused. Public enrollment, Play delivery,
 installation, startup and an authorized test-card analysis are confirmed. The home page links to
 [Join the open test](https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer).
-ECR Test Tool remains in development. Its current Android and desktop build supports nexo Retailer V5 and V4
-over TCP, direct terminal connections, and an optional Local POI Sale simulation. Persistent history, full CASP-family
-execution and reports remain planned. All privacy links use
+ECR Test Tool remains in development. Its current Android and desktop build supports nexo Retailer
+profiles over TCP, direct terminal connections, an optional Local POI, session controls and operation
+diagnostics. Connection runs are saved in local history and can be exported as diagnostic reports.
+Additional protocol coverage remains planned. All privacy links use
 the same presentation and align horizontally on desktop; mobile actions align left with the card content.
 
 ## Maintenance

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
-    <meta name="description" content="Use EMV Card Analyzer for bounded contactless application reading, contextual APDU inspection and local diagnostic reports.">
+    <meta name="description" content="Use EMV Card Analyzer for bounded contactless application reading, contextual APDU inspection, local reports and portable diagnostic traces.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/emv-card-analyzer/">
     <link rel="stylesheet" href="/assets/styles.css?v=20260922-2">
@@ -49,12 +49,12 @@
                 <li>Open the Analyzer and confirm that NFC is available and enabled.</li>
                 <li>Start an analysis, then hold the contactless card against the device's NFC antenna.</li>
                 <li>Keep the card in place while the application performs bounded directory selection, application selection, processing-options retrieval and supported AFL record reading.</li>
-                <li>Wait for a completed, partial, interrupted or failed result before removing the card.</li>
+                <li>Keep the card in place until the app reports Completed, Incomplete, Unsupported, Interrupted or Failed.</li>
             </ol>
         </section>
         <section aria-labelledby="result-states">
             <h2 id="result-states">Understand the result</h2>
-            <p>A completed result means that the supported analysis procedure reached its normal boundary. Partial results preserve useful data when one or more applications could not be read completely. Interrupted results identify loss of communication, while failed results provide the available diagnostic reason.</p>
+            <p>Completed means that the supported analysis procedure reached its normal boundary. Incomplete preserves useful data when one or more applications could not be read completely. Unsupported identifies a card technology or application outside the supported reading procedure. Interrupted identifies lost communication, while Failed provides the available technical reason.</p>
             <p>Compatibility varies between cards, devices and application profiles. An incomplete analysis does not by itself establish that a card is invalid.</p>
         </section>
         <section aria-labelledby="inspect-data">
@@ -62,7 +62,7 @@
             <p>Application details organize discovered records and tags. The APDU timeline exposes raw commands and responses with contextual command, status-word and BER-TLV decoding where their meaning is known. Bundled offline references help interpret recognized values without sending analysis data to a network service.</p>
         </section>
         <section aria-labelledby="history-reports">
-            <h2 id="history-reports">Use history and reports</h2>
+            <h2 id="history-reports">Use history, reports and traces</h2>
             <p>Analysis snapshots and optional notes are stored locally on the device. History supports later review, deletion, detailed report export and portable diagnostic traces through Android system interfaces. Import trace opens a local file for preview; choose Save to history only if you want to keep that imported analysis.</p>
             <p>Full evidence exports may contain captured APDUs, notes and sensitive card data. Redacted exports remove card-derived values and notes while preserving diagnostic structure. An imported Redacted trace cannot restore the removed values. Review the selected evidence level and resulting file before sharing it.</p>
         </section>

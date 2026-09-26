@@ -29,13 +29,13 @@
     <header class="policy-header">
         <p class="eyebrow">ECR Test Tool</p>
         <h1>Privacy Policy</h1>
-        <p class="effective-date">Effective date: September 13, 2026</p>
+        <p class="effective-date">Effective date: September 26, 2026</p>
         <p class="lead">HCEImage is developing ECR Test Tool as a utility for electronic cash register and payment terminal integration testing. This policy describes the current development application.</p>
     </header>
     <div class="policy-content">
         <section aria-labelledby="scope">
             <h2 id="scope">Current application scope</h2>
-            <p>The application provides nexo Retailer V5 (MUG 8.0 / CASP V05) and V4 (MUG 4.1-LW / CASP V01) profiles over TCP on Android and desktop. A user can connect directly to a configured payment-terminal endpoint or enable the built-in Local POI simulator. The current automatic simulator generates, parses and validates the supported Sale request-and-response subset. Persistent transaction history, protocol traces and diagnostic report exports are not implemented.</p>
+            <p>The Android and desktop applications support nexo Retailer profiles over TCP. A user can connect to a configured payment-terminal endpoint or enable the built-in Local POI simulator. Supported operations and session controls exchange, parse and validate protocol messages. Connection runs, protocol exchanges and diagnostic results can be reviewed in local history and exported as reports.</p>
         </section>
         <section aria-labelledby="collection">
             <h2 id="collection">Data collection and sharing</h2>
@@ -47,15 +47,15 @@
         </section>
         <section aria-labelledby="local-data">
             <h2 id="local-data">Local data</h2>
-            <p>Application preferences such as appearance, diagnostic level and whether the built-in simulator is enabled are stored locally on the device. Active connections, transaction configuration, generated XML and results are held only for the current application session and are not added to persistent history. Application backup is disabled. Android removes application data when the user clears it or uninstalls the application.</p>
+            <p>Application preferences, connection configuration and history are stored locally. History can include endpoint details, protocol-session and operation results, validation findings, raw request and response XML, timing and optional notes. The newest 100 connection runs are retained by default; users can delete saved runs or clear history. Active runs remain visible until they end. Android application backup is disabled. Clearing application data or uninstalling removes its local history, but not files previously exported to another destination.</p>
         </section>
         <section aria-labelledby="diagnostics">
             <h2 id="diagnostics">Diagnostic data</h2>
-            <p>Complete request and response messages can contain sensitive test data. The application is intended for synthetic data and authorized test terminals in controlled development environments. Persistent diagnostic logs and report exports are not implemented in the current version.</p>
+            <p>Complete request and response messages can contain sensitive test data. The application is intended for synthetic data and authorized test terminals in controlled development environments. The user can export summary or detailed diagnostic reports in Markdown, HTML or PDF; detailed reports can include raw XML and notes. Exported files leave the application only through an explicit user action and are handled by the selected destination. HCEImage does not receive these reports automatically.</p>
         </section>
         <section aria-labelledby="future">
             <h2 id="future">Future features</h2>
-            <p>This policy will be reviewed before adding persistent histories, protocol traces, diagnostic report exports, user-initiated sharing or any remote service.</p>
+            <p>This policy will be reviewed before adding any remote service or changing what the application stores or shares.</p>
         </section>
         <section aria-labelledby="children">
             <h2 id="children">Children&#x27;s privacy</h2>
@@ -67,7 +67,7 @@
         </section>
         <section aria-labelledby="changes">
             <h2 id="changes">Changes to this policy</h2>
-            <p>This policy may be updated when the application's functionality or data practices change. The effective date above identifies the current version.</p>
+            <p>This policy may be updated when the application's functionality or data practices change. The effective date above identifies when this policy took effect.</p>
         </section>
         <section aria-labelledby="contact">
             <h2 id="contact">Contact</h2>

@@ -11,11 +11,12 @@ are served by GitHub Pages; there is no application backend, analytics or build 
 - [HCE Test Tool guide](guides/hce-test-tool/index.html) — controlled card-profile emulation,
   APDU inspection, validation, history, reports and optional test-security overrides.
 - [EMV Card Analyzer guide](guides/emv-card-analyzer/index.html) — bounded contactless analysis,
-  result states, APDU inspection, history and reports.
+  result states, APDU inspection, history, reports and portable traces.
 - [HCE Test Tool privacy policy](hce-test-tool/privacy-policy/index.html) — local history,
   notes, reports, clipboard, diagnostic logs, NFC, Android backup and support contact.
 - [EMV Card Analyzer privacy policy](emv-card-analyzer/privacy-policy/index.html) — current Android
-  application with local contactless reading, persistent history, notes and explicit report export.
+  application with local contactless reading, persistent history, notes, explicit report/trace export
+  and optional trace import.
 - [ECR Test Tool privacy policy](ecr-test-tool/privacy-policy/index.html) — current development
   build with TCP terminal connections, a built-in Local POI, persistent history and diagnostic reports.
 - [Shared styles](assets/styles.css) — responsive layouts and light/dark appearance.
@@ -114,3 +115,8 @@ its updated en-US listing and its 177-country Google Play production configurati
 production availability was verified before open testing was paused. The home page and developer
 guide now link to the production store listing and identify the Android production channel.
 The privacy-policy URL and policy wording remain valid.
+
+The September 26, 2026 EMV preparation updates the public copy and policy source for portable
+diagnostic traces, an optional local import preview and Full evidence/Redacted exports. Keep these
+public-page changes unpushed until the corresponding app update is submitted so the live site
+continues to describe the published application.

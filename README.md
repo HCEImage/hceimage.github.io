@@ -1,121 +1,63 @@
 # HCEImage website
 
-Public website, support and privacy information for HCEImage applications. Static HTML and CSS
-are served by GitHub Pages; there is no application backend, analytics or build dependency.
+Static GitHub Pages website for HCEImage applications, developer guidance and privacy policies.
+It has no application backend, analytics or build dependency.
 
-## Content
+## Site structure
 
-- [Home](index.html) — application descriptions and current availability.
-- [Developer guides](guides/index.html) — public application guidance, separated into
-  HCE Test Tool and EMV Card Analyzer sections.
-- [HCE Test Tool guide](guides/hce-test-tool/index.html) — controlled card-profile emulation,
-  APDU inspection, validation, history, reports and optional test-security overrides.
-- [EMV Card Analyzer guide](guides/emv-card-analyzer/index.html) — bounded contactless analysis,
-  result states, APDU inspection, history, reports and portable traces.
-- [HCE Test Tool privacy policy](hce-test-tool/privacy-policy/index.html) — local history,
-  notes, reports, clipboard, diagnostic logs, NFC, Android backup and support contact.
-- [EMV Card Analyzer privacy policy](emv-card-analyzer/privacy-policy/index.html) — current Android
-  application with local contactless reading, persistent history, notes, explicit report/trace export
-  and optional trace import.
-- [ECR Test Tool privacy policy](ecr-test-tool/privacy-policy/index.html) — current development
-  build with TCP terminal connections, a built-in Local POI, persistent history and diagnostic reports.
-- [Shared styles](assets/styles.css) — responsive layouts and light/dark appearance.
-- [Sitemap](sitemap.xml) — public canonical pages.
+- [Home](index.html) — HCE Test Tool, EMV Card Analyzer and ECR Test Tool
+- [Developer guides](guides/index.html) — application workflows and exchange-format reference
+- [HCE Test Tool guide](guides/hce-test-tool/index.html) — emulation, profile import, APDU diagnostics, history and reports
+- [EMV Card Analyzer guide](guides/emv-card-analyzer/index.html) — contactless reading, result states, trace import and export
+- [ECR Test Tool guide](guides/ecr-test-tool/index.html) — retained locally but omitted from navigation and sitemap
+- [HCEImage JSON guide](guides/hceimage-json/index.html) — shared envelope and distinct card-profile and analysis-trace payloads
+- [HCE privacy policy](hce-test-tool/privacy-policy/index.html)
+- [EMV privacy policy](emv-card-analyzer/privacy-policy/index.html)
+- [ECR privacy policy](ecr-test-tool/privacy-policy/index.html) — retained locally but omitted from navigation and sitemap
+- [Shared styles](assets/styles.css) and [sitemap](sitemap.xml)
 
-## Availability
+## Local draft and publication boundary
 
-HCE Test Tool is available in Google Play production across 177 configured countries and
-regions. Production availability was verified on September 22, 2026 before the open-testing track
-was paused; production is now its only active distribution track. The application supports synthetic
-EMV contactless card profiles, optional in-memory test-security overrides, structured APDU inspection,
-flow validation, local history, notes and user-initiated diagnostic report export. Previous tester
-enrollment, Google Play delivery and startup on Pixel and Samsung, quick functional checks, and Play
-search discovery were also confirmed. Release-specific publication and post-publication verification
-are tracked in the application repository. The home page links to the
-[production listing](https://play.google.com/store/apps/details?id=com.hceimage.hcetesttool).
-EMV Card Analyzer is currently available as an Android application in open testing. Google Play
-confirmed and published the signed update, refreshed store listing and current phone screenshots on September 15,
-2026; the internal and closed tracks remain paused. Public enrollment, Play delivery,
-installation, startup and an authorized test-card analysis are confirmed. The home page links to
-[Join the open test](https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer).
-ECR Test Tool remains in development. Its current Android and desktop build supports nexo Retailer
-profiles over TCP, direct terminal connections, an optional Local POI, session controls and operation
-diagnostics. Connection runs are saved in local history and can be exported as diagnostic reports.
-Additional protocol coverage remains planned. All privacy links use
-the same presentation and align horizontally on desktop; mobile actions align left with the card content.
+The local site describes the prepared application functionality. It must not be published until the
+corresponding application updates are available and the Play listings, availability links and policy
+declarations have been checked. Editing or committing this repository does not publish the site;
+publishing requires a separate push and successful GitHub Pages deployment.
 
-## Maintenance
+The currently public HCE Play description still describes custom test security data as applying
+only to the current run. Before publishing the revised website with the new build, update that
+listing to distinguish the default one-use override from the optional keep-until-app-close choice
+and to mention imported profile defaults accurately.
 
-Keep public descriptions aligned with implemented features and clearly label planned functionality.
-Synchronize each policy's wording and effective date with its application repository's
-`play/privacy-policy.md`. Website SVG icons mirror each application's `play/assets/icon-source.svg`.
-The website uses a tighter `16 16 76 76` viewBox for readability at small sizes; paths, gradients
-and transforms remain identical. CSS supplies rounded presentation corners.
+The HCE Google Play link points to its production listing. The EMV link points to its open-test
+enrollment. ECR has no store action. The application cards identify supported platforms rather
+than embedding app release numbers or treating distribution tracks as product capabilities.
 
-Privacy wording was reviewed on September 15, 2026 against application data flows and the
-[Google Play User Data guidance](https://support.google.com/googleplay/android-developer/answer/10144311)
-and [GitHub Pages hosting behavior](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
-Recheck it whenever data handling changes.
+## Privacy and effective dates
 
-The HCE Test Tool policy was reviewed again during production publication on September 22, 2026.
-The production promotion and store-listing refinements do not change collection, storage, backup,
-clipboard, logging, report sharing, NFC or support-email behavior. The September 15 effective date,
-public wording and stable `/hce-test-tool/privacy-policy/` URL therefore remain unchanged.
+Each HTML policy must match its application's `play/privacy-policy.md`. The current effective dates
+remain on the local draft pages because they identify the public policies already in force. Before
+publishing revised wording, decide whether the change requires a new effective date and update the
+HTML and corresponding application Markdown together. In particular, the revised HCE policy now
+distinguishes persistent imported-profile defaults from temporary Emulator overrides; it must be
+reviewed with the matching application release before publication. ECR policy wording is
+status-neutral and includes local platform logs and Android's connection notification. EMV policy
+correctly identifies Sessions as the release Logcat default.
+
+GitHub Pages hosting is separate from application data processing. The policy pages identify
+GitHub's visitor-IP handling and link its privacy statement.
+
+## Visual and content conventions
+
+All pages share one header, navigation, footer, typography, responsive card system, color tokens
+and light/dark palette. Application icon PNGs preserve the distribution artwork. Keep the guide
+cards, policy links and actions aligned across desktop and mobile widths. Use app-independent
+language for diagnostic boundaries, avoid app release numbers in public copy, and distinguish
+document schema numbers from app versions.
 
 ## Local verification
 
-Serve the repository root with `python3 -m http.server 8080 --bind 127.0.0.1` and open
-`http://127.0.0.1:8080`. Check home and all three policies at desktop and mobile widths in both
-color schemes, navigation, asset paths, canonical URLs and sitemap entries. Local commits do
-not update the public site until they are pushed and the GitHub Pages deployment succeeds.
-
-The September 7, 2026 review checked all three pages at mobile and desktop widths in light and
-dark themes (12 browser views), with valid local links, loaded resources and no horizontal overflow.
-Policy sections match their application Markdown sources; icon artwork matches the distribution SVGs.
-
-The September 9, 2026 live-site review verified all three pages at mobile (390 px) and desktop
-(1440 px) widths in light and dark themes. Page resources and internal navigation passed with
-no horizontal overflow or browser errors. Public home HTML and CSS matched the repository;
-the Applications section padding was 48 px on mobile and 72 px on desktop. The stylesheet is
-served with a ten-minute cache lifetime, so an existing browser tab may need a forced reload.
-
-The September 11, 2026 preparation updates the EMV Card Analyzer application card and publishes
-policy wording for local history, notes, retention and report export. After the internal release was
-confirmed and the closed release was published, the home page status was updated to Closed testing.
-
-The September 11, 2026 dark-mode compatibility update declares light and dark support in every
-page before styles load and marks application icons as light-only surfaces. The home page serves
-512 px PNG renditions of the SVG source artwork because Samsung Internet applies an unavoidable
-forced-dark color transformation to small SVG images. The raster renditions preserve the intended
-light icon surfaces in that browser. The primary action uses dedicated light and dark colors so it
-retains sufficient contrast after Samsung Internet applies its forced-dark transformation.
-
-The September 13, 2026 ECR update replaces the obsolete ECR-B placeholder with the implemented nexo Retailer V5
-and V4 profiles, TCP connection behavior, Local POI Sale simulation and current volatile-data boundary.
-
-The September 14, 2026 availability update identifies HCE Test Tool and EMV Card Analyzer as Android applications
-and labels their Google Play actions as Android open-test enrollment. ECR Test Tool remains identified as a
-multiplatform Android and desktop application. Application data handling did not change, so the privacy policies remain unchanged.
-
-The September 15, 2026 HCE Test Tool update refreshes its evergreen application summary. Its privacy
-policy now distinguishes optional Test security data, which remains in memory, from generated synthetic
-APDU results handled through the existing history, diagnostics, clipboard and report flows. EMV Card
-Analyzer and ECR Test Tool content is unchanged.
-
-The September 15, 2026 EMV Card Analyzer update makes the public policy version-independent
-and refreshes the home-page summary around transport-neutral EMV inspection, contextual decoding, explicit result
-states, offline references, local history and reports. The underlying data practices remain unchanged.
-
-The September 15, 2026 publication record confirms the EMV Card Analyzer update, its updated en-US
-listing and eight refreshed screenshots in Google Play open testing. No visible website or privacy-policy
-change was required because the public pages already described the released behavior.
-
-The September 22, 2026 HCE Test Tool production update records publication of the existing bundle,
-its updated en-US listing and its 177-country Google Play production configuration. Public
-production availability was verified before open testing was paused. The home page and developer
-guide now link to the production store listing and identify the Android production channel.
-The privacy-policy URL and policy wording remain valid.
-
-The September 26, 2026 EMV update aligns the public copy and policy with portable diagnostic
-traces, an optional local import preview and Full evidence/Redacted exports before the app update
-is submitted for review.
+Serve the root with `python3 -m http.server 8080 --bind 127.0.0.1` and open
+`http://127.0.0.1:8080`. Check every page at desktop and phone widths in light and dark modes,
+including navigation, focus states, readable tables, long code blocks, canonical URLs, image
+loading, local links, privacy wording and sitemap entries. Verify that the in-app guidance URLs
+match the guide routes here. Do not treat a local preview as public availability.

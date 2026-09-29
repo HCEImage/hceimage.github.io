@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/hce-test-tool/privacy-policy/">
     <link rel="icon" href="/assets/hce-test-tool.png" type="image/png">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260922-2">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260929-2">
     <title>HCE Test Tool Privacy Policy · HCEImage</title>
 </head>
 <body>
@@ -39,12 +39,12 @@
         </section>
         <section aria-labelledby="local-data">
             <h2 id="local-data">Data stored on the device</h2>
-            <p>The application stores emulation-session history, settings, APDU exchanges, validation results and optional notes locally on the user's device. Bundled card profiles contain synthetic test data only. This information provides the application's testing and diagnostic features.</p>
-            <p>Users can delete individual history records or clear all stored history from within the application. Uninstalling removes local application data, subject to the operating system's backup and restore behavior. Android backup is enabled; backup and restoration depend on the device, operating system and user settings. Deleting history does not delete separately exported reports, clipboard copies or system diagnostic logs.</p>
+            <p>The application stores emulation-session history, settings, APDU exchanges, validation results and optional notes locally on the user's device. Bundled card profiles contain synthetic test data only. Users may also import native synthetic card-profile definitions. An imported profile, including any profile-default synthetic test security data it contains, is stored in private no-backup app storage until the user deletes it or clears application data. Imported profiles are not included in Android backup. This information provides the application's testing and diagnostic features.</p>
+            <p>Users can delete individual history records, clear all stored history and delete imported profiles from within the application. Clearing history does not delete imported profiles. Uninstalling removes local application data, subject to the operating system's backup and restore behavior. Android backup is enabled; backup and restoration depend on the device, operating system and user settings. Deleting history does not delete separately exported reports, clipboard copies or system diagnostic logs.</p>
         </section>
         <section aria-labelledby="test-security-data">
             <h2 id="test-security-data">Test security data</h2>
-            <p>For supported card profiles, users can optionally enter synthetic application-cryptogram keys, offline-authentication keys or legacy verification values for an emulation run. The entered values are masked, validated and held only in application memory until the run ends, the defaults are restored or the application process closes. They are not saved to card profiles, settings, history, reports, logs, clipboard output or Android backups.</p>
+            <p>For supported card profiles, users can optionally enter synthetic application-cryptogram keys, offline-authentication keys or legacy verification values in the Emulator. These temporary overrides are masked, validated and held only in application memory. By default, they are cleared after the next emulation with that profile starts. Users can instead choose to keep them until the application process closes; they can also remove them earlier. While present, they survive tab changes and device rotation. They are not saved to card profiles, settings, history, reports, logs, clipboard output or Android backups. They are distinct from synthetic default test security data supplied in an imported profile, which persists with the private profile file.</p>
             <p>The application may use these values to generate synthetic card responses. Those generated APDU responses and their decoded results are handled like other emulation-session data and may appear in history, diagnostic logs, clipboard copies or user-exported reports as described in this policy. Production issuer keys, real payment credentials and other live secrets must never be entered.</p>
         </section>
         <section aria-labelledby="clipboard-logs">
@@ -66,8 +66,8 @@
             <p>HCE Test Tool is a specialized developer utility and is not directed to children.</p>
         </section>
         <section aria-labelledby="hosting">
-            <h2 id="hosting">Policy website hosting</h2>
-            <p>This public policy page is hosted by GitHub Pages. GitHub logs visitor IP addresses for security purposes under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>. This website hosting is separate from the application data practices described above.</p>
+            <h2 id="hosting">Website hosting</h2>
+            <p>This public policy page and the developer guide linked from in-app guidance are hosted by GitHub Pages. Opening the guide is an explicit user action in an external browser. GitHub logs visitor IP addresses for security purposes under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>. This website hosting is separate from the application data practices described above.</p>
         </section>
         <section aria-labelledby="changes">
             <h2 id="changes">Changes to this policy</h2>

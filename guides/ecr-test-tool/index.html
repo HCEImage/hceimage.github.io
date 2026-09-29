@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="Use ECR Test Tool to exercise nexo Retailer payment-terminal integrations, inspect XML exchanges and save local diagnostic reports.">
+    <meta name="theme-color" content="#111318">
+    <link rel="canonical" href="https://hceimage.github.io/guides/ecr-test-tool/">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260929-2">
+    <title>ECR Test Tool developer guide · HCEImage</title>
+</head>
+<body>
+<header class="site-header">
+    <div class="header-content">
+        <a class="brand" href="/" aria-label="HCEImage home">HCEImage</a>
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a href="/#applications">Applications</a>
+            <a href="/guides/" aria-current="page">Developer guides</a>
+            <a href="mailto:hceimage@gmail.com">Contact</a>
+        </nav>
+    </div>
+</header>
+<main class="page guide-page">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/guides/">Developer guides</a><span aria-hidden="true">/</span><span>ECR Test Tool</span>
+    </nav>
+    <header class="guide-header">
+        <p class="eyebrow">ECR Test Tool</p>
+        <h1>Exercise payment-terminal integrations with an ECR simulator</h1>
+        <p class="app-status">Android · Desktop</p>
+        <p class="lead">Connect to an authorized terminal or the built-in Local POI, run nexo Retailer operations and inspect the request, response and validation evidence.</p>
+    </header>
+    <article class="guide-content">
+        <section aria-labelledby="before-starting">
+            <h2 id="before-starting">Before starting</h2>
+            <ul>
+                <li>Use synthetic data and a terminal or test host that you are authorized to access.</li>
+                <li>Choose the nexo Retailer profile expected by the terminal. The application supports Retailer V5 (MUG 8.0 / CASP V05) and Retailer V4 (MUG 4.1-LW / CASP V01).</li>
+                <li>For an external terminal, obtain its test IPv4 address, TCP port, supported services and session requirements. For an isolated local exercise, enable Built-in terminal simulator in Settings.</li>
+            </ul>
+            <div class="guide-note"><p>ECR Test Tool is a diagnostic Sale System, not a payment processor or certification suite. It does not authorize a real payment or control decisions made by an external terminal or host.</p></div>
+        </section>
+        <section aria-labelledby="connection">
+            <h2 id="connection">Connect and choose a session</h2>
+            <ol>
+                <li>In Connection, select the protocol profile and either an external terminal or the Local POI target.</li>
+                <li>Enter the external endpoint when needed and select Connect. The Local POI uses a loopback endpoint created for that connection.</li>
+                <li>Choose a session mode: Managed maintains a Login-to-Logout session, Without login sends operations directly, Per transaction wraps a supported operation, and Manual exposes Login and Logout controls.</li>
+                <li>Review the connection state before starting an operation. Changing connection settings closes the active target and clears dependent operation state.</li>
+            </ol>
+        </section>
+        <section aria-labelledby="operations">
+            <h2 id="operations">Run an operation</h2>
+            <p>Operation shows the actions supported by the selected profile: Sale, Refund, Reversal, Reconciliation, Status check and Abort. Enter the fields required for the selected action; the main button names the action it will start. Lifecycle messages and automatic receiver responses appear in the result timeline rather than as manual operations.</p>
+            <p>Abort addresses an active exchange using its Exchange ID and a reason. A successful Abort completes the original service with FAIL/ABRT; an unprocessable request can produce MessageRejection. Cancel exchange is different: it interrupts the local exchange and closes its TCP transport without sending an Abort message.</p>
+        </section>
+        <section aria-labelledby="local-poi">
+            <h2 id="local-poi">Use the Local POI for repeatable scenarios</h2>
+            <p>Automatic mode returns a successful response for a supported request. Manual mode opens the Local POI screen so you can choose approved, declined, timeout, malformed XML, MessageRejection or connection loss; an approved payment can also use a supplied authorization code. A timed-out payment remains active so a later Abort can exercise the FAIL/ABRT path.</p>
+            <p>Local POI results test the application's own ECR-to-POI path. Repeat significant cases against the actual authorized terminal because its configuration, kernel, host and error handling may differ.</p>
+        </section>
+        <section aria-labelledby="inspect">
+            <h2 id="inspect">Inspect and validate the exchange</h2>
+            <p>The timeline shows outgoing requests, incoming responses, status and timing. Expand a message to inspect its XML and validation findings. Implemented messages pass XML security, envelope, selected-profile, official XSD and supported Message Usage Guide checks. A reported validation pass does not establish full nexo conformance or certification; message security is outside the tool's integration scope.</p>
+            <p>For external TCP targets, the ECR is the client. A frame is a UTF-8 ISO 20022 XML Document ending at <code>&lt;/Document&gt;</code>; the document limit is 2 MiB and the response timeout is 15 seconds. An external terminal must use the matching namespace and preserve identifiers needed for response correlation.</p>
+        </section>
+        <section aria-labelledby="history-reports">
+            <h2 id="history-reports">Keep local evidence</h2>
+            <p>History groups a connection from Connect to Disconnect or connection loss into one run, with its session cycles and operations. Filter by result, protocol or operation, add a note, then export a summary or detailed Markdown, HTML or PDF report. Detailed reports and high-detail platform logs may contain raw XML and synthetic test values. Review them before sharing.</p>
+        </section>
+        <div class="guide-actions">
+            <a href="/ecr-test-tool/privacy-policy/">Privacy policy</a>
+            <a href="/guides/">All developer guides</a>
+        </div>
+    </article>
+</main>
+<footer class="site-footer">
+    <p>© 2026 HCEImage</p>
+    <p><a href="mailto:hceimage@gmail.com">hceimage@gmail.com</a></p>
+</footer>
+</body>
+</html>

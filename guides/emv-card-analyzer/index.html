@@ -7,7 +7,7 @@
     <meta name="description" content="Use EMV Card Analyzer for bounded contactless application reading, contextual APDU inspection, local reports and portable diagnostic traces.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/emv-card-analyzer/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260922-2">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260929-2">
     <title>EMV Card Analyzer developer guide · HCEImage</title>
 </head>
 <body>
@@ -28,7 +28,7 @@
     <header class="guide-header">
         <p class="eyebrow">EMV Card Analyzer</p>
         <h1>Inspect supported contactless card applications</h1>
-        <p class="app-status">Android · Open testing</p>
+        <p class="app-status">Android</p>
         <p class="lead">Run a bounded EMV analysis over Android NFC, follow the APDU exchange and preserve diagnostic results locally.</p>
     </header>
     <article class="guide-content">
@@ -59,12 +59,17 @@
         </section>
         <section aria-labelledby="inspect-data">
             <h2 id="inspect-data">Inspect APDU and EMV data</h2>
-            <p>Application details organize discovered records and tags. The APDU timeline exposes raw commands and responses with contextual command, status-word and BER-TLV decoding where their meaning is known. Bundled offline references help interpret recognized values without sending analysis data to a network service.</p>
+            <p>Application details organize discovered records and tags. The APDU timeline exposes raw commands and responses with contextual command, status-word, BER-TLV and DOL decoding where their meaning is known. All tags is an offline view of the already captured analysis, not an additional card read. Bundled Tag reference and APDU response-code screens help interpret recognized values without sending analysis data to a network service.</p>
         </section>
         <section aria-labelledby="history-reports">
             <h2 id="history-reports">Use history, reports and traces</h2>
             <p>Analysis snapshots and optional notes are stored locally on the device. History supports later review, deletion, detailed report export and portable diagnostic traces through Android system interfaces. Import trace opens a local file for preview; choose Save to history only if you want to keep that imported analysis.</p>
             <p>Full evidence exports may contain captured APDUs, notes and sensitive card data. Redacted exports remove card-derived values and notes while preserving diagnostic structure. An imported Redacted trace cannot restore the removed values. Review the selected evidence level and resulting file before sharing it.</p>
+            <p>A <code>.hceimage.json</code> trace identifies itself as <code>com.hceimage.diagnostic</code> / <code>emv-analysis</code>. It is a recorded diagnostic result, not an HCE card profile. See the <a href="/guides/hceimage-json/#analysis-trace">trace format and usage guide</a> for its structure, import checks and evidence boundary.</p>
+        </section>
+        <section aria-labelledby="settings-safety">
+            <h2 id="settings-safety">Settings and data safety</h2>
+            <p>Settings controls analysis lifecycle, an optional no-card timeout, history retention, appearance and Logcat detail. Release builds default to session-level diagnostics; choosing APDU-level logging can place complete card data in local device logs. The summary masks card numbers until explicitly revealed, but APDU details and Full evidence exports can still contain sensitive values. Check screenshots, clipboard contents and exported files before sharing them.</p>
         </section>
         <div class="guide-actions">
             <a class="button-link" href="https://play.google.com/apps/testing/com.hceimage.emvcardanalyzer">Join the open test</a>

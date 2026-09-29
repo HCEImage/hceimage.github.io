@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
-    <meta name="description" content="Developer guides for HCEImage payment integration testing tools, including HCE Test Tool and EMV Card Analyzer.">
+    <meta name="description" content="Developer guides for HCEImage contactless card emulation, EMV analysis and JSON exchange files.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260922-2">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260929-2">
     <title>Developer guides · HCEImage</title>
 </head>
 <body>
@@ -27,20 +27,40 @@
         <h1>Test with a clear, controlled workflow</h1>
         <p class="lead">Practical guidance for using HCEImage tools during authorized payment integration development and diagnostics.</p>
     </header>
-    <section class="guide-grid" aria-label="Application guides">
-        <article class="guide-card">
-            <img class="app-icon" src="/assets/hce-test-tool.png" alt="" width="112" height="112">
-            <h2>HCE Test Tool</h2>
-            <p class="app-status">Android · Production</p>
-            <p>Emulate synthetic contactless card profiles, inspect terminal APDU exchanges and review validation results.</p>
-            <a href="/guides/hce-test-tool/">Open the HCE Test Tool guide</a>
-        </article>
-        <article class="guide-card">
-            <img class="app-icon" src="/assets/emv-card-analyzer.png" alt="" width="112" height="112">
-            <h2>EMV Card Analyzer</h2>
-            <p class="app-status">Android · Open testing</p>
-            <p>Run a bounded contactless card analysis, inspect decoded data and preserve diagnostic results locally.</p>
-            <a href="/guides/emv-card-analyzer/">Open the EMV Card Analyzer guide</a>
+    <section class="section" aria-labelledby="application-guides-title">
+        <div class="section-header">
+            <p class="eyebrow">Applications</p>
+            <h2 id="application-guides-title">Guides for each tool</h2>
+            <p class="lead">Choose the workflow that matches the application you are using.</p>
+        </div>
+        <div class="guide-grid">
+            <article class="guide-card">
+                <img class="app-icon" src="/assets/hce-test-tool.png" alt="" width="112" height="112">
+                <h3>HCE Test Tool</h3>
+                <p class="app-status">Android</p>
+                <p>Emulate synthetic contactless card profiles, inspect terminal APDU exchanges and review validation results.</p>
+                <a href="/guides/hce-test-tool/">Open the HCE Test Tool guide</a>
+            </article>
+            <article class="guide-card">
+                <img class="app-icon" src="/assets/emv-card-analyzer.png" alt="" width="112" height="112">
+                <h3>EMV Card Analyzer</h3>
+                <p class="app-status">Android</p>
+                <p>Run a bounded contactless card analysis, inspect decoded data and preserve diagnostic results locally.</p>
+                <a href="/guides/emv-card-analyzer/">Open the EMV Card Analyzer guide</a>
+            </article>
+        </div>
+    </section>
+    <section class="section" aria-labelledby="exchange-formats-title">
+        <div class="section-header">
+            <p class="eyebrow">Exchange formats</p>
+            <h2 id="exchange-formats-title">Understand the files you exchange</h2>
+            <p class="lead">The shared filename convention covers two distinct document types with different import workflows.</p>
+        </div>
+        <article class="guide-card format-card">
+            <p class="app-status">HCEImage JSON</p>
+            <h3>Card profiles and analysis traces</h3>
+            <p>Learn how the common envelope identifies a synthetic card-profile definition or a captured EMV analysis, what each payload contains, and where each file can be imported.</p>
+            <a href="/guides/hceimage-json/">Explore the exchange formats</a>
         </article>
     </section>
 </main>

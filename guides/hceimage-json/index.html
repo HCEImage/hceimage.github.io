@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="HCEImage JSON file guide: the shared envelope, HCE Test Tool card-profile definitions and EMV Card Analyzer diagnostic traces.">
+    <meta name="theme-color" content="#111318">
+    <link rel="canonical" href="https://hceimage.github.io/guides/hceimage-json/">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260929-2">
+    <title>HCEImage JSON files · Developer guides</title>
+</head>
+<body>
+<header class="site-header">
+    <div class="header-content">
+        <a class="brand" href="/" aria-label="HCEImage home">HCEImage</a>
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a href="/#applications">Applications</a>
+            <a href="/guides/" aria-current="page">Developer guides</a>
+            <a href="mailto:hceimage@gmail.com">Contact</a>
+        </nav>
+    </div>
+</header>
+<main class="page guide-page">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/guides/">Developer guides</a><span aria-hidden="true">/</span><span>HCEImage JSON files</span>
+    </nav>
+    <header class="guide-header">
+        <p class="eyebrow">File formats</p>
+        <h1>Understand HCEImage JSON files</h1>
+        <p class="lead">Card-profile definitions and analysis traces share a recognizable envelope and filename suffix, but serve different purposes and are not interchangeable.</p>
+    </header>
+    <article class="guide-content">
+        <section aria-labelledby="envelope">
+            <h2 id="envelope">The shared envelope</h2>
+            <p>Both document types use the <code>.hceimage.json</code> suffix and four top-level fields. Applications check the contents, not just the filename.</p>
+            <div class="spec-table" role="region" aria-label="HCEImage envelope fields" tabindex="0">
+                <table>
+                    <thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row"><code>format</code></th><td>Document family: a reusable definition or a diagnostic result.</td></tr>
+                        <tr><th scope="row"><code>schemaVersion</code></th><td>Shared envelope schema, independent of the app release and payload schema.</td></tr>
+                        <tr><th scope="row"><code>kind</code></th><td>Specific payload type within the family.</td></tr>
+                        <tr><th scope="row"><code>payload</code></th><td>JSON object interpreted by the appropriate application.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>The envelope schema number does not describe the contents of <code>payload</code>. A consumer must check the expected <code>format</code> and <code>kind</code>, then validate the payload under its own schema. The envelope does not authenticate a file or guarantee that its data is safe.</p>
+        </section>
+        <section aria-labelledby="card-profile">
+            <h2 id="card-profile">Card-profile definition</h2>
+            <p>HCE Test Tool imports a native, reusable synthetic card profile. Its envelope uses <code>format: com.hceimage.definition</code> and <code>kind: card-profile</code>. The profile schema is in <code>payload.schemaVersion</code>.</p>
+            <pre><code>{
+  "format": "com.hceimage.definition",
+  "schemaVersion": 1,
+  "kind": "card-profile",
+  "payload": {
+    "schemaVersion": 1,
+    "id": "example-profile",
+    "name": "Example profile"
+  }
+}</code></pre>
+            <p class="example-caption">Structure illustration only: this omits required profile fields and cannot be imported as-is.</p>
+            <div class="spec-table" role="region" aria-label="Card-profile payload fields" tabindex="0">
+                <table>
+                    <thead><tr><th scope="col">Payload field</th><th scope="col">Purpose</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row"><code>id</code>, <code>name</code>, <code>description</code></th><td>Stable Profile ID and display text. Imported IDs must be unique.</td></tr>
+                        <tr><th scope="row"><code>brand</code>, <code>formFactor</code>, <code>technologies</code></th><td>Payment brand, physical/tokenized scenario and contactless processing paths.</td></tr>
+                        <tr><th scope="row"><code>applications[]</code></th><td>AIDs and application settings, including optional profile-default test security data in <code>crypto</code>.</td></tr>
+                        <tr><th scope="row"><code>apduRules[]</code>, <code>expectedFlow[]</code></th><td>APDU request/response behavior and rule IDs expected during validation.</td></tr>
+                        <tr><th scope="row"><code>testScenarios[]</code></th><td>Optional terminal setup, CVM and expected-outcome guidance; it does not drive the terminal or host.</td></tr>
+                        <tr><th scope="row"><code>source</code></th><td>Optional development provenance, not a signature or authenticity claim.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>A complete payload needs at least one application and one APDU rule. Each <code>applications[]</code> entry has an <code>aid</code>, optional label/PAN/DOL and CVM settings, and an optional <code>crypto</code> group. The supported dynamic cryptogram groups identify their algorithm and synthetic test keys; optional three-byte KCV values are checked against the corresponding keys. Empty or partial security-data groups are not silently completed from other profiles.</p>
+            <p>Each <code>apduRules[]</code> entry gives an ID, a command matcher (<code>request</code>), a fixed or templated <code>response</code>, and an outcome. <code>expectedFlow[]</code> refers to those IDs. <code>testScenarios[]</code> may describe transaction amount conditions, expected CVM, a Test PIN and terminal setup, but those instructions do not execute a transaction. In-app import accepts supported Visa, Mastercard and American Express profiles only and checks the primary AID, brand and cryptogram algorithm together.</p>
+            <ol>
+                <li>Prepare a complete native definition with synthetic test values only. Use a bundled profile as a structural reference.</li>
+                <li>In HCE Test Tool, open <strong>Card profiles → Import profile</strong> and select the file.</li>
+                <li>Review the preview, warnings and Profile ID, then confirm. Invalid structure, unsupported brands or duplicate IDs block import.</li>
+                <li>Select the imported profile in the Emulator and review its Test guidance before starting a controlled NFC test.</li>
+            </ol>
+            <div class="guide-note"><p>Test security data embedded in a profile persists with its private imported file. Values entered later in the Emulator are separate in-memory overrides and do not edit that file. Keep the original for re-import; imported profiles are excluded from Android backup. Never use production keys or real payment credentials.</p></div>
+        </section>
+        <section aria-labelledby="analysis-trace">
+            <h2 id="analysis-trace">EMV analysis trace</h2>
+            <p>EMV Card Analyzer exports a captured diagnostic result for later inspection. Its envelope uses <code>format: com.hceimage.diagnostic</code> and <code>kind: emv-analysis</code>. The trace schema is in <code>payload.payloadVersion</code>; <code>producer.versionName</code> records the creating app release, not the document schema.</p>
+            <pre><code>{
+  "format": "com.hceimage.diagnostic",
+  "schemaVersion": 1,
+  "kind": "emv-analysis",
+  "payload": {
+    "payloadVersion": 1,
+    "evidence": "Redacted",
+    "producer": {
+      "applicationId": "com.hceimage.emvcardanalyzer",
+      "versionName": "&lt;producer-app-version&gt;"
+    }
+  }
+}</code></pre>
+            <p class="example-caption">Structure illustration only: an importable trace also needs the result, timing, APDU exchanges and application data.</p>
+            <div class="spec-table" role="region" aria-label="EMV analysis payload fields" tabindex="0">
+                <table>
+                    <thead><tr><th scope="col">Payload field</th><th scope="col">Purpose</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row"><code>producer</code>, <code>origin</code></th><td>Creating application information and original analysis origin; neither proves authenticity.</td></tr>
+                        <tr><th scope="row"><code>startedAtEpochMillis</code>, <code>completedAtEpochMillis</code>, <code>result</code>, <code>detail</code></th><td>Analysis times and final outcome.</td></tr>
+                        <tr><th scope="row"><code>evidence</code></th><td><code>FullEvidence</code> or <code>Redacted</code>; determines which captured values remain in the file.</td></tr>
+                        <tr><th scope="row"><code>applicationLabel</code>, <code>scheme</code>, <code>cardInterface</code>, <code>note</code></th><td>Summary and user context, subject to evidence redaction.</td></tr>
+                        <tr><th scope="row"><code>exchanges[]</code></th><td>Ordered APDU commands and responses, context, optional errors and timing.</td></tr>
+                        <tr><th scope="row"><code>applications[]</code></th><td>Discovered applications, read status and decoded facts linked to APDU indices.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Each <code>exchanges[]</code> item contains APDU command hex and an optional response, payment-scheme/AID context, optional PDOL/CDOL1 data, a label, optional local errors and optional <code>durationMillis</code>. Each <code>applications[]</code> item records the discovered AID, labels, scheme, processing/read status and optional <code>facts[]</code>. A fact carries its tag, decoded value and <code>sourceApdus</code> indices into the exchange list. The import checks final result state, timestamps, APDU framing and bounded collection sizes before it can be saved.</p>
+            <ol>
+                <li>Open a saved analysis in <strong>History → Export → Trace</strong>, choose Full evidence or Redacted, then save or share deliberately.</li>
+                <li>On another installation, choose <strong>History → Import trace</strong>. Inspect the preview before choosing <strong>Save to history</strong>; Back discards it.</li>
+            </ol>
+            <div class="guide-note"><p>Full evidence may include sensitive card-derived APDUs, decoded values and notes. Redacted removes those values while retaining diagnostic structure; removed evidence cannot be restored later. Import checks structure, not whether a physical card produced the trace.</p></div>
+        </section>
+        <section aria-labelledby="compatibility">
+            <h2 id="compatibility">Compatibility boundary</h2>
+            <p>These files cannot be exchanged between the two importers: HCE Test Tool does not import analysis traces, and EMV Card Analyzer does not import card profiles. Renaming a file does not convert it. A profile definition is an input for controlled emulation; an analysis trace is an output from a recorded NFC read. Neither file is a payment credential, approval record or certification result.</p>
+        </section>
+        <div class="guide-actions">
+            <a href="/guides/hce-test-tool/">HCE Test Tool guide</a>
+            <a href="/guides/emv-card-analyzer/">EMV Card Analyzer guide</a>
+            <a href="/guides/">All developer guides</a>
+        </div>
+    </article>
+</main>
+<footer class="site-footer">
+    <p>© 2026 HCEImage</p>
+    <p><a href="mailto:hceimage@gmail.com">hceimage@gmail.com</a></p>
+</footer>
+</body>
+</html>

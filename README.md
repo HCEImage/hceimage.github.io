@@ -63,6 +63,14 @@ and Redacted choices. HCE and EMV policy wording was compared with their Android
 local data, backup, clipboard and export paths. This source review does not replace a visual browser
 pass or the final Play Console privacy and Data safety review before publication.
 
+The subsequent Common integration review aligned the JSON guide with strict required-field types:
+string format/kind, integer-number envelope schema and object payload. Missing/null or incorrectly
+typed required fields are rejected without changing valid exported documents. Application guides
+already describe the current profile/trace workflows; no new feature or privacy-date change was
+needed. Public pages remain free of concrete application release numbers, and no visual assets,
+shared styles, availability links or hidden ECR navigation were changed. The site remains a local
+draft; this review does not publish it.
+
 Serve the root with `python3 -m http.server 8080 --bind 127.0.0.1` and open
 `http://127.0.0.1:8080`. Check every page at desktop and phone widths in light and dark modes,
 including navigation, focus states, readable tables, long code blocks, canonical URLs, image

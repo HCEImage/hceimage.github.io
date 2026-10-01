@@ -46,6 +46,7 @@
                 </table>
             </div>
             <p>The envelope schema number does not describe the contents of <code>payload</code>. A consumer must check the expected <code>format</code> and <code>kind</code>, then validate the payload under its own schema. The envelope does not authenticate a file or guarantee that its data is safe.</p>
+            <p>Field types matter: <code>format</code> and <code>kind</code> must be JSON strings, <code>schemaVersion</code> must be an integer number rather than a quoted number, and <code>payload</code> must be a JSON object. Missing, null or incorrectly typed required fields are rejected. Additional envelope fields are ignored, but the application still validates its specific payload.</p>
         </section>
         <section aria-labelledby="card-profile">
             <h2 id="card-profile">Card-profile definition</h2>

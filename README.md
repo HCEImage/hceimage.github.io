@@ -56,6 +56,13 @@ document schema numbers from app versions.
 
 ## Local verification
 
+On 2026-10-01, the local pages were checked for app-version-free public wording, consistent
+distribution links, shared styling, valid internal routes and anchors, and the absence of external
+scripts or analytics. The HCE report disclosure was aligned with the application's Full evidence
+and Redacted choices. HCE and EMV policy wording was compared with their Android manifests and
+local data, backup, clipboard and export paths. This source review does not replace a visual browser
+pass or the final Play Console privacy and Data safety review before publication.
+
 Serve the root with `python3 -m http.server 8080 --bind 127.0.0.1` and open
 `http://127.0.0.1:8080`. Check every page at desktop and phone widths in light and dark modes,
 including navigation, focus states, readable tables, long code blocks, canonical URLs, image

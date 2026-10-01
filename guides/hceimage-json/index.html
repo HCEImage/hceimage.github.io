@@ -77,7 +77,7 @@
             <p>A complete payload needs at least one application and one APDU rule. Each <code>applications[]</code> entry has an <code>aid</code>, optional label/PAN/DOL and CVM settings, and an optional <code>crypto</code> group. The supported dynamic cryptogram groups identify their algorithm and synthetic test keys; optional three-byte KCV values are checked against the corresponding keys. Empty or partial security-data groups are not silently completed from other profiles.</p>
             <p>Each <code>apduRules[]</code> entry gives an ID, a command matcher (<code>request</code>), a fixed or templated <code>response</code>, and an outcome. <code>expectedFlow[]</code> refers to those IDs. <code>testScenarios[]</code> may describe transaction amount conditions, expected CVM, a Test PIN and terminal setup, but those instructions do not execute a transaction. In-app import accepts supported Visa, Mastercard and American Express profiles only and checks the primary AID, brand and cryptogram algorithm together.</p>
             <ol>
-                <li>Prepare a complete native definition with synthetic test values only. Use a bundled profile as a structural reference.</li>
+                <li>Prepare a complete UTF-8 native definition of at most 1 MB with synthetic test values only. Use a bundled profile as a structural reference.</li>
                 <li>In HCE Test Tool, open <strong>Card profiles → Import profile</strong> and select the file.</li>
                 <li>Review the preview, warnings and Profile ID, then confirm. Invalid structure, unsupported brands or duplicate IDs block import.</li>
                 <li>Select the imported profile in the Emulator and review its Test guidance before starting a controlled NFC test.</li>

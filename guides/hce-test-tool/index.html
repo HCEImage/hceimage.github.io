@@ -7,7 +7,7 @@
     <meta name="description" content="Use HCE Test Tool to emulate synthetic EMV contactless card profiles, inspect APDU exchanges and validate controlled terminal tests.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/hce-test-tool/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260929-2">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261001-1">
     <title>HCE Test Tool developer guide · HCEImage</title>
 </head>
 <body>
@@ -55,13 +55,13 @@
         </section>
         <section aria-labelledby="inspect-exchange">
             <h2 id="inspect-exchange">Inspect the exchange</h2>
-            <p>The live timeline records commands and responses as the terminal communicates with the selected profile. Open an entry to inspect the raw APDU together with contextual command headers, status words, BER-TLV data, DOL values and recognized payment-scheme tags.</p>
+            <p>The live timeline records commands and responses as the terminal communicates with the selected profile. Open an entry to inspect the raw APDU together with contextual command headers, status words, BER-TLV data, DOL values and recognized payment-scheme tags. Command/response timings and session duration help locate delays; they do not measure the terminal's complete payment processing time.</p>
             <p>The result view compares the observed exchange with the expected profile flow. A failed or interrupted result is diagnostic context, not by itself proof of a terminal defect: reader configuration, terminal kernels and processing outside the emulator can affect the outcome.</p>
         </section>
         <section aria-labelledby="history-reports">
             <h2 id="history-reports">Use history and reports</h2>
             <p>Completed, failed and interrupted attempts are kept locally. History filters help isolate an outcome, while session details preserve validation checks, the APDU timeline and optional test notes. Delete a single record or clear history when it is no longer needed. Diagnostic reports can be saved or shared in Markdown, HTML or PDF when an integration result needs to be reviewed outside the application.</p>
-            <p>Choose Full evidence for captured values or Redacted to retain structural diagnostics while omitting card-derived values and notes. Settings controls history retention, appearance, Logcat detail, result vibration and emulation timeout. High-detail logs and Full evidence reports can contain synthetic card data; review them before sharing.</p>
+            <p>Choose Full evidence for captured values or Redacted to retain structural diagnostics while omitting card-derived values and notes. Redacted is not a guarantee of anonymity: review the retained diagnostic context before sharing either form. Single-record deletion offers Undo. Settings controls history retention, appearance, Logcat detail, result vibration and emulation timeout. High-detail logs and Full evidence reports can contain synthetic card data; review them before sharing.</p>
         </section>
         <section aria-labelledby="security-data">
             <h2 id="security-data">Handle test security data carefully</h2>
@@ -70,7 +70,7 @@
         <section aria-labelledby="import-profiles">
             <h2 id="import-profiles">Import a card profile</h2>
             <p>Choose <strong>Card profiles → Import profile</strong> to open a native <code>.hceimage.json</code> definition. Review the preview before saving it. The file identifies itself as <code>com.hceimage.definition</code> / <code>card-profile</code>; the app validates its profile schema, unique Profile ID, supported brand, AIDs, APDU behavior and supplied test security data. Bundled profiles cannot be replaced or deleted.</p>
-            <p>Imported profiles appear alongside bundled profiles and can be isolated with the Profile source filter. Swipe an imported card or use Delete in its detail; both routes provide Undo. Profile-default synthetic test security data in an imported file persists with that private profile. Values you apply later in the Emulator are temporary overrides and do not change the imported file. Keep the original file for re-import after reinstalling or changing devices. See the <a href="/guides/hceimage-json/#card-profile">card-profile format and usage guide</a> for the document structure and safety boundaries.</p>
+            <p>Imported profiles appear alongside bundled profiles and can be isolated with the Profile source filter. Swipe an imported card or use Delete in its detail; both routes provide Undo. Deleting a profile does not delete its existing session history; repeating a saved session requires an available profile with the same Profile ID. Profile-default synthetic test security data in an imported file persists with that private profile. Values you apply later in the Emulator are temporary overrides and do not change the imported file. Keep the original file for re-import after reinstalling or changing devices. See the <a href="/guides/hceimage-json/#card-profile">card-profile format and usage guide</a> for the document structure and safety boundaries.</p>
         </section>
         <div class="guide-actions">
             <a class="button-link" href="https://play.google.com/store/apps/details?id=com.hceimage.hcetesttool">Get it on Google Play</a>

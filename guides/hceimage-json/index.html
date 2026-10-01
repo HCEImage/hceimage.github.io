@@ -7,7 +7,7 @@
     <meta name="description" content="HCEImage JSON file guide: the shared envelope, HCE Test Tool card-profile definitions and EMV Card Analyzer diagnostic traces.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/hceimage-json/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260929-2">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261001-1">
     <title>HCEImage JSON files · Developer guides</title>
 </head>
 <body>
@@ -51,7 +51,7 @@
         <section aria-labelledby="card-profile">
             <h2 id="card-profile">Card-profile definition</h2>
             <p>HCE Test Tool imports a native, reusable synthetic card profile. Its envelope uses <code>format: com.hceimage.definition</code> and <code>kind: card-profile</code>. The profile schema is in <code>payload.schemaVersion</code>.</p>
-            <pre><code>{
+            <pre tabindex="0" role="region" aria-label="Card-profile envelope example"><code>{
   "format": "com.hceimage.definition",
   "schemaVersion": 1,
   "kind": "card-profile",
@@ -88,7 +88,7 @@
         <section aria-labelledby="analysis-trace">
             <h2 id="analysis-trace">EMV analysis trace</h2>
             <p>EMV Card Analyzer exports a captured diagnostic result for later inspection. Its envelope uses <code>format: com.hceimage.diagnostic</code> and <code>kind: emv-analysis</code>. The trace schema is in <code>payload.payloadVersion</code>; <code>producer.versionName</code> records the creating app release, not the document schema.</p>
-            <pre><code>{
+            <pre tabindex="0" role="region" aria-label="Analysis-trace envelope example"><code>{
   "format": "com.hceimage.diagnostic",
   "schemaVersion": 1,
   "kind": "emv-analysis",

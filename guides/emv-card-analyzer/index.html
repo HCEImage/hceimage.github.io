@@ -7,7 +7,7 @@
     <meta name="description" content="Use EMV Card Analyzer for bounded contactless application reading, contextual APDU inspection, local reports and portable diagnostic traces.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/emv-card-analyzer/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260929-2">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261001-1">
     <title>EMV Card Analyzer developer guide · HCEImage</title>
 </head>
 <body>
@@ -63,8 +63,8 @@
         </section>
         <section aria-labelledby="history-reports">
             <h2 id="history-reports">Use history, reports and traces</h2>
-            <p>Analysis snapshots and optional notes are stored locally on the device. History supports later review, deletion, detailed report export and portable diagnostic traces through Android system interfaces. Import trace opens a local file for preview; choose Save to history only if you want to keep that imported analysis.</p>
-            <p>Full evidence exports may contain captured APDUs, notes and sensitive card data. Redacted exports remove card-derived values and notes while preserving diagnostic structure. An imported Redacted trace cannot restore the removed values. Review the selected evidence level and resulting file before sharing it.</p>
+            <p>Analysis snapshots and optional notes are stored locally on the device. History supports result filtering, single-record deletion with Undo, clearing history, detailed report export and portable diagnostic traces through Android system interfaces. Reports can be saved or shared in Markdown, HTML or PDF; Trace exports a native JSON file. Import trace opens a local file for preview; choose Save to history only if you want to keep that imported analysis.</p>
+            <p>Full evidence exports may contain captured APDUs, notes and sensitive card data. Redacted exports remove card-derived values and notes while preserving diagnostic structure. Redacted is not a guarantee of anonymity: review the retained diagnostic context before sharing either form. An imported Redacted trace cannot restore the removed values. Review the selected evidence level and resulting file before sharing it.</p>
             <p>A <code>.hceimage.json</code> trace identifies itself as <code>com.hceimage.diagnostic</code> / <code>emv-analysis</code>. It is a recorded diagnostic result, not an HCE card profile. See the <a href="/guides/hceimage-json/#analysis-trace">trace format and usage guide</a> for its structure, import checks and evidence boundary.</p>
         </section>
         <section aria-labelledby="settings-safety">

@@ -7,7 +7,7 @@
     <meta name="description" content="Use HCE Test Tool to emulate synthetic EMV contactless card profiles, inspect APDU exchanges and validate controlled terminal tests.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/hce-test-tool/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20261001-1">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261001-3">
     <title>HCE Test Tool developer guide · HCEImage</title>
 </head>
 <body>
@@ -70,7 +70,16 @@
         <section aria-labelledby="import-profiles">
             <h2 id="import-profiles">Import a card profile</h2>
             <p>Choose <strong>Card profiles → Import profile</strong> to open a native <code>.hceimage.json</code> definition. Review the preview before saving it. The file identifies itself as <code>com.hceimage.definition</code> / <code>card-profile</code>; the app validates its profile schema, unique Profile ID, supported brand, AIDs, APDU behavior and supplied test security data. Bundled profiles cannot be replaced or deleted.</p>
-            <p>Imported profiles appear alongside bundled profiles and can be isolated with the Profile source filter. Swipe an imported card or use Delete in its detail; both routes provide Undo. Deleting a profile does not delete its existing session history; repeating a saved session requires an available profile with the same Profile ID. Profile-default synthetic test security data in an imported file persists with that private profile. Values you apply later in the Emulator are temporary overrides and do not change the imported file. Keep the original file for re-import after reinstalling or changing devices. See the <a href="/guides/hceimage-json/#card-profile">card-profile format and usage guide</a> for the document structure and safety boundaries.</p>
+            <p>Imported profiles appear alongside bundled profiles and can be isolated with the Profile source filter. Swipe an imported card or use Delete in its detail; both routes provide Undo. Deleting a profile does not delete its existing session history; repeating a saved session requires an available profile with the same Profile ID. Profile-default synthetic test security data in an imported file persists with that private profile. Values you apply later in the Emulator are temporary overrides and do not change the imported file. Keep the original file for re-import after reinstalling or changing devices.</p>
+            <aside class="guide-card format-reference" aria-labelledby="profile-format-title">
+                <p class="app-status">Exchange formats · HCEImage JSON</p>
+                <h3 id="profile-format-title">Profile import and file format</h3>
+                <p>Review the shared envelope, card-profile payload, import checks and test-security boundaries before preparing your own synthetic profile.</p>
+                <div class="guide-actions format-actions">
+                        <a class="button-link" href="/guides/hceimage-json/#card-profile">Card-profile specification</a>
+                        <a href="/guides/hceimage-json/#profile-examples">Download profile examples</a>
+                </div>
+            </aside>
         </section>
         <div class="guide-actions">
             <a class="button-link" href="https://play.google.com/store/apps/details?id=com.hceimage.hcetesttool">Get it on Google Play</a>

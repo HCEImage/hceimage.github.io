@@ -91,7 +91,12 @@ h3 { margin-bottom: 0.75rem; font-size: 1.25rem; }
 .format-card .app-status { margin-top: 0; }
 .guide-card .app-icon { margin-bottom: 1.25rem; }
 .guide-card p { margin: 0 0 1.25rem; color: var(--text-muted); }
-.guide-card a:last-child { margin-top: auto; font-weight: 700; }
+.guide-card > a:last-child { margin-top: auto; font-weight: 700; }
+.format-reference { min-height: 0; margin-top: 1.5rem; }
+.profile-examples { margin-block: 1.5rem; }
+.profile-examples .format-actions { align-items: flex-start; flex-direction: column; }
+.guide-card .format-actions { margin-top: auto; padding-top: 0; }
+.format-actions .button-link { max-width: 100%; white-space: normal; text-align: center; }
 .guide-content { padding-top: 1rem; }
 .guide-content section { padding-top: 2.25rem; }
 .guide-content p, .guide-content li { color: var(--text-muted); }

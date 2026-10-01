@@ -1,0 +1,158 @@
+{
+  "format": "com.hceimage.definition",
+  "schemaVersion": 1,
+  "kind": "card-profile",
+  "payload": {
+    "schemaVersion": 1,
+    "id": "web-example-visa-online-pin",
+    "name": "Visa example",
+    "description": "Synthetic Visa contactless online test profile with a test-only PAN and public demonstration keys. No CVM below the configured terminal limit; online PIN above it. For authorized test terminals and host simulators only. Terminal and host configuration determine acceptance and approval.",
+    "brand": "VISA",
+    "formFactor": "PHYSICAL",
+    "technologies": [
+      "EMV_CONTACTLESS"
+    ],
+    "source": {
+      "format": "CUSTOM",
+      "author": "HCEImage",
+      "originalId": "visa-contactless-online-pin",
+      "originalDescription": "Adapted from the bundled test profile with public demonstration keys. Visa and Amex use newly invented test PANs; Mastercard retains its public synthetic PAN and matching test certificates."
+    },
+    "applications": [
+      {
+        "aid": "A0000000031010",
+        "label": "VISA CREDIT",
+        "pan": "4761739990000014",
+        "pdol": "9F66049F02069F03069F1A0295055F2A029A039C019F3704",
+        "cvmPolicy": "VISA_ONLINE_PIN",
+        "crypto": {
+          "algorithm": "VISA_CVN_22",
+          "testMasterKeyAc": "0123456789ABCDEFFEDCBA9876543210",
+          "panSequenceNumber": "01",
+          "applicationInterchangeProfile": "0020",
+          "issuerApplicationData": "1F220100A0000000000000000000000000000000000000000000000000000000",
+          "testMasterKeyAcKcv": "08D7B4"
+        }
+      }
+    ],
+    "apduRules": [
+      {
+        "id": "select-ppse",
+        "name": "SELECT PPSE",
+        "request": {
+          "cla": "00",
+          "ins": "A4",
+          "p1": "04",
+          "dataPattern": "325041592E5359532E4444463031"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "6F2D840E325041592E5359532E4444463031A51BBF0C1861164F07A0000000031010500B5649534120435245444954",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "select-application",
+        "name": "SELECT application",
+        "request": {
+          "cla": "00",
+          "ins": "A4",
+          "p1": "04",
+          "dataPattern": "A0000000031010"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "6F3E8407A0000000031010A533500B56495341204352454449549F38189F66049F02069F03069F1A0295055F2A029A039C019F3704BF0C089F5A050008400840",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "get-processing-options",
+        "name": "GET PROCESSING OPTIONS",
+        "request": {
+          "cla": "80",
+          "ins": "A8",
+          "p1": "00",
+          "p2": "00",
+          "dataPattern": "83*"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "77648202002094040805050057114761739990000014D311220111438444895F3401019F10201F220100A00000000000000000000000000000000000000000000000000000009F2608{{APPLICATION_CRYPTOGRAM}}9F2701809F3602{{ATC}}9F6C02{{VISA_CTQ}}9F6E0420700000",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "read-record-1-5",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "05",
+          "p2": "0C"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "700A5F280208409F0702C280",
+          "statusWord": "9000"
+        },
+        "outcome": "SUCCESS"
+      }
+    ],
+    "expectedFlow": [
+      "select-ppse",
+      "select-application",
+      "get-processing-options",
+      "read-record-1-5"
+    ],
+    "testScenarios": [
+      {
+        "id": "no-cvm",
+        "name": "No CVM purchase",
+        "transactionType": "PURCHASE",
+        "amountCondition": "BELOW_CVM_LIMIT",
+        "amountNote": "Use an amount below the terminal contactless CVM limit.",
+        "expectedCvm": "NO_CVM",
+        "expectedOutcome": "ONLINE_AUTHORIZATION",
+        "terminalSetup": [
+          "Enable Visa contactless qVSDC online processing.",
+          "Start emulation before presenting the phone.",
+          "Configure the test card/BIN table for synthetic PAN 4761739990000014 if required.",
+          "The application-cryptogram key is a public demonstration key with KCV 08D7B4; configure the host simulator accordingly if it verifies cryptograms."
+        ],
+        "knownLimitations": [
+          "A successful card flow requests online authorization; final approval or decline depends on the connected test host.",
+          "The PAN and cryptographic keys are public synthetic test values, not real payment credentials.",
+          "A supported AID alone does not ensure the payment application accepts the test PAN; UNKNOWN_CARD indicates a test card-table or routing limitation.",
+          "These profiles are examples, not certified scheme test cases. A host decline does not by itself mean the NFC read failed."
+        ]
+      },
+      {
+        "id": "online-pin",
+        "name": "Online PIN purchase",
+        "transactionType": "PURCHASE",
+        "amountCondition": "ABOVE_CVM_LIMIT",
+        "amountNote": "Use an amount above the terminal contactless CVM limit.",
+        "expectedCvm": "ONLINE_PIN",
+        "testPin": "123412",
+        "pinNote": "Enter the test PIN on the terminal when prompted. HCE Test Tool does not verify it; PIN validation depends on the connected test host.",
+        "expectedOutcome": "ONLINE_AUTHORIZATION",
+        "terminalSetup": [
+          "Enable Visa contactless online PIN processing.",
+          "Start emulation before presenting the phone.",
+          "Configure the test card/BIN table for synthetic PAN 4761739990000014 if required.",
+          "The application-cryptogram key is a public demonstration key with KCV 08D7B4; configure the host simulator accordingly if it verifies cryptograms."
+        ],
+        "knownLimitations": [
+          "A successful card flow requests online authorization; final approval or decline depends on the connected test host.",
+          "The PAN and cryptographic keys are public synthetic test values, not real payment credentials.",
+          "A supported AID alone does not ensure the payment application accepts the test PAN; UNKNOWN_CARD indicates a test card-table or routing limitation.",
+          "These profiles are examples, not certified scheme test cases. A host decline does not by itself mean the NFC read failed."
+        ]
+      }
+    ]
+  }
+}

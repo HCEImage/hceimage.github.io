@@ -1,0 +1,282 @@
+{
+  "format": "com.hceimage.definition",
+  "schemaVersion": 1,
+  "kind": "card-profile",
+  "payload": {
+    "schemaVersion": 1,
+    "id": "web-example-amex-online-pin",
+    "name": "American Express example",
+    "description": "Synthetic American Express contactless online test profile with a test-only PAN and public demonstration keys. No CVM below the configured terminal limit; online PIN above it. For authorized test terminals and host simulators only. Terminal and host configuration determine acceptance and approval.",
+    "brand": "AMERICAN_EXPRESS",
+    "formFactor": "PHYSICAL",
+    "technologies": [
+      "EMV_CONTACTLESS"
+    ],
+    "source": {
+      "format": "CUSTOM",
+      "author": "HCEImage",
+      "originalId": "amex-contactless-online-pin",
+      "originalDescription": "Adapted from the bundled test profile with public demonstration keys. Visa and Amex use newly invented test PANs; Mastercard retains its public synthetic PAN and matching test certificates."
+    },
+    "applications": [
+      {
+        "aid": "A000000025010403",
+        "label": "AMERICAN EXPRESS",
+        "pan": "374245999000036",
+        "pdol": "9F3501",
+        "cdol1": "9F02069F03069F1A0295055F2A029A039C019F3704",
+        "cvmPolicy": "AMEX_ONLINE_PIN",
+        "crypto": {
+          "algorithm": "AMEX_AEIPS",
+          "testMasterKeyAc": "0123456789ABCDEFFEDCBA9876543210",
+          "panSequenceNumber": "00",
+          "applicationInterchangeProfile": "1C80",
+          "issuerApplicationData": "06020103803000",
+          "keyDerivationIndex": "02",
+          "cryptogramVersionNumber": "01",
+          "cardVerificationResults": "803000",
+          "testMasterKeyAcKcv": "08D7B4"
+        }
+      }
+    ],
+    "apduRules": [
+      {
+        "id": "select-ppse",
+        "name": "SELECT PPSE",
+        "request": {
+          "cla": "00",
+          "ins": "A4",
+          "p1": "04",
+          "dataPattern": "325041592E5359532E4444463031"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "6F33840E325041592E5359532E4444463031A521BF0C1E611C4F08A0000000250104035010414D45524943414E2045585052455353",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "select-application",
+        "name": "SELECT application",
+        "request": {
+          "cla": "00",
+          "ins": "A4",
+          "p1": "04",
+          "dataPattern": "A000000025010403"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "6F248408A000000025010403A5185010414D45524943414E20455850524553539F38039F3501",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "get-processing-options",
+        "name": "GET PROCESSING OPTIONS",
+        "request": {
+          "cla": "80",
+          "ins": "A8",
+          "p1": "00",
+          "p2": "00",
+          "dataPattern": "83*"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "771E82021C809418080101000805050008060600100202001005050020030400",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "read-record-1-1",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "01",
+          "p2": "0C"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "702A5713374245999000036D311270217101234500000F5F2012585020434152442030312F56455220322E30",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "read-record-1-5",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "05",
+          "p2": "0C"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "7000",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "read-record-1-6",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "06",
+          "p2": "0C"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "7081845F24033112315F25031710015A08374245999000036F5F3401009F07023D008E0C000000000000000042031F008C159F02069F03069F1A0295055F2A029A039C019F37048D178A029F02069F03069F1A0295055F2A029A039C019F37049F0D05F470C498009F0E0500000000009F0F05F470C498005F280208269F420208269F08020001",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "read-record-2-2",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "02",
+          "p2": "14"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "7000",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "read-record-2-5",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "05",
+          "p2": "14"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "70055F30020702",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "read-record-4-3",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "03",
+          "p2": "24"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "70059F66024004",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "read-record-4-4",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "04",
+          "p2": "24"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "7000",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "generate-ac",
+        "name": "GENERATE AC",
+        "request": {
+          "cla": "80",
+          "ins": "AE",
+          "dataPattern": "*"
+        },
+        "response": {
+          "data": "",
+          "dataTemplate": "771E9F2701809F3602{{ATC}}9F2608{{APPLICATION_CRYPTOGRAM}}9F1007060201{{AMEX_IAD_CVR}}",
+          "statusWord": "9000"
+        },
+        "outcome": "SUCCESS"
+      }
+    ],
+    "expectedFlow": [
+      "select-ppse",
+      "select-application",
+      "get-processing-options",
+      "read-record-1-1",
+      "read-record-1-5",
+      "read-record-1-6",
+      "read-record-2-2",
+      "read-record-2-5",
+      "read-record-4-3",
+      "read-record-4-4",
+      "generate-ac"
+    ],
+    "testScenarios": [
+      {
+        "id": "no-cvm",
+        "name": "No CVM purchase",
+        "transactionType": "PURCHASE",
+        "amountCondition": "BELOW_CVM_LIMIT",
+        "amountNote": "Use an amount below the terminal contactless CVM limit.",
+        "expectedCvm": "NO_CVM",
+        "expectedOutcome": "ONLINE_AUTHORIZATION",
+        "terminalSetup": [
+          "Enable American Express Expresspay online processing.",
+          "Start emulation before presenting the phone.",
+          "Configure the test card/BIN table for synthetic PAN 374245999000036 if required.",
+          "The application-cryptogram key is a public demonstration key with KCV 08D7B4; configure the host simulator accordingly if it verifies cryptograms."
+        ],
+        "knownLimitations": [
+          "A payment application may report UNKNOWN_CARD if its card/BIN table does not include this test profile, even after the Expresspay card flow succeeds.",
+          "A successful card flow requests online authorization; final approval or decline depends on the connected test host.",
+          "The PAN and cryptographic keys are public synthetic test values, not real payment credentials.",
+          "A supported AID alone does not ensure the payment application accepts the test PAN; UNKNOWN_CARD indicates a test card-table or routing limitation.",
+          "These profiles are examples, not certified scheme test cases. A host decline does not by itself mean the NFC read failed."
+        ]
+      },
+      {
+        "id": "online-pin",
+        "name": "Online PIN purchase",
+        "transactionType": "PURCHASE",
+        "amountCondition": "ABOVE_CVM_LIMIT",
+        "amountNote": "Use an amount above the terminal contactless CVM limit.",
+        "expectedCvm": "ONLINE_PIN",
+        "testPin": "1234",
+        "pinNote": "Enter the test PIN on the terminal when prompted. HCE Test Tool does not verify it; PIN validation depends on the connected test host.",
+        "expectedOutcome": "ONLINE_AUTHORIZATION",
+        "terminalSetup": [
+          "Enable American Express Expresspay online PIN processing.",
+          "Start emulation before presenting the phone.",
+          "Configure the test card/BIN table for synthetic PAN 374245999000036 if required.",
+          "The application-cryptogram key is a public demonstration key with KCV 08D7B4; configure the host simulator accordingly if it verifies cryptograms."
+        ],
+        "knownLimitations": [
+          "A payment application may report UNKNOWN_CARD if its card/BIN table does not include this test profile, even after the Expresspay card flow succeeds.",
+          "A successful card flow requests online authorization; final approval or decline depends on the connected test host.",
+          "The PAN and cryptographic keys are public synthetic test values, not real payment credentials.",
+          "A supported AID alone does not ensure the payment application accepts the test PAN; UNKNOWN_CARD indicates a test card-table or routing limitation.",
+          "These profiles are examples, not certified scheme test cases. A host decline does not by itself mean the NFC read failed."
+        ]
+      }
+    ]
+  }
+}

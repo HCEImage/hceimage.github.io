@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
-    <meta name="description" content="HCEImage JSON file guide: the shared envelope, HCE Test Tool card-profile definitions and EMV Card Analyzer diagnostic traces.">
+    <meta name="description" content="HCEImage JSON file guide: the shared envelope, downloadable synthetic card-profile examples and EMV Card Analyzer diagnostic traces.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/hceimage-json/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20261001-1">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261001-3">
     <title>HCEImage JSON files · Developer guides</title>
 </head>
 <body>
@@ -78,12 +78,98 @@
             <p>A complete payload needs at least one application and one APDU rule. Each <code>applications[]</code> entry has an <code>aid</code>, optional label/PAN/DOL and CVM settings, and an optional <code>crypto</code> group. The supported dynamic cryptogram groups identify their algorithm and synthetic test keys; optional three-byte KCV values are checked against the corresponding keys. Empty or partial security-data groups are not silently completed from other profiles.</p>
             <p>Each <code>apduRules[]</code> entry gives an ID, a command matcher (<code>request</code>), a fixed or templated <code>response</code>, and an outcome. <code>expectedFlow[]</code> refers to those IDs. <code>testScenarios[]</code> may describe transaction amount conditions, expected CVM, a Test PIN and terminal setup, but those instructions do not execute a transaction. In-app import accepts supported Visa, Mastercard and American Express profiles only and checks the primary AID, brand and cryptogram algorithm together.</p>
             <ol>
-                <li>Prepare a complete UTF-8 native definition of at most 1 MB with synthetic test values only. Use a bundled profile as a structural reference.</li>
+                <li>Prepare a complete UTF-8 native definition of at most 1 MB with synthetic test values only. Start with a <a href="#profile-examples">downloadable example</a> or use a bundled profile as a structural reference.</li>
                 <li>In HCE Test Tool, open <strong>Card profiles → Import profile</strong> and select the file.</li>
                 <li>Review the preview, warnings and Profile ID, then confirm. Invalid structure, unsupported brands or duplicate IDs block import.</li>
                 <li>Select the imported profile in the Emulator and review its Test guidance before starting a controlled NFC test.</li>
             </ol>
             <div class="guide-note"><p>Test security data embedded in a profile persists with its private imported file. Values entered later in the Emulator are separate in-memory overrides and do not edit that file. Keep the original for re-import; imported profiles are excluded from Android backup. Never use production keys or real payment credentials.</p></div>
+        </section>
+        <section aria-labelledby="profile-examples">
+            <h2 id="profile-examples">Downloadable card-profile examples</h2>
+            <p>These complete native profiles include the application data, PAN and Track 2, DOL inputs, APDU rules and synthetic security defaults needed for contactless online test flows. They are adapted from the bundled Visa, Mastercard and American Express profiles rather than minimal label-only scripts.</p>
+            <div class="guide-note"><p>All supplied values are public test fixtures, not real payment credentials. Visa and Amex use newly invented test PANs; Mastercard retains its public synthetic PAN and matching test certificates so that CDA remains consistent. All three use public demonstration symmetric keys. Never use these files, PANs or keys for production payments.</p></div>
+            <div class="guide-grid profile-examples">
+                <article class="guide-card">
+                    <p class="app-status">Visa · Contactless online testing</p>
+                    <h3>Visa example</h3>
+                    <p>Profile ID: <code>web-example-visa-online-pin</code><br>AID: <code>A0000000031010</code></p>
+                    <div class="guide-actions format-actions">
+                        <a class="button-link" href="/guides/hceimage-json/examples/visa-online-pin.hceimage.json" download>Download Visa JSON</a>
+                        <a href="/guides/hceimage-json/examples/visa-online-pin.hceimage.json">View Visa JSON</a>
+                    </div>
+                </article>
+                <article class="guide-card">
+                    <p class="app-status">Mastercard · Contactless online testing</p>
+                    <h3>Mastercard example</h3>
+                    <p>Profile ID: <code>web-example-mastercard-online-pin</code><br>AID: <code>A0000000041010</code></p>
+                    <div class="guide-actions format-actions">
+                        <a class="button-link" href="/guides/hceimage-json/examples/mastercard-online-pin.hceimage.json" download>Download Mastercard JSON</a>
+                        <a href="/guides/hceimage-json/examples/mastercard-online-pin.hceimage.json">View Mastercard JSON</a>
+                    </div>
+                </article>
+                <article class="guide-card">
+                    <p class="app-status">Amex · Contactless online testing</p>
+                    <h3>American Express example</h3>
+                    <p>Profile ID: <code>web-example-amex-online-pin</code><br>AID: <code>A000000025010403</code></p>
+                    <div class="guide-actions format-actions">
+                        <a class="button-link" href="/guides/hceimage-json/examples/amex-online-pin.hceimage.json" download>Download Amex JSON</a>
+                        <a href="/guides/hceimage-json/examples/amex-online-pin.hceimage.json">View Amex JSON</a>
+                    </div>
+                </article>
+            </div>
+            <h3>Import and test on a terminal</h3>
+            <ol>
+                <li>Download a JSON file to your Android device. In HCE Test Tool, choose <strong>Card profiles → Import profile</strong>, select it, review the metadata and confirm. Each example has a separate Profile ID from the bundled catalog.</li>
+                <li>Select the imported example in the Emulator and open its <strong>Test guidance</strong>. Start with a small purchase below the test terminal's contactless CVM limit; then test above the limit for online PIN. The Visa example's Test PIN is <code>123412</code>; Mastercard and Amex use <code>1234</code>. HCE Test Tool does not verify the PIN: the configured test host determines the outcome.</li>
+                <li>Enable the matching brand and AID on an authorized test terminal. Configure its test card/BIN table for the example PAN and, if it verifies cryptograms, configure the host simulator with the demonstration keys and matching derivation settings.</li>
+                <li>Start emulation before presenting the phone. The terminal builds PDOL/CDOL data and chooses its own command flow; inspect the APDU timeline and the terminal result separately.</li>
+            </ol>
+            <p>These profiles support meaningful terminal read flows, but are not certified scheme test cases or a guarantee of compatibility with every kernel. Card/BIN routing, CVM settings, offline-authentication configuration and host processing remain outside the emulator. In particular, an Amex <code>UNKNOWN_CARD</code> rejection can be a payment-application configuration issue even after a completed APDU exchange. A completed HCE session is not proof of payment approval.</p>
+            <h3>What each example demonstrates</h3>
+            <div class="spec-table" role="region" aria-label="Terminal example processing paths" tabindex="0">
+                <table>
+                    <thead><tr><th scope="col">Example</th><th scope="col">Processing path</th><th scope="col">Security defaults</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">Visa</th><td>qVSDC; SELECT, GPO and the record referenced by its AFL. No CVM below the configured limit, online PIN when required.</td><td>CVN 22 dynamic application cryptogram.</td></tr>
+                        <tr><th scope="row">Mastercard</th><td>M/Chip 4; SELECT, GPO, AFL records and GENERATE AC. No CVM below the configured limit, online PIN when required.</td><td>Application cryptogram and dynamic-number test keys, plus a consistent artificial ICC RSA key/certificate fixture for CDA. The terminal's test CA configuration still matters.</td></tr>
+                        <tr><th scope="row">Amex</th><td>Expresspay; SELECT, GPO, AFL records and GENERATE AC. No CVM below the configured limit, online PIN when required.</td><td>AEIPS dynamic application cryptogram and card verification results.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3>Required, optional and conditional fields</h3>
+            <p>The table describes the native profile schema, not just the values in these examples. Optional fields may become necessary for the processing path you choose.</p>
+            <div class="spec-table" role="region" aria-label="Required and optional card-profile fields" tabindex="0">
+                <table>
+                    <thead><tr><th scope="col">Field or group</th><th scope="col">Requirement</th><th scope="col">How to use it</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">Envelope: <code>format</code>, <code>schemaVersion</code>, <code>kind</code>, <code>payload</code></th><td>Required</td><td>Keep the card-profile family/kind and supported schema values. Payload must be an object.</td></tr>
+                        <tr><th scope="row">Payload: <code>schemaVersion</code>, <code>id</code>, <code>name</code>, <code>description</code>, <code>brand</code>, <code>formFactor</code></th><td>Required</td><td>Use a nonblank name/description, a unique Profile ID and a supported brand matching the application AID.</td></tr>
+                        <tr><th scope="row"><code>technologies</code></th><td>Optional; defaults to EMV contactless</td><td>If supplied, it must be nonempty and unique. These examples declare their path explicitly.</td></tr>
+                        <tr><th scope="row"><code>source</code></th><td>Optional</td><td>Development provenance, not proof of authenticity. The examples identify their bundled starting point and custom adaptation.</td></tr>
+                        <tr><th scope="row"><code>applications[]</code> and application <code>aid</code></th><td>Required</td><td>At least one application, with a valid unique AID. A label is optional.</td></tr>
+                        <tr><th scope="row"><code>pan</code>, <code>pdol</code>, <code>cdol1</code>, <code>cvmPolicy</code></th><td>Optional in the basic schema; conditional for a dynamic flow</td><td>Crypto needs a PAN; each algorithm needs its required DOL inputs. A CVM policy needs a matching brand and crypto algorithm. Keep PAN and Track 2 consistent.</td></tr>
+                        <tr><th scope="row"><code>crypto</code></th><td>Optional; complete if present</td><td>May be omitted or null for a fixed-response script. These terminal examples deliberately include working synthetic defaults; do not remove them while leaving dynamic tokens or a dependent CVM policy.</td></tr>
+                        <tr><th scope="row"><code>crypto.algorithm</code>, <code>testMasterKeyAc</code>, <code>panSequenceNumber</code>, <code>applicationInterchangeProfile</code></th><td>Required inside crypto</td><td>The algorithm must be supported for the brand. Other algorithm-specific parameters may also be required.</td></tr>
+                        <tr><th scope="row">Mastercard/Amex crypto parameters; RSA/fast-DDA groups</th><td>Conditional</td><td>Mastercard needs its dynamic-number key and M/Chip parameters; Amex needs AEIPS parameters. A CDA or fast-DDA path also needs the relevant complete RSA data and compatible records/certificates.</td></tr>
+                        <tr><th scope="row"><code>testMasterKeyAcKcv</code>, <code>testMasterKeyIdnKcv</code></th><td>Optional; verified if supplied</td><td>A three-byte KCV must match its corresponding test key. The examples include KCVs to demonstrate this check.</td></tr>
+                        <tr><th scope="row"><code>apduRules[]</code>; rule <code>id</code>, <code>name</code>, <code>request</code>, <code>response</code></th><td>Required</td><td>At least one rule. Its request needs CLA/INS; other matching fields are optional. Response data defaults to empty and status to 9000, but the response must satisfy the selected card flow.</td></tr>
+                        <tr><th scope="row"><code>expectedFlow[]</code>, <code>testScenarios[]</code></th><td>Optional</td><td>Flow entries must reference rule IDs. A scenario needs its ID, name and expected outcome. Guidance explains terminal setup; it does not configure the terminal or host.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3>Public test keys and safe editing</h3>
+            <pre tabindex="0" role="region" aria-label="Public demonstration application cryptogram key and KCV"><code>"testMasterKeyAc": "0123456789ABCDEFFEDCBA9876543210",
+"testMasterKeyAcKcv": "08D7B4"</code></pre>
+            <p class="example-caption">Excerpt inside the crypto group, not a standalone import file. This intentionally public demonstration key provides no secrecy.</p>
+            <p>The Mastercard dynamic-number key is <code>00112233445566778899AABBCCDDEEFF</code> with KCV <code>FB0975</code>. The embedded defaults persist with the imported file; Emulator overrides are separate temporary values. Never substitute production keys or real cardholder data.</p>
+            <ul>
+                <li>To keep a second edited copy, change <code>payload.id</code> to a new lowercase, hyphenated Profile ID. Changing the filename alone does not avoid duplicate-ID rejection.</li>
+                <li>When changing a PAN, update every associated PAN/Track 2 value and keep the check digit valid. Signed test certificates can also bind the PAN: do not independently edit Mastercard's PAN, RSA material or certificates without rebuilding the dependent fixture.</li>
+                <li>When changing an AID, label or EMV value, also update related response TLVs and lengths. Changing application metadata does not rewrite APDU responses automatically.</li>
+                <li>When changing a key, recompute its supplied KCV and update the test host configuration. Keeping an old KCV deliberately causes import rejection.</li>
+            </ul>
+            <div class="guide-note"><p>Importable JSON cannot contain comments. Unknown payload fields such as <code>_comment</code>, <code>optional</code> or <code>mandatory</code> are also rejected. This field reference supplies the annotations without breaking the downloads; use the supported <code>description</code> and <code>testScenarios</code> fields for guidance inside the file.</p></div>
         </section>
         <section aria-labelledby="analysis-trace">
             <h2 id="analysis-trace">EMV analysis trace</h2>

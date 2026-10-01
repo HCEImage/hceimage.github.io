@@ -1,0 +1,248 @@
+{
+  "format": "com.hceimage.definition",
+  "schemaVersion": 1,
+  "kind": "card-profile",
+  "payload": {
+    "schemaVersion": 1,
+    "id": "web-example-mastercard-online-pin",
+    "name": "Mastercard example",
+    "description": "Synthetic Mastercard contactless online test profile with a test-only PAN and public demonstration keys. No CVM below the configured terminal limit; online PIN above it. For authorized test terminals and host simulators only. Terminal and host configuration determine acceptance and approval. Its public synthetic PAN, test certificates and artificial ICC RSA key remain a consistent CDA fixture.",
+    "brand": "MASTERCARD",
+    "formFactor": "PHYSICAL",
+    "technologies": [
+      "EMV_CONTACTLESS"
+    ],
+    "source": {
+      "format": "CUSTOM",
+      "author": "HCEImage",
+      "originalId": "mastercard-mcc-404",
+      "originalDescription": "Adapted from the bundled test profile with public demonstration keys. Visa and Amex use newly invented test PANs; Mastercard retains its public synthetic PAN and matching test certificates."
+    },
+    "applications": [
+      {
+        "aid": "A0000000041010",
+        "label": "MCC_404",
+        "pan": "5413330057004047",
+        "cdol1": "9F02069F03069F1A0295055F2A029A039C019F37049F35019F45029F4C089F3403",
+        "crypto": {
+          "algorithm": "MASTERCARD_MCHIP_4",
+          "testMasterKeyAc": "0123456789ABCDEFFEDCBA9876543210",
+          "panSequenceNumber": "01",
+          "applicationInterchangeProfile": "1980",
+          "testMasterKeyIdn": "00112233445566778899AABBCCDDEEFF",
+          "keyDerivationIndex": "01",
+          "cryptogramVersionNumber": "10",
+          "cardVerificationResults": "A00000040000",
+          "offlineCounters": "00000000000000FF",
+          "testIccPrivateKey": {
+            "modulus": "900000000000000000000000001200000000000000000000000000000000480000000000000000000000000000000010800000000000000000000000019800000000000000000000000000000006600000000000000000000000000000000055",
+            "publicExponent": "03",
+            "primeP": "C00000000000000000000000001800000000000000000000000000000000600000000000000000000000000000000005",
+            "primeQ": "C00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011",
+            "exponentP": "800000000000000000000000001000000000000000000000000000000000400000000000000000000000000000000003",
+            "exponentQ": "80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000B",
+            "coefficient": "136A364982B6FBD372A1E549D233A94637F14392C48CD4B316190FA7BCEBB1E83604D32DDAB39C83C6E2C6FD92613813"
+          },
+          "testMasterKeyAcKcv": "08D7B4",
+          "testMasterKeyIdnKcv": "FB0975"
+        }
+      }
+    ],
+    "apduRules": [
+      {
+        "id": "select-1-1",
+        "name": "SELECT PPSE",
+        "request": {
+          "cla": "00",
+          "ins": "A4",
+          "p1": "04",
+          "dataPattern": "325041592E5359532E4444463031"
+        },
+        "response": {
+          "data": "6F23840E325041592E5359532E4444463031A511BF0C0E610C4F07A0000000041010870101",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "select-2-1",
+        "name": "SELECT application",
+        "request": {
+          "cla": "00",
+          "ins": "A4",
+          "p1": "04",
+          "dataPattern": "A0000000041010"
+        },
+        "response": {
+          "data": "6F218407A0000000041010A51650074D43435F343034BF0C0A9F6E0700560000303000",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "gpo-2-2",
+        "name": "GET PROCESSING OPTIONS",
+        "request": {
+          "cla": "80",
+          "ins": "A8",
+          "p1": "00",
+          "p2": "00"
+        },
+        "response": {
+          "data": "771682021980941008010101100102001801010020010100",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "readrecord-2-3",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "01",
+          "p2": "0C"
+        },
+        "response": {
+          "data": "70819A57115413330057004047D3512201055420977F5A0854133300570040475F24033512315F25034901015F280200565F3401018C219F02069F03069F1A0295055F2A029A039C019F37049F35019F45029F4C089F34038D0C910A8A0295059F37049F4C088E0A000000000000000042039F0702FF009F080200029F0D0500200000009F0E0500000000009F0F0500200000009F420209789F4A0182",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "readrecord-2-4",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "01",
+          "p2": "14"
+        },
+        "response": {
+          "data": "70055F30020201",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "readrecord-2-5",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "02",
+          "p2": "14"
+        },
+        "response": {
+          "data": "7081FB9081F87FCED3CEBDCAD7B52AF7EDEA88EF7DE8BB4745AB2D94D7BCC592305E0080CC0E495E06C76ED3B18F83FB4CA8B9890A5402EBDC134D7703CC703C9AA1E88CF92B400158EB080A4EF7E08B4A81186EA7D0F5051E36CB26F217AE18E686DF1B4B59FA2809FEDD7A59B396E42D383E8DAB2DD08EC1C8FE6742E1549995029D520B03E68440B15D86AFE68E9B7F68626FA626163FE836D2891A6A3A255E36FC9799F289F4456DCCC4C3C01A4E6B8976790A99EBD2C5FCAFDA8B8852C76DBEBC8C03941539DF8D305CEAF20F5D1489BA58CEE3623F9194EA0CA8FFFEF266EC86BD8489233A44E6DFB27ED2C946630F65B4CC51E45C04A56086F02D",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "readrecord-2-6",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "01",
+          "p2": "1C"
+        },
+        "response": {
+          "data": "701C8F01EF9F32030100019F4701039F480C000000000000000000000055",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "readrecord-2-7",
+        "name": "READ RECORD",
+        "request": {
+          "cla": "00",
+          "ins": "B2",
+          "p1": "01",
+          "p2": "24"
+        },
+        "response": {
+          "data": "7081819F467E0CB7E81AEA3F0AC9464CF6DE34AF66974E76A94C9614DCE5C6E79CB54B8710C2844B0CBDAFA7D747FB636B899C61752146F4DB27CE154F150E9625E6998FA54EC11F19D45F39F7419E1C93C8D2243A30A404E7E6A00AFB53EA32C952DEA594DA0058157F09C8977FBA2A0D9B091E6691F9CD2C7E96BB918DD648867117AF",
+          "statusWord": "9000"
+        },
+        "outcome": "CONTINUE"
+      },
+      {
+        "id": "genac-2-8",
+        "name": "GENERATE AC",
+        "request": {
+          "cla": "80",
+          "ins": "AE"
+        },
+        "response": {
+          "data": "",
+          "statusWord": "9000"
+        },
+        "outcome": "SUCCESS"
+      }
+    ],
+    "expectedFlow": [
+      "select-1-1",
+      "select-2-1",
+      "gpo-2-2",
+      "readrecord-2-3",
+      "readrecord-2-4",
+      "readrecord-2-5",
+      "readrecord-2-6",
+      "readrecord-2-7",
+      "genac-2-8"
+    ],
+    "testScenarios": [
+      {
+        "id": "no-cvm",
+        "name": "No CVM purchase",
+        "transactionType": "PURCHASE",
+        "amountCondition": "BELOW_CVM_LIMIT",
+        "amountNote": "Use an amount below the terminal contactless CVM limit.",
+        "expectedCvm": "NO_CVM",
+        "expectedOutcome": "ONLINE_AUTHORIZATION",
+        "terminalSetup": [
+          "Enable Mastercard contactless online processing.",
+          "Start emulation before presenting the phone.",
+          "Configure the test card/BIN table for synthetic PAN 5413330057004047 if required.",
+          "The application-cryptogram key is a public demonstration key with KCV 08D7B4; configure the host simulator accordingly if it verifies cryptograms."
+        ],
+        "knownLimitations": [
+          "A successful card flow requests online authorization; final approval or decline depends on the connected test host.",
+          "The PAN and cryptographic keys are public synthetic test values, not real payment credentials.",
+          "A supported AID alone does not ensure the payment application accepts the test PAN; UNKNOWN_CARD indicates a test card-table or routing limitation.",
+          "These profiles are examples, not certified scheme test cases. A host decline does not by itself mean the NFC read failed.",
+          "The public synthetic PAN and artificial ICC RSA test key are retained with their matching test certificates; do not substitute a PAN without regenerating dependent certificates.",
+          "Offline authentication depends on the test CA keys configured in the terminal."
+        ]
+      },
+      {
+        "id": "online-pin",
+        "name": "Online PIN purchase",
+        "transactionType": "PURCHASE",
+        "amountCondition": "ABOVE_CVM_LIMIT",
+        "amountNote": "Use an amount above the terminal contactless CVM limit.",
+        "expectedCvm": "ONLINE_PIN",
+        "testPin": "1234",
+        "pinNote": "Enter the test PIN on the terminal when prompted. HCE Test Tool does not verify it; PIN validation depends on the connected test host.",
+        "expectedOutcome": "ONLINE_AUTHORIZATION",
+        "terminalSetup": [
+          "Enable Mastercard contactless online PIN processing.",
+          "Start emulation before presenting the phone.",
+          "Configure the test card/BIN table for synthetic PAN 5413330057004047 if required.",
+          "The application-cryptogram key is a public demonstration key with KCV 08D7B4; configure the host simulator accordingly if it verifies cryptograms."
+        ],
+        "knownLimitations": [
+          "A successful card flow requests online authorization; final approval or decline depends on the connected test host.",
+          "The PAN and cryptographic keys are public synthetic test values, not real payment credentials.",
+          "A supported AID alone does not ensure the payment application accepts the test PAN; UNKNOWN_CARD indicates a test card-table or routing limitation.",
+          "These profiles are examples, not certified scheme test cases. A host decline does not by itself mean the NFC read failed.",
+          "The public synthetic PAN and artificial ICC RSA test key are retained with their matching test certificates; do not substitute a PAN without regenerating dependent certificates.",
+          "Offline authentication depends on the test CA keys configured in the terminal."
+        ]
+      }
+    ]
+  }
+}

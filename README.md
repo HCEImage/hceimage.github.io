@@ -16,7 +16,19 @@ It has no application backend, analytics or build dependency.
 - [ECR privacy policy](ecr-test-tool/privacy-policy/index.html) — retained locally but omitted from navigation and sitemap
 - [Shared styles](assets/styles.css) and [sitemap](sitemap.xml)
 
-## Publication boundary
+## Current publication status
+
+The owner confirmed HCE Test Tool approval and production publication on 2026-10-01. Its native
+profile-import functionality, updated listing and screenshots are released. The previously
+published guides and policies accompany that release. The follow-up website update adds visible
+format-specification entry points and three downloadable, validated synthetic profile examples.
+No app release numbers appear in public website copy. EMV remains in open testing; ECR has no
+store action and its retained guide/policy routes remain absent from navigation and sitemap.
+
+Production publication does not establish that an existing device has received its in-place
+Play update; that preservation check remains tracked in the HCE release documentation.
+
+## Publication procedure
 
 The site describes the prepared application functionality. Before publication, check the
 matching application artifacts, Play listing, availability links and policy declarations. For the
@@ -25,10 +37,10 @@ matching guides and privacy policy, then submit the prepared Console changes for
 Console release is not a publicly available update. Editing or committing this repository does not
 publish the site; publishing requires a separate push and successful GitHub Pages deployment.
 
-The prepared HCE Play description and screenshots include native profile import and distinguish
+The published HCE Play description and screenshots include native profile import and distinguish
 persistent imported-profile defaults from the default one-use Emulator override and the optional
-keep-until-app-close choice. These Console changes still need review and publication; do not record
-the new application release as live merely because its store assets or bundle have been saved.
+keep-until-app-close choice. Record application publication only with actual confirmation from
+the owner or Play Console, not merely because store assets or a bundle have been saved.
 
 The HCE Google Play link points to its production listing. The EMV link points to its open-test
 enrollment. ECR has no store action. The application cards identify supported platforms rather
@@ -56,7 +68,10 @@ cards, policy links and actions aligned across desktop and mobile widths. Use ap
 language for diagnostic boundaries, avoid app release numbers in public copy, and distinguish
 document schema numbers from app versions.
 
-## Local verification
+## Verification history
+
+The entries below record the state at each review/publication step. References to drafts or pending
+application review describe those earlier steps, not the current owner-confirmed production status.
 
 On 2026-10-01, the local pages were checked for app-version-free public wording, consistent
 distribution links, shared styling, valid internal routes and anchors, and the absence of external
@@ -90,6 +105,37 @@ typography and light/dark colors. Format tables scroll inside their own region o
 JSON examples and tables are keyboard-focusable. The stylesheet cache key is consistent across
 all pages.
 
+The specification discoverability follow-up adds matching reference cards to the HCE profile-import
+and EMV trace workflows, plus direct card-profile and analysis-trace buttons in the Exchange formats
+overview. Both link to anchors in the existing shared specification without duplicating it.
+The cards reuse the shared card and button styles, with
+wrapping labels for narrow screens. The follow-up stylesheet cache key is `20261001-3` on all pages.
+
+The JSON guide contains three downloadable contactless online examples under
+`guides/hceimage-json/examples/`: Visa, Mastercard and American Express. Their separate
+`web-example-…-online-pin` IDs avoid the bundled catalog and supersede the minimal label-only
+scripts. These examples adapt the bundled, terminal-oriented APDU flows and include coherent
+PAN/Track 2 data, DOL inputs and public demonstration security defaults. Visa and Amex have newly
+invented test PANs. Mastercard retains its already-public synthetic PAN, artificial ICC RSA key
+and matching test certificate records so that changing a PAN does not break signed dependencies.
+All application-cryptogram keys are the public demonstration key with KCV 08D7B4; Mastercard's
+dynamic-number key has KCV FB0975. No production credentials or device-session data are included.
+Provenance identifies the bundled starting point, not a claim of certification or authenticity.
+
+The guide explains download/import, small/above-CVM-limit test transactions, test PINs, terminal
+card/BIN configuration, host-key requirements, and required/optional/conditional field groups.
+JSON comments and extra annotation fields are deliberately excluded because the importer rejects
+them. Annotations live in the field reference and supported descriptions/scenario guidance.
+Download actions and raw-file viewing links reuse the shared card/button system. The HCE guide and
+formats overview link directly to examples. The files pass the actual JVM import validator with
+no warnings, reject duplicate IDs and incorrect KCVs, and complete 4/9/11 APDUs respectively with
+9000, final Success and successful local session checks. This does not establish host approval,
+test CA configuration or compatibility with every physical terminal; the final modified files
+were subsequently tested by the owner on the connected Samsung and test terminal: import and
+emulation passed for all three. This reports the manual test, not a guarantee of other terminal
+configurations or host approval. Display names are Visa example, Mastercard example and American
+Express example; removing “terminal” from the names does not change Profile IDs or behavior.
+
 The guide review checked the HCE native-profile validator and private no-backup store, EMV trace
 documentation and History controls, ECR architecture and TCP transport, shared format rules, and
 in-app guide URLs. HCE guidance now explains APDU timing boundaries, deletion without erasing old
@@ -112,3 +158,14 @@ website publication does not establish that the new application is available on 
 All revised policies use the publication date in both HTML and their application Markdown copies.
 The retained ECR pages remain omitted from navigation and sitemap. Confirm live page content after
 the Pages deployment before submitting the Console changes for review.
+
+## Production follow-up — 2026-10-01
+
+The owner confirmed application approval/publication and authorized this follow-up website
+deployment. All nine pages passed another 54-render check at 360/768/1440 pixels in light/dark
+modes, with no broken internal links, missing images, page overflow or browser errors. The example
+cards were visually inspected in desktop light and phone dark layouts. Actual browser downloads
+return the three expected `.hceimage.json` filenames and match the reviewed local bytes. All three
+files pass native import, duplicate-ID/KCV rejection and complete engine/session validation.
+Privacy text and dates match all three application Markdown copies. No policy wording change was
+needed for the public synthetic examples; hosting remains separate from application processing.

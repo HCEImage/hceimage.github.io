@@ -61,10 +61,14 @@
             <h2 id="inspect-data">Inspect APDU and EMV data</h2>
             <p>Application details organize discovered records and tags. The APDU timeline exposes raw commands and responses with contextual command, status-word, BER-TLV and DOL decoding where their meaning is known. All tags is an offline view of the already captured analysis, not an additional card read. Bundled Tag reference and APDU response-code screens help interpret recognized values without sending analysis data to a network service.</p>
         </section>
+        <section aria-labelledby="response-timing">
+            <h2 id="response-timing">Understand Card response timing</h2>
+            <p>Card response shows the recorded time spent exchanging one APDU command with the card, including reader communication and waiting for the response. It is not a measurement of card processing alone. If no complete response arrives, the available timing describes the unsuccessful exchange. Duration in the analysis summary covers the overall analysis. Older captures without a measurement show Not recorded rather than zero.</p>
+        </section>
         <section aria-labelledby="history-reports">
             <h2 id="history-reports">Use history, reports and traces</h2>
             <p>Analysis snapshots and optional notes are stored locally on the device. History supports result filtering, single-record deletion with Undo, clearing history, detailed report export and portable diagnostic traces through Android system interfaces. Reports can be saved or shared in Markdown, HTML or PDF; Trace exports a native JSON file. Import trace opens a local file for preview; choose Save to history only if you want to keep that imported analysis.</p>
-            <p>Full evidence exports may contain captured APDUs, notes and sensitive card data. Redacted exports remove card-derived values and notes while preserving diagnostic structure. Redacted is not a guarantee of anonymity: review the retained diagnostic context before sharing either form. An imported Redacted trace cannot restore the removed values. Review the selected evidence level and resulting file before sharing it.</p>
+            <p>Full evidence exports may contain captured APDUs, notes and sensitive card data. Redacted exports remove card-derived values and notes while preserving diagnostic structure. Redacted is not a guarantee of anonymity: review the retained diagnostic context before sharing either form. An imported Redacted trace cannot restore the removed values and can only be exported again as Redacted. Review the selected evidence level and resulting file before sharing it.</p>
             <p>A <code>.hceimage.json</code> trace identifies itself as <code>com.hceimage.diagnostic</code> / <code>emv-analysis</code>. It is a recorded diagnostic result, not an HCE card profile.</p>
             <aside class="guide-card format-reference" aria-labelledby="trace-format-title">
                 <p class="app-status">Exchange formats · HCEImage JSON</p>

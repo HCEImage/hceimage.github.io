@@ -169,3 +169,19 @@ return the three expected `.hceimage.json` filenames and match the reviewed loca
 files pass native import, duplicate-ID/KCV rejection and complete engine/session validation.
 Privacy text and dates match all three application Markdown copies. No policy wording change was
 needed for the public synthetic examples; hosting remains separate from application processing.
+
+## EMV publication follow-up — 2026-10-05
+
+The owner confirmed approval and complete EMV open-testing publication. The trace specification
+now uses `payload.schemaVersion` in its structure, with one sentence explaining that import also
+accepts legacy `payload.payloadVersion`. Detailed compatibility rules stay in the application's
+technical documentation. The EMV guide explains Card response exchange timing, overall Duration,
+missing measurements and the restriction on exporting an imported Redacted trace.
+
+Before this follow-up, all nine live HTML pages, the shared stylesheet, sitemap and three
+synthetic downloadable profile examples matched the repository byte for byte. All 79 internal
+references resolved, the three examples parsed with envelope/payload schema 1, and no application
+release numbers appeared in public HTML. Home, availability links and all three policy texts were
+reviewed against the application documentation. Privacy wording and October 1 dates remain unchanged;
+ECR routes remain absent from navigation and sitemap. Deployment of this follow-up is separate
+from application publication and must be verified after push.

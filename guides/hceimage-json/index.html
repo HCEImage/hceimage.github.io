@@ -173,13 +173,13 @@
         </section>
         <section aria-labelledby="analysis-trace">
             <h2 id="analysis-trace">EMV analysis trace</h2>
-            <p>EMV Card Analyzer exports a captured diagnostic result for later inspection. Its envelope uses <code>format: com.hceimage.diagnostic</code> and <code>kind: emv-analysis</code>. The trace schema is in <code>payload.payloadVersion</code>; <code>producer.versionName</code> records the creating app release, not the document schema.</p>
+            <p>EMV Card Analyzer exports a captured diagnostic result for later inspection. Its envelope uses <code>format: com.hceimage.diagnostic</code> and <code>kind: emv-analysis</code>. The trace schema is in <code>payload.schemaVersion</code>; <code>producer.versionName</code> records the creating app release, not the document schema.</p>
             <pre tabindex="0" role="region" aria-label="Analysis-trace envelope example"><code>{
   "format": "com.hceimage.diagnostic",
   "schemaVersion": 1,
   "kind": "emv-analysis",
   "payload": {
-    "payloadVersion": 1,
+    "schemaVersion": 1,
     "evidence": "Redacted",
     "producer": {
       "applicationId": "com.hceimage.emvcardanalyzer",
@@ -188,6 +188,7 @@
   }
 }</code></pre>
             <p class="example-caption">Structure illustration only: an importable trace also needs the result, timing, APDU exchanges and application data.</p>
+            <p>Export uses <code>payload.schemaVersion</code>. Import also accepts the legacy field <code>payload.payloadVersion</code>.</p>
             <div class="spec-table" role="region" aria-label="EMV analysis payload fields" tabindex="0">
                 <table>
                     <thead><tr><th scope="col">Payload field</th><th scope="col">Purpose</th></tr></thead>

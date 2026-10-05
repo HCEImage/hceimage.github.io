@@ -183,5 +183,7 @@ synthetic downloadable profile examples matched the repository byte for byte. Al
 references resolved, the three examples parsed with envelope/payload schema 1, and no application
 release numbers appeared in public HTML. Home, availability links and all three policy texts were
 reviewed against the application documentation. Privacy wording and October 1 dates remain unchanged;
-ECR routes remain absent from navigation and sitemap. Deployment of this follow-up is separate
-from application publication and must be verified after push.
+ECR routes remain absent from navigation and sitemap. The follow-up was pushed to GitHub Pages and the two changed guides were fetched from the
+public site after deployment; both match the committed HTML byte for byte. The other twelve
+reviewed public files also match their repository copies. Website deployment is complete and
+remains separate from the pending application Play-upgrade verification.

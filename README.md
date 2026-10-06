@@ -22,7 +22,7 @@ The owner confirmed HCE Test Tool approval and production publication on 2026-10
 profile-import functionality, updated listing and screenshots are released. The previously
 published guides and policies accompany that release. The follow-up website update adds visible
 format-specification entry points and three downloadable, validated synthetic profile examples.
-No app release numbers appear in public website copy. EMV remains in open testing; ECR has no
+No app release numbers appear in public website copy. EMV production publication was confirmed on 2026-10-06; ECR has no
 store action and its retained guide/policy routes remain absent from navigation and sitemap.
 
 Production publication does not establish that an existing device has received its in-place
@@ -42,8 +42,7 @@ persistent imported-profile defaults from the default one-use Emulator override 
 keep-until-app-close choice. Record application publication only with actual confirmation from
 the owner or Play Console, not merely because store assets or a bundle have been saved.
 
-The HCE Google Play link points to its production listing. The EMV link points to its open-test
-enrollment. ECR has no store action. The application cards identify supported platforms rather
+The HCE and EMV Google Play links point to their production listings. ECR has no store action. The application cards identify supported platforms rather
 than embedding app release numbers or treating distribution tracks as product capabilities.
 
 ## Privacy and effective dates
@@ -187,3 +186,12 @@ ECR routes remain absent from navigation and sitemap. The follow-up was pushed t
 public site after deployment; both match the committed HTML byte for byte. The other twelve
 reviewed public files also match their repository copies. Website deployment is complete and
 remains separate from the pending application Play-upgrade verification.
+
+## EMV production availability — 2026-10-06
+
+The owner confirmed approval and production publication, including the six store-listing
+languages. Home and the EMV guide now link to the production Google Play listing and use the
+same Get it on Google Play action as HCE. Public pages remain free of application release numbers.
+Privacy wording, effective dates, guides, JSON structures, artwork and shared styling otherwise
+remain unchanged. Store translations do not imply translated application or website interfaces.
+Open-testing shutdown is owner-operated and has not yet been confirmed.

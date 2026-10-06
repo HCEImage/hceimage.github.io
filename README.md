@@ -194,4 +194,5 @@ languages. Home and the EMV guide now link to the production Google Play listing
 same Get it on Google Play action as HCE. Public pages remain free of application release numbers.
 Privacy wording, effective dates, guides, JSON structures, artwork and shared styling otherwise
 remain unchanged. Store translations do not imply translated application or website interfaces.
-Open-testing shutdown is owner-operated and has not yet been confirmed.
+The owner confirmed that open testing was paused on 2026-10-06. Production remains active;
+this track-status confirmation requires no further public-page change.

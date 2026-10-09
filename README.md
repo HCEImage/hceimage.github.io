@@ -18,6 +18,23 @@ It has no application backend, analytics or build dependency.
 
 ## Current publication status
 
+Local closeout on 2026-10-10 includes developer guides, privacy wording and the three downloadable
+examples. All nine HTML pages passed internal link, anchor and asset validation; example envelopes
+remain schema 1 and card-profile payloads schema 2. Changes are committed locally only: no push
+or GitHub Pages publication is authorized for this closeout.
+
+Local security/schema follow-up: the card-profile reference and three downloads now use payload
+schema 2 inside envelope schema 1. The reference explains generated legacy per-card keys, optional
+KCV checking, fixed-result overrides, and the distinction from application cryptogram master keys.
+EMV trace payload schema remains 1. These changes are prepared locally and are not yet published.
+The HCE guide also reflects Copy/Created provenance and the private persistence boundary; its
+local privacy page is aligned with the project policy, including legacy keys and excluding
+temporary overrides from profile copies. No new collection or network processing is introduced.
+Local verification: all nine HTML pages and internal links/anchors/assets passed, with no page
+overflow in desktop and mobile browser checks. The three schema-2 downloads passed the actual
+HCE native importer, including the Amex APDU/session check. The new reference section was visually
+reviewed at desktop/mobile widths. Publication remains a separate, explicitly authorized step.
+
 The owner confirmed HCE Test Tool approval and production publication on 2026-10-01. Its native
 profile-import functionality, updated listing and screenshots are released. The previously
 published guides and policies accompany that release. The follow-up website update adds visible

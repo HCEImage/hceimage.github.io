@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "kind": "card-profile",
   "payload": {
-    "schemaVersion": 1,
+    "schemaVersion": 2,
     "id": "web-example-visa-online-pin",
     "name": "Visa example",
     "description": "Synthetic Visa contactless online test profile with a test-only PAN and public demonstration keys. No CVM below the configured terminal limit; online PIN above it. For authorized test terminals and host simulators only. Terminal and host configuration determine acceptance and approval.",

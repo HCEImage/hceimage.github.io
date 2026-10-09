@@ -56,19 +56,20 @@
   "schemaVersion": 1,
   "kind": "card-profile",
   "payload": {
-    "schemaVersion": 1,
+    "schemaVersion": 2,
     "id": "example-profile",
     "name": "Example profile"
   }
 }</code></pre>
             <p class="example-caption">Structure illustration only: this omits required profile fields and cannot be imported as-is.</p>
+            <div class="guide-note"><p><strong>Two independent schemas:</strong> the shared envelope uses <code>schemaVersion: 1</code>; current card profiles and downloads use <code>payload.schemaVersion: 2</code>. HCE import supports payload schemas 1 and 2. Schema 2 adds optional legacy per-card cryptography, not a required key group for every profile. A reader supporting only payload schema 1 cannot import a schema-2 file. <strong>Payload schema version</strong> in profile detail and import preview refers to the inner value. Neither number is the app version.</p></div>
             <div class="spec-table" role="region" aria-label="Card-profile payload fields" tabindex="0">
                 <table>
                     <thead><tr><th scope="col">Payload field</th><th scope="col">Purpose</th></tr></thead>
                     <tbody>
                         <tr><th scope="row"><code>id</code>, <code>name</code>, <code>description</code></th><td>Stable Profile ID and display text. Imported IDs must be unique.</td></tr>
                         <tr><th scope="row"><code>brand</code>, <code>formFactor</code>, <code>technologies</code></th><td>Payment brand, physical/tokenized scenario and contactless processing paths.</td></tr>
-                        <tr><th scope="row"><code>applications[]</code></th><td>AIDs and application settings, including optional profile-default test security data in <code>crypto</code>.</td></tr>
+                        <tr><th scope="row"><code>applications[]</code></th><td>AIDs and application settings, including optional profile-default test security data in <code>crypto</code> or schema-2 <code>legacyCrypto</code>.</td></tr>
                         <tr><th scope="row"><code>apduRules[]</code>, <code>expectedFlow[]</code></th><td>APDU request/response behavior and rule IDs expected during validation.</td></tr>
                         <tr><th scope="row"><code>testScenarios[]</code></th><td>Optional terminal setup, CVM and expected-outcome guidance; it does not drive the terminal or host.</td></tr>
                         <tr><th scope="row"><code>source</code></th><td>Optional development provenance, not a signature or authenticity claim.</td></tr>
@@ -79,11 +80,23 @@
             <p>Each <code>apduRules[]</code> entry gives an ID, a command matcher (<code>request</code>), a fixed or templated <code>response</code>, and an outcome. <code>expectedFlow[]</code> refers to those IDs. <code>testScenarios[]</code> may describe transaction amount conditions, expected CVM, a Test PIN and terminal setup, but those instructions do not execute a transaction. In-app import accepts supported Visa, Mastercard and American Express profiles only and checks the primary AID, brand and cryptogram algorithm together.</p>
             <ol>
                 <li>Prepare a complete UTF-8 native definition of at most 1 MB with synthetic test values only. Start with a <a href="#profile-examples">downloadable example</a> or use a bundled profile as a structural reference.</li>
-                <li>In HCE Test Tool, open <strong>Card profiles → Import profile</strong> and select the file.</li>
+                <li>In HCE Test Tool, open <strong>Card profiles → Import</strong> and select the file.</li>
                 <li>Review the preview, warnings and Profile ID, then confirm. Invalid structure, unsupported brands or duplicate IDs block import.</li>
                 <li>Select the imported profile in the Emulator and review its Test guidance before starting a controlled NFC test.</li>
             </ol>
             <div class="guide-note"><p>Test security data embedded in a profile persists with its private imported file. Values entered later in the Emulator are separate in-memory overrides and do not edit that file. Keep the original for re-import; imported profiles are excluded from Android backup. Never use production keys or real payment credentials.</p></div>
+            <h3 id="legacy-security">Legacy per-card cryptography</h3>
+            <p>Payload schema 2 adds optional <code>applications[].legacyCrypto</code> for Visa MSD and Mastercard MSI. This group is separate from EMV <code>crypto</code>; the two groups cannot coexist in one application. Its algorithm must match the brand and a <code>MAGSTRIPE_CONTACTLESS</code> flow. Schema-1 profiles cannot contain this group.</p>
+            <pre tabindex="0" role="region" aria-label="Legacy card-key group example"><code>"legacyCrypto": {
+  "algorithm": "VISA_MSD_DCVV",
+  "testCardKey": "0123456789ABCDEFFEDCBA9876543210",
+  "testCardKeyKcv": "08D7B4"
+}</code></pre>
+            <p class="example-caption">Excerpt for a complete Visa MSD application, not a standalone import. For Mastercard MSI use <code>MASTERCARD_MSI_CVC3</code>. The public demonstration key provides no secrecy.</p>
+            <p><code>testCardKey</code> is a mandatory personalized 16-byte, two-key TDES synthetic card key, not an issuer master key. Optional <code>testCardKeyKcv</code> is six hexadecimal digits and must match the first three bytes of TDES encryption of a zero block. Import checks the key, brand, PAN/track consistency and required command inputs; an empty or incomplete group is rejected.</p>
+            <p>Visa MSD generates three decimal dCVV digits and uses the rightmost four decimal ATC digits. Mastercard MSI generates binary Track 1/2 CVC3 from the track templates read in that transaction, the UDOL unpredictable number and binary ATC; the reader inserts decimal results into its tracks. Terminal and test-host configurations must support the selected flow and matching synthetic keys.</p>
+            <p>In <strong>Test security data</strong>, leave the controls unchanged for profile defaults, enable <strong>Custom legacy cryptography key</strong> for a complete temporary card-key replacement, or use <strong>Fixed legacy verification results</strong> for deliberate test values. Custom-key and fixed-result modes are mutually exclusive. Fields are masked; summaries expose KCVs, not keys. Older profiles without <code>legacyCrypto</code> keep scripted results.</p>
+            <p>American Express AEIPS uses its existing <code>crypto</code> MK-AC group for CVN 01 EMV and CVN 02 magstripe. The selected GPO AIP and returned CDOL1 determine the branch; the response IAD reports the same CVN and CVR used in cryptogram generation. Do not add a Visa/MC legacy-key group to an Amex profile. These are synthetic test implementations, not real wallet provisioning or certification.</p>
         </section>
         <section aria-labelledby="profile-examples">
             <h2 id="profile-examples">Downloadable card-profile examples</h2>
@@ -120,7 +133,7 @@
             </div>
             <h3>Import and test on a terminal</h3>
             <ol>
-                <li>Download a JSON file to your Android device. In HCE Test Tool, choose <strong>Card profiles → Import profile</strong>, select it, review the metadata and confirm. Each example has a separate Profile ID from the bundled catalog.</li>
+                <li>Download a JSON file to your Android device. In HCE Test Tool, choose <strong>Card profiles → Import</strong>, select it, review the metadata and confirm. Each example has a separate Profile ID from the bundled catalog. Downloads use envelope schema 1 and payload schema 2.</li>
                 <li>Select the imported example in the Emulator and open its <strong>Test guidance</strong>. Start with a small purchase below the test terminal's contactless CVM limit; then test above the limit for online PIN. The Visa example's Test PIN is <code>123412</code>; Mastercard and Amex use <code>1234</code>. HCE Test Tool does not verify the PIN: the configured test host determines the outcome.</li>
                 <li>Enable the matching brand and AID on an authorized test terminal. Configure its test card/BIN table for the example PAN and, if it verifies cryptograms, configure the host simulator with the demonstration keys and matching derivation settings.</li>
                 <li>Start emulation before presenting the phone. The terminal builds PDOL/CDOL data and chooses its own command flow; inspect the APDU timeline and the terminal result separately.</li>
@@ -153,6 +166,8 @@
                         <tr><th scope="row"><code>crypto.algorithm</code>, <code>testMasterKeyAc</code>, <code>panSequenceNumber</code>, <code>applicationInterchangeProfile</code></th><td>Required inside crypto</td><td>The algorithm must be supported for the brand. Other algorithm-specific parameters may also be required.</td></tr>
                         <tr><th scope="row">Mastercard/Amex crypto parameters; RSA/fast-DDA groups</th><td>Conditional</td><td>Mastercard needs its dynamic-number key and M/Chip parameters; Amex needs AEIPS parameters. A CDA or fast-DDA path also needs the relevant complete RSA data and compatible records/certificates.</td></tr>
                         <tr><th scope="row"><code>testMasterKeyAcKcv</code>, <code>testMasterKeyIdnKcv</code></th><td>Optional; verified if supplied</td><td>A three-byte KCV must match its corresponding test key. The examples include KCVs to demonstrate this check.</td></tr>
+                        <tr><th scope="row"><code>legacyCrypto.algorithm</code>, <code>testCardKey</code></th><td>Required inside legacyCrypto</td><td>Payload schema 2 only. Visa MSD or Mastercard MSI with a matching brand/flow and a complete synthetic per-card TDES key. Cannot coexist with EMV crypto in one application.</td></tr>
+                        <tr><th scope="row"><code>legacyCrypto.testCardKeyKcv</code></th><td>Optional; verified if supplied</td><td>Six hexadecimal digits matching the per-card key. Omit the whole legacy group when it is not needed; an empty group is invalid.</td></tr>
                         <tr><th scope="row"><code>apduRules[]</code>; rule <code>id</code>, <code>name</code>, <code>request</code>, <code>response</code></th><td>Required</td><td>At least one rule. Its request needs CLA/INS; other matching fields are optional. Response data defaults to empty and status to 9000, but the response must satisfy the selected card flow.</td></tr>
                         <tr><th scope="row"><code>expectedFlow[]</code>, <code>testScenarios[]</code></th><td>Optional</td><td>Flow entries must reference rule IDs. A scenario needs its ID, name and expected outcome. Guidance explains terminal setup; it does not configure the terminal or host.</td></tr>
                     </tbody>
@@ -205,12 +220,13 @@
             <p>Each <code>exchanges[]</code> item contains APDU command hex and an optional response, payment-scheme/AID context, optional PDOL/CDOL1 data, a label, optional local errors and optional <code>durationMillis</code>. Each <code>applications[]</code> item records the discovered AID, labels, scheme, processing/read status and optional <code>facts[]</code>. A fact carries its tag, decoded value and <code>sourceApdus</code> indices into the exchange list. The import checks final result state, timestamps, APDU framing and bounded collection sizes before it can be saved.</p>
             <ol>
                 <li>Open a saved analysis in <strong>History → Export → Trace</strong>, choose Full evidence or Redacted, then save or share deliberately.</li>
-                <li>On another installation, choose <strong>History → Import trace</strong>. Inspect the preview before choosing <strong>Save to history</strong>; Back discards it.</li>
+                <li>On another installation, choose <strong>History → Import</strong>. Inspect the preview before choosing <strong>Save to history</strong>; Back discards it.</li>
             </ol>
             <div class="guide-note"><p>Full evidence may include sensitive card-derived APDUs, decoded values and notes. Redacted removes those values while retaining diagnostic structure; removed evidence cannot be restored later. Import checks structure, not whether a physical card produced the trace.</p></div>
         </section>
         <section aria-labelledby="compatibility">
             <h2 id="compatibility">Compatibility boundary</h2>
+            <p>The shared envelope stays at schema 1. Card-profile payload schema 2 and EMV analysis payload schema 1 are independent: upgrading a profile does not upgrade a trace or the envelope. The trace importer accepts legacy <code>payload.payloadVersion</code> as an alias, but HCE card-profile import uses <code>payload.schemaVersion</code> only.</p>
             <p>These files cannot be exchanged between the two importers: HCE Test Tool does not import analysis traces, and EMV Card Analyzer does not import card profiles. Renaming a file does not convert it. A profile definition is an input for controlled emulation; an analysis trace is an output from a recorded NFC read. Neither file is a payment credential, approval record or certification result.</p>
         </section>
         <div class="guide-actions">

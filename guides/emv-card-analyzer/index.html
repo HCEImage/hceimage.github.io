@@ -32,6 +32,7 @@
         <p class="lead">Run a bounded EMV analysis over Android NFC, follow the APDU exchange and preserve diagnostic results locally.</p>
     </header>
     <article class="guide-content">
+        <div class="guide-note"><p>Native analysis traces use envelope schema 1 and their own <code>payload.schemaVersion: 1</code>. This is independent of HCE card-profile payload schemas. Import also accepts legacy <code>payload.payloadVersion</code>; if both fields are supplied they must be valid and equal. New exports use <code>schemaVersion</code> only.</p></div>
         <section aria-labelledby="before-starting">
             <h2 id="before-starting">Before starting</h2>
             <ul>

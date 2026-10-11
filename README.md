@@ -3,6 +3,22 @@
 Static GitHub Pages website for HCEImage applications, developer guidance and privacy policies.
 It has no application backend, analytics or build dependency.
 
+## Local final review — 2026-10-10
+
+Prepared locally against current HCE/EMV/common behavior, without push or publication. HCE
+guidance now describes confirmed Reset, Cancel/Apply, next-run versus active-session security
+source and workspace retention; EMV guidance explains retention and the History → Import action.
+Profile field editing and native profile export are not presented as available features.
+Existing envelope/payload specifications and the three coherent synthetic examples stay intact;
+all examples pass the actual HCE importer with payload schema 2.
+
+All nine pages render at 360/768/1440 px in light/dark themes (54 combinations), with no broken
+local links/anchors, missing images or page-width overflow. Visual checks retain shared typography,
+spacing, cards, navigation and responsive tables/code blocks. ECR remains In development with its
+guide/privacy links hidden from navigation. Public pages contain no fixed application release
+numbers. Privacy wording still matches local processing, explicit sharing and backup boundaries;
+effective dates remain unchanged. Publication requires a separate owner decision.
+
 ## Site structure
 
 - [Home](index.html) — HCE Test Tool, EMV Card Analyzer and ECR Test Tool

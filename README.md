@@ -62,11 +62,13 @@ effective dates remain unchanged. Publication requires a separate owner decision
 
 ## Current publication status
 
-On 2026-10-11 the owner submitted HCE 0.1.14 (15) and its store-listing changes
-for review: six full descriptions and six sets of eight screenshots. The final
-fourth screenshot shows Import rather than Copy; the APDU timeline and parsed
-response remain included. Submission is not approval or production availability.
-The website follow-up remains local and requires separate publication authorization.
+On 2026-10-11 the owner confirmed HCE 0.1.14 (15) production publication and authorized
+publication of the matching website follow-up. The six full descriptions and screenshot
+sets accompany that release; image 4 shows Import while the APDU timeline and parsed
+response remain included. This confirmation does not establish a device-level in-place
+upgrade preservation test. Deployment verification is recorded separately below.
+
+## Previous local preparation status
 
 Local closeout on 2026-10-10 includes developer guides, privacy wording and the three downloadable
 examples. All nine HTML pages passed internal link, anchor and asset validation; example envelopes
@@ -100,8 +102,8 @@ Play update; that preservation check remains tracked in the HCE release document
 The site describes the prepared application functionality. Before publication, check the
 matching application artifacts, Play listing, availability links and policy declarations. For the
 coordinated HCE update, prepare the store listing, signed bundle and matching web documentation
-together. The current Console changes have already been submitted by the owner; website publication
-is a separate decision and must not be inferred from that submission. A prepared
+together. The owner has now confirmed production publication and separately authorized this
+website update. Future website publication must not be inferred from Console submission. A prepared
 Console release is not a publicly available update. Editing or committing this repository does not
 publish the site; publishing requires a separate push and successful GitHub Pages deployment.
 

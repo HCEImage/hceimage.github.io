@@ -7,7 +7,7 @@
     <meta name="description" content="HCEImage JSON file guide: the shared envelope, downloadable synthetic card-profile examples and EMV Card Analyzer diagnostic traces.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/hceimage-json/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20261001-3">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261011-1">
     <title>HCEImage JSON files · Developer guides</title>
 </head>
 <body>
@@ -67,7 +67,7 @@
                 <table>
                     <thead><tr><th scope="col">Payload field</th><th scope="col">Purpose</th></tr></thead>
                     <tbody>
-                        <tr><th scope="row"><code>id</code>, <code>name</code>, <code>description</code></th><td>Stable Profile ID and display text. Imported IDs must be unique.</td></tr>
+                        <tr><th scope="row"><code>id</code>, <code>name</code>, <code>description</code></th><td>Stable Profile ID and nonblank display text. IDs contain 1–64 lowercase letters, digits or hyphens, starting with a letter or digit, and must be unique in the library. Names contain at most 120 characters.</td></tr>
                         <tr><th scope="row"><code>brand</code>, <code>formFactor</code>, <code>technologies</code></th><td>Payment brand, physical/tokenized scenario and contactless processing paths.</td></tr>
                         <tr><th scope="row"><code>applications[]</code></th><td>AIDs and application settings, including optional profile-default test security data in <code>crypto</code> or schema-2 <code>legacyCrypto</code>.</td></tr>
                         <tr><th scope="row"><code>apduRules[]</code>, <code>expectedFlow[]</code></th><td>APDU request/response behavior and rule IDs expected during validation.</td></tr>
@@ -203,7 +203,7 @@
   }
 }</code></pre>
             <p class="example-caption">Structure illustration only: an importable trace also needs the result, timing, APDU exchanges and application data.</p>
-            <p>Export uses <code>payload.schemaVersion</code>. Import also accepts the legacy field <code>payload.payloadVersion</code>.</p>
+            <p>Export uses <code>payload.schemaVersion</code>. Import also accepts the legacy field <code>payload.payloadVersion</code>. If both fields are supplied, both must be valid and equal; conflicting values are rejected. Use the canonical field for new traces. An older app that only understands the legacy field may need an update before importing a new export.</p>
             <div class="spec-table" role="region" aria-label="EMV analysis payload fields" tabindex="0">
                 <table>
                     <thead><tr><th scope="col">Payload field</th><th scope="col">Purpose</th></tr></thead>

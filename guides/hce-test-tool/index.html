@@ -7,7 +7,7 @@
     <meta name="description" content="Use HCE Test Tool to emulate synthetic EMV contactless card profiles, inspect APDU exchanges and validate controlled terminal tests.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/hce-test-tool/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20261001-3">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261011-1">
     <title>HCE Test Tool developer guide · HCEImage</title>
 </head>
 <body>
@@ -76,7 +76,6 @@
             <h2 id="import-profiles">Import a card profile</h2>
             <p>Choose <strong>Card profiles → Import</strong> to open a native <code>.hceimage.json</code> definition. Review the preview before saving it. The file identifies itself as <code>com.hceimage.definition</code> / <code>card-profile</code>; the app validates its profile schema, unique Profile ID, supported brand, AIDs, APDU behavior and supplied test security data. Built-in profiles cannot be replaced or deleted.</p>
             <p><strong>Payload schema version</strong> identifies <code>payload.schemaVersion</code> in profile detail and import preview. Current definitions use payload schema 2 inside envelope schema 1; schema-1 payloads remain readable. Schema 2 adds optional Visa MSD/Mastercard MSI per-card test keys. The <a href="/guides/hceimage-json/#legacy-security">legacy-security reference</a> explains key roles, KCV checks and temporary overrides.</p>
-            <p>Profile source uses the same labels on cards, in filters and in detail: <strong>Built-in</strong>, <strong>Imported</strong> and <strong>Created</strong>. Use <strong>Copy</strong> in detail to create a separate profile with a new name and unique Profile ID. Functional data and security defaults remain intact, while provenance becomes <code>source.format: CUSTOM</code>. Copy edits identity metadata only; it does not edit PAN, AID, tracks or certificates. Created and Imported profiles can be deleted with Undo.</p>
             <p>Imported and Created profiles appear alongside Built-in profiles and can be isolated with the Profile source filter. Swipe a user-owned card or use Delete in its detail; both routes provide Undo. Deleting a profile does not delete its existing session history; repeating a saved session requires an available profile with the same Profile ID. Profile-default synthetic test security data persists with that private profile. Values you apply later in the Emulator are temporary overrides and do not change the profile file. Keep original import files for re-import after reinstalling or changing devices.</p>
             <aside class="guide-card format-reference" aria-labelledby="profile-format-title">
                 <p class="app-status">Exchange formats · HCEImage JSON</p>
@@ -87,6 +86,16 @@
                         <a href="/guides/hceimage-json/#profile-examples">Download profile examples</a>
                 </div>
             </aside>
+        </section>
+        <section aria-labelledby="copy-profiles">
+            <h2 id="copy-profiles">Copy and manage your profiles</h2>
+            <p>Profile source uses the same labels on cards, in filters and in detail: <strong>Built-in</strong>, <strong>Imported</strong> and <strong>Created</strong>. These library labels describe how the app obtained a profile; they are separate from the optional provenance metadata inside its JSON.</p>
+            <ol>
+                <li>Open an existing profile in <strong>Card profiles</strong> and choose <strong>Copy</strong>.</li>
+                <li>Enter a name and a unique Profile ID, review the preview and choose <strong>Create</strong>. Cancel leaves the original unchanged.</li>
+                <li>Select the new <strong>Created</strong> profile in the Emulator when you want to test it.</li>
+            </ol>
+            <p>Functional data and profile security defaults remain intact. The copy replaces provenance with <code>"source": { "format": "CUSTOM" }</code> and does not copy temporary Emulator overrides. Copy edits identity metadata only; it does not edit PAN, AID, tracks or certificates. Built-in profiles are protected; Imported and Created profiles can be deleted with Undo. Native profile export and an editor for emulation values are not currently available.</p>
         </section>
         <div class="guide-actions">
             <a class="button-link" href="https://play.google.com/store/apps/details?id=com.hceimage.hcetesttool">Get it on Google Play</a>

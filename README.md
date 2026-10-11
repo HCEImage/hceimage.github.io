@@ -3,7 +3,35 @@
 Static GitHub Pages website for HCEImage applications, developer guidance and privacy policies.
 It has no application backend, analytics or build dependency.
 
-## Local final review — 2026-10-10
+## Local final reviews
+
+### Follow-up review — 2026-10-11
+
+Reviewed all nine routes against the HCE, EMV, ECR and common project documentation,
+privacy policies and importer implementation. Updated the home summary, added a
+dedicated Copy workflow and provenance explanation, and documented exact profile
+identity limits and conflicting EMV trace version aliases. The retained ECR guide
+now also identifies the app as In development. Shared focus styling covers scrollable
+code and tables, with one stylesheet cache revision across all pages. The light-theme
+link token was slightly darkened so small accent text meets 4.5:1 contrast on the
+shared muted surfaces as well as white backgrounds.
+
+Verification: 80 local link/asset references, unique anchors, single H1 per page,
+and all three download envelopes/payloads passed checks. All 23 tests in the HCE
+BundledCardImageValidationTest suite passed without skips, including validation of
+the actual website downloads and the Amex example session. All nine routes rendered
+at 360, 768 and 1440 px in the browser's dark theme without page-width overflow or
+missing images. Light-theme token contrast was reviewed separately; this follow-up
+does not claim a new light-theme browser matrix. Policy body text matches each
+project's Markdown after whitespace/markup normalization, so effective dates stay
+unchanged. Store destinations and GitHub privacy reference were checked separately.
+
+The downloads already represent valid, coherent synthetic fixtures and did not need
+rewriting. Source documentation already describes the current security and schema
+boundaries. No application code, collection practices or publication state changed.
+These follow-up edits are retained locally; no push or deployment was performed.
+
+### Previous review evidence — 2026-10-10
 
 Prepared locally against current HCE/EMV/common behavior, without push or publication. HCE
 guidance now describes confirmed Reset, Cancel/Apply, next-run versus active-session security
@@ -33,6 +61,12 @@ effective dates remain unchanged. Publication requires a separate owner decision
 - [Shared styles](assets/styles.css) and [sitemap](sitemap.xml)
 
 ## Current publication status
+
+On 2026-10-11 the owner submitted HCE 0.1.14 (15) and its store-listing changes
+for review: six full descriptions and six sets of eight screenshots. The final
+fourth screenshot shows Import rather than Copy; the APDU timeline and parsed
+response remain included. Submission is not approval or production availability.
+The website follow-up remains local and requires separate publication authorization.
 
 Local closeout on 2026-10-10 includes developer guides, privacy wording and the three downloadable
 examples. All nine HTML pages passed internal link, anchor and asset validation; example envelopes
@@ -65,8 +99,9 @@ Play update; that preservation check remains tracked in the HCE release document
 
 The site describes the prepared application functionality. Before publication, check the
 matching application artifacts, Play listing, availability links and policy declarations. For the
-coordinated HCE update, save the store listing and signed bundle in Play Console first, publish the
-matching guides and privacy policy, then submit the prepared Console changes for review. A prepared
+coordinated HCE update, prepare the store listing, signed bundle and matching web documentation
+together. The current Console changes have already been submitted by the owner; website publication
+is a separate decision and must not be inferred from that submission. A prepared
 Console release is not a publicly available update. Editing or committing this repository does not
 publish the site; publishing requires a separate push and successful GitHub Pages deployment.
 

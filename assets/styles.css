@@ -5,7 +5,7 @@
     --surface-muted: #edf1f8;
     --text: #161a22;
     --text-muted: #5c6472;
-    --primary: #496fba;
+    --primary: #3e63ac;
     --primary-soft: #dce7fb;
     --button-background: #005ac2;
     --button-content: #ffffff;
@@ -44,7 +44,7 @@ body {
 }
 a { color: var(--primary); text-underline-offset: 0.2em; }
 a:hover { text-decoration-thickness: 0.12em; }
-a:focus-visible { border-radius: 0.3rem; outline: 0.2rem solid var(--primary); outline-offset: 0.2rem; }
+:where(a, pre[tabindex], .spec-table):focus-visible { border-radius: 0.3rem; outline: 0.2rem solid var(--primary); outline-offset: 0.2rem; }
 .site-header { border-bottom: 1px solid var(--outline); background: var(--background); }
 .header-content, .page, .site-footer { width: min(100% - 2rem, 72rem); margin-inline: auto; }
 .header-content { display: flex; min-height: 4.5rem; align-items: center; justify-content: space-between; gap: 1rem; }

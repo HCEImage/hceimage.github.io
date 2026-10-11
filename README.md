@@ -66,7 +66,18 @@ On 2026-10-11 the owner confirmed HCE 0.1.14 (15) production publication and aut
 publication of the matching website follow-up. The six full descriptions and screenshot
 sets accompany that release; image 4 shows Import while the APDU timeline and parsed
 response remain included. This confirmation does not establish a device-level in-place
-upgrade preservation test. Deployment verification is recorded separately below.
+upgrade preservation test. The owner subsequently reported successful Samsung and Pixel updates
+with history retained; other preserved data was not individually confirmed.
+
+### Deployment verification — 2026-10-11
+
+Published the prepared website through `main`. GitHub Pages successfully deployed content commit
+`9bcc765887e6688562ac201ecabdce35cb1d87a0` in
+[run 38158082373](https://github.com/HCEImage/hceimage.github.io/actions/runs/38158082373).
+All nine public HTML routes, the shared stylesheet and all three downloadable JSON profiles
+returned HTTP 200 and matched the prepared local sources byte-for-byte. This includes the
+developer guides, privacy policies and envelope-1/profile-payload-2 synthetic examples.
+Earlier local-only statements below describe preparation before this authorized publication.
 
 ## Previous local preparation status
 

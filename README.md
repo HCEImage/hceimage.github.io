@@ -5,6 +5,25 @@ It has no application backend, analytics or build dependency.
 
 ## Local final reviews
 
+### EMV production-submission review — 2026-10-12
+
+The owner reports submitting the EMV service update with the production release and updated
+full descriptions/screenshots in all six listing languages. This is submission evidence;
+approval and publication of that update have not yet been confirmed.
+
+Reviewed Home, the guide index, all three application guides, the JSON specification and all
+three privacy policies. The EMV guide already covers retained live results, explicit NFC restart,
+masked Summary, detailed Full evidence/Redacted exports and legacy payload-version import.
+The importer and technical trace documentation agree with the schema reference. Each public
+privacy body matches its application's Markdown after whitespace/markup normalization;
+data practices and effective dates are unchanged.
+
+All nine live HTML routes, the stylesheet, sitemap and three downloadable JSON profiles returned
+HTTP 200 and matched local sources byte-for-byte. All 80 local links/assets and anchors pass;
+public HTML contains no fixed application release numbers. Profile examples retain envelope
+schema 1/payload schema 2; EMV trace payload remains schema 1. No public content correction,
+new visual change or website deployment is needed for this submission review.
+
 ### Follow-up review — 2026-10-11
 
 Reviewed all nine routes against the HCE, EMV, ECR and common project documentation,

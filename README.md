@@ -5,6 +5,15 @@ It has no application backend, analytics or build dependency.
 
 ## Local final reviews
 
+### EMV publication confirmation — 2026-10-12
+
+The owner confirmed approval and production publication of EMV 0.1.4 (5). Samsung's production
+Play package was verified at that version, with successful startup and saved History visible.
+Source development begins 0.2.0 (6), with its larger scope to be agreed separately. This does not
+change public website copy, privacy practices, effective dates or interchange schemas. The
+submission review below already verified the published sources against all public routes.
+No additional website deployment is needed. Earlier pending statuses describe that review stage.
+
 ### EMV production-submission review — 2026-10-12
 
 The owner reports submitting the EMV service update with the production release and updated

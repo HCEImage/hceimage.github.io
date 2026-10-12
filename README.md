@@ -9,6 +9,8 @@ It has no application backend, analytics or build dependency.
 
 The owner confirmed approval and production publication of EMV 0.1.4 (5). Samsung's production
 Play package was verified at that version, with successful startup and saved History visible.
+The owner subsequently confirmed the Pixel production update and retained History; both devices
+show the production listing normally after resolving the stale Play display on Samsung.
 Source development begins 0.2.0 (6), with its larger scope to be agreed separately. This does not
 change public website copy, privacy practices, effective dates or interchange schemas. The
 submission review below already verified the published sources against all public routes.

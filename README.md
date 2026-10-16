@@ -5,6 +5,32 @@ It has no application backend, analytics or build dependency.
 
 ## Local final reviews
 
+### Development documentation closeout — 2026-10-16
+
+Prepared locally for HCE/EMV 0.2.0 without push or publication. Guides now describe the compact
+Emulator/Analyzer, separate profile/general guidance, neutral list cards and result badges,
+mapped simulated device CVM and its two-presentation/security/lifecycle limits. The EMV guide
+separates supported bounded reading/findings, JCB Legacy, UnionPay optional data and Kernel 8
+privacy processing from payment/authentication or unperformed physical acceptance.
+
+Development trace documentation uses payload 2 inside envelope 1, with payload 1/2 import,
+derived-record/source boundaries and Redacted exclusions. Card-profile payloads remain 2;
+the three downloadable synthetic profiles are unchanged and checked through the native HCE
+importer. HCE JCB emulation remains conditional and is not advertised as available.
+
+Development-preview notices prevent these prepared guides from implying that the installed
+Google Play versions already contain the new features. Remove those notices only after the
+matching release is confirmed. Home/ECR scope and the existing stylesheet remain unchanged.
+The EMV privacy clarification describes local derived records and excludes ephemeral session
+keys from persistence/export; its HTML and application Markdown are checked together. It adds
+no network collection or account flow. Effective dates are not advanced as a claim of release;
+review the final policy wording/date again with the release submission.
+
+Run `python3 tools/check_site.py` and `python3 -m unittest discover -s tools` for offline checks.
+The checker covers HTML headings/anchors, local links/assets, JSON illustrations, download
+envelopes/unique IDs and privacy mirrors in the sibling application repositories. It performs
+no network requests or deployment and does not replace the native-import test or browser review.
+
 ### EMV publication confirmation — 2026-10-12
 
 The owner confirmed approval and production publication of EMV 0.1.4 (5). Samsung's production

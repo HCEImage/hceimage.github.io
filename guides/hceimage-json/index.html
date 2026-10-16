@@ -188,13 +188,14 @@
         </section>
         <section aria-labelledby="analysis-trace">
             <h2 id="analysis-trace">EMV analysis trace</h2>
+            <div class="guide-note"><p><strong>Development preview:</strong> the trace schema below describes the next EMV release. Earlier exports use payload 1; the development importer accepts 1 and 2 and new exports use payload 2. The downloadable HCE card profiles elsewhere on this page are unchanged.</p></div>
             <p>EMV Card Analyzer exports a captured diagnostic result for later inspection. Its envelope uses <code>format: com.hceimage.diagnostic</code> and <code>kind: emv-analysis</code>. The trace schema is in <code>payload.schemaVersion</code>; <code>producer.versionName</code> records the creating app release, not the document schema.</p>
             <pre tabindex="0" role="region" aria-label="Analysis-trace envelope example"><code>{
   "format": "com.hceimage.diagnostic",
   "schemaVersion": 1,
   "kind": "emv-analysis",
   "payload": {
-    "schemaVersion": 1,
+    "schemaVersion": 2,
     "evidence": "Redacted",
     "producer": {
       "applicationId": "com.hceimage.emvcardanalyzer",
@@ -214,10 +215,12 @@
                         <tr><th scope="row"><code>applicationLabel</code>, <code>scheme</code>, <code>cardInterface</code>, <code>note</code></th><td>Summary and user context, subject to evidence redaction.</td></tr>
                         <tr><th scope="row"><code>exchanges[]</code></th><td>Ordered APDU commands and responses, context, optional errors and timing.</td></tr>
                         <tr><th scope="row"><code>applications[]</code></th><td>Discovered applications, read status and decoded facts linked to APDU indices.</td></tr>
+                        <tr><th scope="row"><code>diagnostics</code></th><td>Optional versioned observations: severity, code, application and source-APDU references. Imported observations are not an authenticity check.</td></tr>
                     </tbody>
                 </table>
             </div>
             <p>Each <code>exchanges[]</code> item contains APDU command hex and an optional response, payment-scheme/AID context, optional PDOL/CDOL1 data, a label, optional local errors and optional <code>durationMillis</code>. Each <code>applications[]</code> item records the discovered AID, labels, scheme, processing/read status and optional <code>facts[]</code>. A fact carries its tag, decoded value and <code>sourceApdus</code> indices into the exchange list. The import checks final result state, timestamps, APDU framing and bounded collection sizes before it can be saved.</p>
+            <p>Payload 2 can retain <code>readingKernel</code> context and separate Kernel 8 <code>decryptedRecord</code>/<code>decryptedSourceApdus</code> evidence. Original encrypted commands/responses remain intact. Derived records must have a bounded, consistent source chain; import validates structure, not independent decryption or authenticity. Payload 1 cannot contain derived records. Redacted omits derived plaintext, its source array and privacy context; it cannot restore those values later. Ephemeral private/session keys are never trace fields.</p>
             <ol>
                 <li>Open a saved analysis in <strong>History → Export → Trace</strong>, choose Full evidence or Redacted, then save or share deliberately.</li>
                 <li>On another installation, choose <strong>History → Import</strong>. Inspect the preview before choosing <strong>Save to history</strong>; Back discards it.</li>
@@ -226,7 +229,7 @@
         </section>
         <section aria-labelledby="compatibility">
             <h2 id="compatibility">Compatibility boundary</h2>
-            <p>The shared envelope stays at schema 1. Card-profile payload schema 2 and EMV analysis payload schema 1 are independent: upgrading a profile does not upgrade a trace or the envelope. The trace importer accepts legacy <code>payload.payloadVersion</code> as an alias, but HCE card-profile import uses <code>payload.schemaVersion</code> only.</p>
+            <p>The shared envelope stays at schema 1. Card-profile payload schema 2 and development EMV analysis payload schema 2 are independent: upgrading a profile does not upgrade a trace or the envelope. Development trace import accepts payloads 1 and 2 and legacy <code>payload.payloadVersion</code> as an alias, but HCE card-profile import uses <code>payload.schemaVersion</code> only. A published reader that supports only trace payload 1 may reject a new payload-2 export.</p>
             <p>These files cannot be exchanged between the two importers: HCE Test Tool does not import analysis traces, and EMV Card Analyzer does not import card profiles. Renaming a file does not convert it. A profile definition is an input for controlled emulation; an analysis trace is an output from a recorded NFC read. Neither file is a payment credential, approval record or certification result.</p>
         </section>
         <div class="guide-actions">

@@ -32,6 +32,7 @@
         <p class="lead">Use Android host card emulation to present a selected test profile, inspect the APDU exchange and review the resulting flow in one place.</p>
     </header>
     <article class="guide-content">
+        <div class="guide-note"><p><strong>Development preview:</strong> this guide is being prepared for the next HCE release. The compact Emulator and optional simulated device CVM described below may not be available in the installed Google Play version.</p></div>
         <section aria-labelledby="before-starting">
             <h2 id="before-starting">Before starting</h2>
             <ul>
@@ -46,9 +47,9 @@
         <section aria-labelledby="test-flow">
             <h2 id="test-flow">Run a test</h2>
             <ol>
-                <li>Choose the payment brand and a card profile that matches the scenario you want to exercise.</li>
-                <li>Review the profile summary and open its test guidance for profile-specific expectations.</li>
-                <li>If the authorized test host requires different test credentials, configure supported values under <strong>Test security data</strong>. Profile defaults remain unchanged when no override is applied.</li>
+                <li>Open <strong>Change</strong> on the Card profile card. The picker starts with <strong>All</strong>; optionally filter by payment brand and select a profile. Browsing or dismissing the picker does not change the active profile.</li>
+                <li>Review the profile summary and open <strong>Test guidance</strong> in its separate footer for profile-specific expectations. The information action beside Card profile opens general Emulator guidance.</li>
+                <li>If the authorized test host requires different test credentials, choose <strong>Test configuration → Test security data → Change</strong>. Profile defaults remain unchanged when no override is applied.</li>
                 <li>Start emulation and present the Android device to the reader or terminal.</li>
                 <li>Keep the device in position until the application reports a completed, failed or interrupted outcome.</li>
             </ol>
@@ -57,6 +58,7 @@
             <h2 id="inspect-exchange">Inspect the exchange</h2>
             <p>The live timeline records commands and responses as the terminal communicates with the selected profile. Open an entry to inspect the raw APDU together with contextual command headers, status words, BER-TLV data, DOL values and recognized payment-scheme tags. Command/response timings and session duration help locate delays; they do not measure the terminal's complete payment processing time.</p>
             <p>The result view compares the observed exchange with the expected profile flow. A failed or interrupted result is diagnostic context, not by itself proof of a terminal defect: reader configuration, terminal kernels and processing outside the emulator can affect the outcome.</p>
+            <p>Profile and History cards use neutral surfaces with separate origin and result badges. Read the label and diagnostic reason, not color alone. Warning and error badges remain distinct; Completed does not mean that a payment was approved.</p>
         </section>
         <section aria-labelledby="history-reports">
             <h2 id="history-reports">Use history and reports</h2>
@@ -65,12 +67,17 @@
         </section>
         <section aria-labelledby="workspace-lifecycle">
             <h2 id="workspace-lifecycle">Keep results while moving between screens</h2>
-            <p>Switching tabs, backgrounding the app or rotating the screen stops NFC emulation without restarting it automatically. The live result stays available while the app process remains alive. Start replaces it; selecting a different brand or profile clears it. Saved History is independent of this temporary workspace. Applied security overrides survive tabs and rotation, but an unfinished editor draft is discarded when its screen is recreated.</p>
+            <p>Switching tabs, backgrounding the app or rotating the screen stops NFC emulation without restarting it automatically. The live result stays available while the app process remains alive. Start replaces it; selecting a different profile clears it. Merely browsing brand filters does not change the active profile. Saved History is independent of this temporary workspace. Applied security overrides survive tabs and rotation, but an unfinished editor draft is discarded when its screen is recreated.</p>
         </section>
         <section aria-labelledby="security-data">
             <h2 id="security-data">Handle test security data carefully</h2>
             <p>Only explicitly authorized test values belong in Test security data. Values entered in the Emulator are masked by default, validated before use and retained in memory only. Apply validates and activates the draft; Cancel discards unapplied edits. Reset asks for confirmation, then immediately removes that profile’s overrides and draft, restoring its own defaults or synthetic engine defaults when none are supplied. It never changes the saved profile.</p>
             <p>Temporary overrides clear from the next-run selection after the next emulation with that profile starts unless you choose Keep until the app is closed. The active session still uses its captured values; its result and history retain the source used for that session. The Emulator security card describes the next run when no session is active. Overrides are not written to card profiles, history, reports, logs, clipboard output or backups; generated test APDU responses can appear in history and reports. Separately, synthetic defaults included in an imported profile persist with that profile file. Never enter production issuer keys.</p>
+        </section>
+        <section aria-labelledby="simulated-device-cvm">
+            <h2 id="simulated-device-cvm">Simulate device verification</h2>
+            <p>Eligible Visa qVSDC, Mastercard Mobile EMV and Amex mobile EMV profiles offer <strong>Simulated device CVM</strong> in Test configuration. Off preserves the existing pre-verified synthetic scenario. With On, start emulation, present the phone and remove it when the reader requests verification. Confirm the simulation in the app, then explicitly choose Start again and present the phone a second time. Reader support is required; no biometric prompt or real wallet authentication is performed.</p>
+            <p>Confirmation and the second Start share a two-minute window from completion of the first request; confirmation does not extend it. Stop, Cancel, profile/security changes, leaving the Emulator, backgrounding or rotation cancel pending verification. Use Keep until app closed for custom security data that must remain identical across both presentations. History retains separate linked presentations, not payment approval. Standalone Visa MSD, Mastercard MSI and JCB interactive emulation are not implemented.</p>
         </section>
         <section aria-labelledby="import-profiles">
             <h2 id="import-profiles">Import a card profile</h2>

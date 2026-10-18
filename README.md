@@ -5,6 +5,16 @@ It has no application backend, analytics or build dependency.
 
 ## Local final reviews
 
+### History presentation follow-up — 2026-10-18
+
+The development guides now describe report-colored history list cards and neutral status/time
+overviews above separate colored reports. HCE coloring follows saved profile checks, so a
+negative scenario may still pass; EMV colors follow the analysis result. Labels remain explicit
+and color is not proof of payment approval or card authenticity. Profile cards stay neutral.
+Offline site validation and four checker tests pass. The owner authorized local commits only;
+development notices remain and no push or deployment is performed. JCB HCE support stays
+conditional pending the planned Windows BTT review.
+
 ### Development documentation closeout — 2026-10-16
 
 Prepared locally for HCE/EMV 0.2.0 without push or publication. Guides now describe the compact

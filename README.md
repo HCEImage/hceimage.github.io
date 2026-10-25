@@ -80,12 +80,14 @@ four checker tests pass. No released JSON/download, privacy, commit, push or dep
 
 ### Development catalog and guidance review — 2026-10-25
 
-The unpublished HCE guide now identifies the nineteen-profile development catalog and thirty-two
-Test guidance scenarios, including seven-for-four Visa replacement, fixed versus adaptive CVM,
+The unpublished HCE guide now identifies the twenty-profile development catalog and thirty-five
+Test guidance scenarios, including seven-for-four Visa and five-for-four Mastercard replacements, fixed versus adaptive CVM,
 above-limit reader-policy limits and optional mobile two-presentation instructions. The JSON guide
 keeps payload-3 development guidance separate from the released payload-2 downloads. Existing
 downloads, production text/assets, privacy policies and deployment remain unchanged. Reference
-PINs are not device-unlock codes; card-side checks are not host approval. No commit/push/publication.
+PINs are not device-unlock codes; card-side checks are not host approval. The five Mastercard profiles
+explain PIN-only below-limit reader support, terminal-CVM magstripe, mobile retry limits and Reset.
+Only local checkpoint commits are authorized; no push/publication.
 
 ### Visa refresh/schema preview audit — 2026-10-22
 

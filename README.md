@@ -5,6 +5,111 @@ It has no application backend, analytics or build dependency.
 
 ## Local final reviews
 
+### Verified local documentation checkpoint — 2026-10-25
+
+The owner authorizes local checkpoint commits after HCE/EMV/Common cleanup. Review development
+profile/history/explicit-control guidance while retaining the published-app boundary. Nine HTML
+pages, eighty local references, three profile envelopes/policy mirrors and four checker tests
+pass. Graphics, released downloads, privacy categories/effective dates and deployed content
+remain unchanged. No push/deployment.
+
+### HCE development target promoted to 1.0.0 — 2026-10-25
+
+The owner renamed HCE's unreleased 0.2.0 target to 1.0.0 (16). This does not publish a release,
+change profile/history schemas or expand scope. EMV keeps its own version target. Historical
+review/build evidence below retains the original version labels; public guides stay version-free.
+No commit, push or deployment.
+
+### Explicit Emulator controls — 2026-10-25
+
+Clarify that Change opens profile/security selection while metadata/card bodies remain inert;
+simulated CVM uses its switch. Keep the existing workflow, styling and security/privacy limits.
+The application upgrade is independently tested against the retained production schema-4 identity.
+Local only; no commit, push or deployment.
+
+### Remove development-only CVM history compatibility; align phase counts — 2026-10-25
+
+Discard old unpublished device-CVM records instead of converting them or retaining original-note
+UI/export support. Released ordinary history and notes remain supported. Live/saved phase
+headings share localized APDU counts. Local only; no commit, push or deployment.
+
+### One durable device-verification scenario — 2026-10-25
+
+The HCE guide now describes one history record/note for both taps, a durable first checkpoint,
+aligned overall live/list/detail outcomes and independently bounded APDU/check evidence in exports.
+Recognizable old correlated groups preserve original notes; ambiguous records stay untouched.
+Redacted omits all notes/identities/card-derived values. No native-profile/privacy-category change.
+Local only; no commit, push or deployment.
+
+### Locked verification inputs and first-tap note fallback — 2026-10-25
+
+The HCE guide now keeps configuration locked while awaiting Continue and clarifies that Stop
+before any second-tap APDU retains the first report and saved note, as Cancel does. No history,
+JSON or privacy change. Local only; no commit, push or deployment.
+
+### Empty verification attempts and terminal notes — 2026-10-25
+
+Clarify that stopping before any APDU returns to the ordinary Emulation is off state, also
+when leaving the tab/app. No note appears between taps; the saved presentation note follows
+the final overview report before either APDU sequence. No schema/history/privacy change.
+Local only; no commit, push or deployment.
+
+### Classic verification status and terminal report — 2026-10-25
+
+Owner feedback supersedes the preceding progress/disclosure design. The HCE guide now keeps
+the traditional animated waiting card through first tap, Continue and second tap. Only the
+terminal state shows one conventional report with phase-labelled checks and both APDU sequences;
+Cancel/expiry retains an interrupted first-tap report. No intermediate APDU/report UI, runtime
+NFC rearming, schema change or combined history export is introduced. Local only; no deployment.
+
+### Two-part device-verification summary — 2026-10-25
+
+The HCE development guide places Cancel/Continue in the normal Start/Stop area, outside Test
+configuration. It describes stage progress, expandable first-tap evidence, the final two-part
+live summary and partial cancellation/expiry, while keeping saved history/exports per presentation.
+No key retention, real authentication, combined export or schema change is implied. Offline
+site validation and all four checker tests pass. Local only; no commit, push or deployment.
+
+### Simulated verification continuation — 2026-10-24
+
+The HCE development guide now describes adjacent Cancel/Continue actions. Continue confirms
+synthetic verification and arms tap two without another Start, only after field removal and
+within the original two-minute window. Preserve profile/security binding, cancellation and
+fresh terminal data; do not imply real wallet authentication. Offline site validation and all
+four checker tests pass. No released JSON/download, privacy, commit, push or deployment change.
+
+### Development catalog and guidance review — 2026-10-25
+
+The unpublished HCE guide now identifies the nineteen-profile development catalog and thirty-two
+Test guidance scenarios, including seven-for-four Visa replacement, fixed versus adaptive CVM,
+above-limit reader-policy limits and optional mobile two-presentation instructions. The JSON guide
+keeps payload-3 development guidance separate from the released payload-2 downloads. Existing
+downloads, production text/assets, privacy policies and deployment remain unchanged. Reference
+PINs are not device-unlock codes; card-side checks are not host approval. No commit/push/publication.
+
+### Visa refresh/schema preview audit — 2026-10-22
+
+The JSON guide distinguishes the current released payload 2/downloads from unpublished next-release
+support for one consolidated payload 3: selected JCB scenarios plus optional response states,
+personalized Visa CVN22 keys and adaptive CTQ. Released payload 1/2 remains readable. Document state guards, successful
+transitions and activation reset without claiming persistent risk or a new payment engine. The six
+new Visa conversions remain private staging candidates; no catalog, download, screenshot, privacy
+policy or publication is changed. App guidance and the local technical documentation agree on the
+same development-only boundary. Public site text/assets and downloadable JSON contain no external
+reference-tool labels. Internal compatibility names in sibling projects are not public website copy.
+The additional No-CVM candidate matches three captured source transactions; it is not advertised
+as a released download or an accepted native-device profile. Its conversion needs no new schema.
+
+### Form-factor guidance clarification — 2026-10-22
+
+Clarify that physical/tokenized is an intended synthetic card scenario, separate from profile
+origin, CVM results and the phone running HCE. A confirmed CVM result is not evidence of token
+provisioning. Retain all three existing downloads and their payload schema 2; do not introduce
+Reference or advertise unpublished JCB support. The HCE project records the complete local
+sixteen-profile form-factor audit and the source-availability limits. Offline site validation,
+all four checker tests and the real HCE importer check of all three downloads pass. Local only;
+no commit, push or deployment.
+
 ### History presentation follow-up — 2026-10-18
 
 The development guides now describe report-colored history list cards and neutral status/time
@@ -13,7 +118,7 @@ negative scenario may still pass; EMV colors follow the analysis result. Labels 
 and color is not proof of payment approval or card authenticity. Profile cards stay neutral.
 Offline site validation and four checker tests pass. The owner authorized local commits only;
 development notices remain and no push or deployment is performed. JCB HCE support stays
-conditional pending the planned Windows BTT review.
+conditional at that checkpoint, pending further source and reader verification.
 
 ### Development documentation closeout — 2026-10-16
 

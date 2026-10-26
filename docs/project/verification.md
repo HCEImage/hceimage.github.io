@@ -1,0 +1,341 @@
+# HCEImage website verification
+
+Repeatable validation procedures and retained execution evidence. Dated checkpoints describe
+their own stage, not a current capability promise. The technical contract remains authoritative;
+software checks, physical interoperability and host/certification acceptance are different gates.
+
+## Topics
+
+- [Local final reviews](#README-local-final-reviews)
+- [Verification history](#README-verification-history)
+- [Repeatable offline validation](#repeatable-offline-validation)
+
+
+<a id="README-local-final-reviews"></a>
+## Local final reviews
+
+<a id="README-verified-local-documentation-checkpoint--2026-10-25"></a>
+### Verified local documentation checkpoint — 2026-10-25
+
+The owner authorizes local checkpoint commits after HCE/EMV/Common cleanup. Review development
+profile/history/explicit-control guidance while retaining the published-app boundary. Nine HTML
+pages, eighty local references, three profile envelopes/policy mirrors and four checker tests
+pass. Graphics, released downloads, privacy categories/effective dates and deployed content
+remain unchanged. No push/deployment.
+
+<a id="README-hce-development-target-promoted-to-100--2026-10-25"></a>
+### HCE development target promoted to 1.0.0 — 2026-10-25
+
+The owner renamed HCE's unreleased 0.2.0 target to 1.0.0 (16). This does not publish a release,
+change profile/history schemas or expand scope. EMV keeps its own version target. Historical
+review/build evidence below retains the original version labels; public guides stay version-free.
+No commit, push or deployment.
+
+<a id="README-explicit-emulator-controls--2026-10-25"></a>
+### Explicit Emulator controls — 2026-10-25
+
+Clarify that Change opens profile/security selection while metadata/card bodies remain inert;
+simulated CVM uses its switch. Keep the existing workflow, styling and security/privacy limits.
+The application upgrade is independently tested against the retained production schema-4 identity.
+Local only; no commit, push or deployment.
+
+<a id="README-remove-development-only-cvm-history-compatibility-align-phase-counts--2026-10-25"></a>
+### Remove development-only CVM history compatibility; align phase counts — 2026-10-25
+
+Discard old unpublished device-CVM records instead of converting them or retaining original-note
+UI/export support. Released ordinary history and notes remain supported. Live/saved phase
+headings share localized APDU counts. Local only; no commit, push or deployment.
+
+<a id="README-one-durable-device-verification-scenario--2026-10-25"></a>
+### One durable device-verification scenario — 2026-10-25
+
+The HCE guide now describes one history record/note for both taps, a durable first checkpoint,
+aligned overall live/list/detail outcomes and independently bounded APDU/check evidence in exports.
+Recognizable old correlated groups preserve original notes; ambiguous records stay untouched.
+Redacted omits all notes/identities/card-derived values. No native-profile/privacy-category change.
+Local only; no commit, push or deployment.
+
+<a id="README-locked-verification-inputs-and-first-tap-note-fallback--2026-10-25"></a>
+### Locked verification inputs and first-tap note fallback — 2026-10-25
+
+The HCE guide now keeps configuration locked while awaiting Continue and clarifies that Stop
+before any second-tap APDU retains the first report and saved note, as Cancel does. No history,
+JSON or privacy change. Local only; no commit, push or deployment.
+
+<a id="README-empty-verification-attempts-and-terminal-notes--2026-10-25"></a>
+### Empty verification attempts and terminal notes — 2026-10-25
+
+Clarify that stopping before any APDU returns to the ordinary Emulation is off state, also
+when leaving the tab/app. No note appears between taps; the saved presentation note follows
+the final overview report before either APDU sequence. No schema/history/privacy change.
+Local only; no commit, push or deployment.
+
+<a id="README-classic-verification-status-and-terminal-report--2026-10-25"></a>
+### Classic verification status and terminal report — 2026-10-25
+
+Owner feedback supersedes the preceding progress/disclosure design. The HCE guide now keeps
+the traditional animated waiting card through first tap, Continue and second tap. Only the
+terminal state shows one conventional report with phase-labelled checks and both APDU sequences;
+Cancel/expiry retains an interrupted first-tap report. No intermediate APDU/report UI, runtime
+NFC rearming, schema change or combined history export is introduced. Local only; no deployment.
+
+<a id="README-two-part-device-verification-summary--2026-10-25"></a>
+### Two-part device-verification summary — 2026-10-25
+
+The HCE development guide places Cancel/Continue in the normal Start/Stop area, outside Test
+configuration. It describes stage progress, expandable first-tap evidence, the final two-part
+live summary and partial cancellation/expiry, while keeping saved history/exports per presentation.
+No key retention, real authentication, combined export or schema change is implied. Offline
+site validation and all four checker tests pass. Local only; no commit, push or deployment.
+
+<a id="README-simulated-verification-continuation--2026-10-24"></a>
+### Simulated verification continuation — 2026-10-24
+
+The HCE development guide now describes adjacent Cancel/Continue actions. Continue confirms
+synthetic verification and arms tap two without another Start, only after field removal and
+within the original two-minute window. Preserve profile/security binding, cancellation and
+fresh terminal data; do not imply real wallet authentication. Offline site validation and all
+four checker tests pass. No released JSON/download, privacy, commit, push or deployment change.
+
+<a id="README-development-catalog-and-guidance-review--2026-10-25"></a>
+### Development catalog and guidance review — 2026-10-25
+
+The unpublished HCE guide now identifies the twenty-profile development catalog and thirty-five
+Test guidance scenarios, including seven-for-four Visa and five-for-four Mastercard replacements, fixed versus adaptive CVM,
+above-limit reader-policy limits and optional mobile two-presentation instructions. The JSON guide
+keeps payload-3 development guidance separate from the released payload-2 downloads. Existing
+downloads, production text/assets, privacy policies and deployment remain unchanged. Reference
+PINs are not device-unlock codes; card-side checks are not host approval. The five Mastercard profiles
+explain PIN-only below-limit reader support, terminal-CVM magstripe, mobile retry limits and Reset.
+Only local checkpoint commits are authorized; no push/publication.
+
+<a id="README-visa-refreshschema-preview-audit--2026-10-22"></a>
+### Visa refresh/schema preview audit — 2026-10-22
+
+The JSON guide distinguishes the current released payload 2/downloads from unpublished next-release
+support for one consolidated payload 3: selected JCB scenarios plus optional response states,
+personalized Visa CVN22 keys and adaptive CTQ. Released payload 1/2 remains readable. Document state guards, successful
+transitions and activation reset without claiming persistent risk or a new payment engine. The six
+new Visa conversions remain private staging candidates; no catalog, download, screenshot, privacy
+policy or publication is changed. App guidance and the local technical documentation agree on the
+same development-only boundary. Public site text/assets and downloadable JSON contain no external
+reference-tool labels. Internal compatibility names in sibling projects are not public website copy.
+The additional No-CVM candidate matches three captured source transactions; it is not advertised
+as a released download or an accepted native-device profile. Its conversion needs no new schema.
+
+<a id="README-form-factor-guidance-clarification--2026-10-22"></a>
+### Form-factor guidance clarification — 2026-10-22
+
+Clarify that physical/tokenized is an intended synthetic card scenario, separate from profile
+origin, CVM results and the phone running HCE. A confirmed CVM result is not evidence of token
+provisioning. Retain all three existing downloads and their payload schema 2; do not introduce
+Reference or advertise unpublished JCB support. The HCE project records the complete local
+sixteen-profile form-factor audit and the source-availability limits. Offline site validation,
+all four checker tests and the real HCE importer check of all three downloads pass. Local only;
+no commit, push or deployment.
+
+<a id="README-history-presentation-follow-up--2026-10-18"></a>
+### History presentation follow-up — 2026-10-18
+
+The development guides now describe report-colored history list cards and neutral status/time
+overviews above separate colored reports. HCE coloring follows saved profile checks, so a
+negative scenario may still pass; EMV colors follow the analysis result. Labels remain explicit
+and color is not proof of payment approval or card authenticity. Profile cards stay neutral.
+Offline site validation and four checker tests pass. The owner authorized local commits only;
+development notices remain and no push or deployment is performed. JCB HCE support stays
+conditional at that checkpoint, pending further source and reader verification.
+
+<a id="README-development-documentation-closeout--2026-10-16"></a>
+### Development documentation closeout — 2026-10-16
+
+Prepared locally for HCE/EMV 0.2.0 without push or publication. Guides now describe the compact
+Emulator/Analyzer, separate profile/general guidance, neutral list cards and result badges,
+mapped simulated device CVM and its two-presentation/security/lifecycle limits. The EMV guide
+separates supported bounded reading/findings, JCB Legacy, UnionPay optional data and Kernel 8
+privacy processing from payment/authentication or unperformed physical acceptance.
+
+Development trace documentation uses payload 2 inside envelope 1, with payload 1/2 import,
+derived-record/source boundaries and Redacted exclusions. Card-profile payloads remain 2;
+the three downloadable synthetic profiles are unchanged and checked through the native HCE
+importer. HCE JCB emulation remains conditional and is not advertised as available.
+
+Development-preview notices prevent these prepared guides from implying that the installed
+Google Play versions already contain the new features. Remove those notices only after the
+matching release is confirmed. Home/ECR scope and the existing stylesheet remain unchanged.
+The EMV privacy clarification describes local derived records and excludes ephemeral session
+keys from persistence/export; its HTML and application Markdown are checked together. It adds
+no network collection or account flow. Effective dates are not advanced as a claim of release;
+review the final policy wording/date again with the release submission.
+
+Run `python3 tools/check_site.py` and `python3 -m unittest discover -s tools` for offline checks.
+The checker covers HTML headings/anchors, local links/assets, JSON illustrations, download
+envelopes/unique IDs and privacy mirrors in the sibling application repositories. It performs
+no network requests or deployment and does not replace the native-import test or browser review.
+
+<a id="README-emv-publication-confirmation--2026-10-12"></a>
+### EMV publication confirmation — 2026-10-12
+
+The owner confirmed approval and production publication of EMV 0.1.4 (5). Samsung's production
+Play package was verified at that version, with successful startup and saved History visible.
+The owner subsequently confirmed the Pixel production update and retained History; both devices
+show the production listing normally after resolving the stale Play display on Samsung.
+Source development begins 0.2.0 (6), with its larger scope to be agreed separately. This does not
+change public website copy, privacy practices, effective dates or interchange schemas. The
+submission review below already verified the published sources against all public routes.
+No additional website deployment is needed. Earlier pending statuses describe that review stage.
+
+<a id="README-emv-production-submission-review--2026-10-12"></a>
+### EMV production-submission review — 2026-10-12
+
+The owner reports submitting the EMV service update with the production release and updated
+full descriptions/screenshots in all six listing languages. This is submission evidence;
+approval and publication of that update have not yet been confirmed.
+
+Reviewed Home, the guide index, all three application guides, the JSON specification and all
+three privacy policies. The EMV guide already covers retained live results, explicit NFC restart,
+masked Summary, detailed Full evidence/Redacted exports and legacy payload-version import.
+The importer and technical trace documentation agree with the schema reference. Each public
+privacy body matches its application's Markdown after whitespace/markup normalization;
+data practices and effective dates are unchanged.
+
+All nine live HTML routes, the stylesheet, sitemap and three downloadable JSON profiles returned
+HTTP 200 and matched local sources byte-for-byte. All 80 local links/assets and anchors pass;
+public HTML contains no fixed application release numbers. Profile examples retain envelope
+schema 1/payload schema 2; EMV trace payload remains schema 1. No public content correction,
+new visual change or website deployment is needed for this submission review.
+
+<a id="README-follow-up-review--2026-10-11"></a>
+### Follow-up review — 2026-10-11
+
+Reviewed all nine routes against the HCE, EMV, ECR and common project documentation,
+privacy policies and importer implementation. Updated the home summary, added a
+dedicated Copy workflow and provenance explanation, and documented exact profile
+identity limits and conflicting EMV trace version aliases. The retained ECR guide
+now also identifies the app as In development. Shared focus styling covers scrollable
+code and tables, with one stylesheet cache revision across all pages. The light-theme
+link token was slightly darkened so small accent text meets 4.5:1 contrast on the
+shared muted surfaces as well as white backgrounds.
+
+Verification: 80 local link/asset references, unique anchors, single H1 per page,
+and all three download envelopes/payloads passed checks. All 23 tests in the HCE
+BundledCardImageValidationTest suite passed without skips, including validation of
+the actual website downloads and the Amex example session. All nine routes rendered
+at 360, 768 and 1440 px in the browser's dark theme without page-width overflow or
+missing images. Light-theme token contrast was reviewed separately; this follow-up
+does not claim a new light-theme browser matrix. Policy body text matches each
+project's Markdown after whitespace/markup normalization, so effective dates stay
+unchanged. Store destinations and GitHub privacy reference were checked separately.
+
+The downloads already represent valid, coherent synthetic fixtures and did not need
+rewriting. Source documentation already describes the current security and schema
+boundaries. No application code, collection practices or publication state changed.
+These follow-up edits are retained locally; no push or deployment was performed.
+
+<a id="README-previous-review-evidence--2026-10-10"></a>
+### Previous review evidence — 2026-10-10
+
+Prepared locally against current HCE/EMV/common behavior, without push or publication. HCE
+guidance now describes confirmed Reset, Cancel/Apply, next-run versus active-session security
+source and workspace retention; EMV guidance explains retention and the History → Import action.
+Profile field editing and native profile export are not presented as available features.
+Existing envelope/payload specifications and the three coherent synthetic examples stay intact;
+all examples pass the actual HCE importer with payload schema 2.
+
+All nine pages render at 360/768/1440 px in light/dark themes (54 combinations), with no broken
+local links/anchors, missing images or page-width overflow. Visual checks retain shared typography,
+spacing, cards, navigation and responsive tables/code blocks. ECR remains In development with its
+guide/privacy links hidden from navigation. Public pages contain no fixed application release
+numbers. Privacy wording still matches local processing, explicit sharing and backup boundaries;
+effective dates remain unchanged. Publication requires a separate owner decision.
+
+
+<a id="README-verification-history"></a>
+## Verification history
+
+The entries below record the state at each review/publication step. References to drafts or pending
+application review describe those earlier steps, not the current owner-confirmed production status.
+
+On 2026-10-01, the local pages were checked for app-version-free public wording, consistent
+distribution links, shared styling, valid internal routes and anchors, and the absence of external
+scripts or analytics. The HCE report disclosure was aligned with the application's Full evidence
+and Redacted choices. HCE and EMV policy wording was compared with their Android manifests and
+local data, backup, clipboard and export paths. This source review does not replace a visual browser
+pass or the final Play Console privacy and Data safety review before publication.
+
+The subsequent Common integration review aligned the JSON guide with strict required-field types:
+string format/kind, integer-number envelope schema and object payload. Missing/null or incorrectly
+typed required fields are rejected without changing valid exported documents. Application guides
+already describe the current profile/trace workflows; no new feature or privacy-date change was
+needed. Public pages remain free of concrete application release numbers, and no visual assets,
+shared styles, availability links or hidden ECR navigation were changed. The site remains a local
+draft; this review does not publish it.
+
+Serve the root with `python3 -m http.server 8080 --bind 127.0.0.1` and open
+`http://127.0.0.1:8080`. Check every page at desktop and phone widths in light and dark modes,
+including navigation, focus states, readable tables, long code blocks, canonical URLs, image
+loading, local links, privacy wording and sitemap entries. Verify that the in-app guidance URLs
+match the guide routes here. Do not treat a local preview as public availability.
+
+<a id="README-final-local-website-review--2026-10-01"></a>
+### Final local website review — 2026-10-01
+
+All nine HTML pages, including the retained ECR pages, were rendered in an isolated Chrome browser
+at 360, 768 and 1440 CSS pixels in light and dark modes (54 renders). Automated checks found no
+page-level horizontal overflow, missing images, HTTP errors, JavaScript errors or broken internal
+routes/anchors. All pages retain a single primary heading, shared stylesheet and version-free
+application wording. The full-page visual overview confirmed consistent cards, navigation,
+typography and light/dark colors. Format tables scroll inside their own region on narrow screens;
+JSON examples and tables are keyboard-focusable. The stylesheet cache key is consistent across
+all pages.
+
+The specification discoverability follow-up adds matching reference cards to the HCE profile-import
+and EMV trace workflows, plus direct card-profile and analysis-trace buttons in the Exchange formats
+overview. Both link to anchors in the existing shared specification without duplicating it.
+The cards reuse the shared card and button styles, with
+wrapping labels for narrow screens. The follow-up stylesheet cache key is `20261001-3` on all pages.
+
+The JSON guide contains three downloadable contactless online examples under
+`guides/hceimage-json/examples/`: Visa, Mastercard and American Express. Their separate
+`web-example-…-online-pin` IDs avoid the bundled catalog and supersede the minimal label-only
+scripts. These examples adapt the bundled, terminal-oriented APDU flows and include coherent
+PAN/Track 2 data, DOL inputs and public demonstration security defaults. Visa and Amex have newly
+invented test PANs. Mastercard retains its already-public synthetic PAN, artificial ICC RSA key
+and matching test certificate records so that changing a PAN does not break signed dependencies.
+All application-cryptogram keys are the public demonstration key with KCV 08D7B4; Mastercard's
+dynamic-number key has KCV FB0975. No production credentials or device-session data are included.
+Provenance identifies the bundled starting point, not a claim of certification or authenticity.
+
+The guide explains download/import, small/above-CVM-limit test transactions, test PINs, terminal
+card/BIN configuration, host-key requirements, and required/optional/conditional field groups.
+JSON comments and extra annotation fields are deliberately excluded because the importer rejects
+them. Annotations live in the field reference and supported descriptions/scenario guidance.
+Download actions and raw-file viewing links reuse the shared card/button system. The HCE guide and
+formats overview link directly to examples. The files pass the actual JVM import validator with
+no warnings, reject duplicate IDs and incorrect KCVs, and complete 4/9/11 APDUs respectively with
+9000, final Success and successful local session checks. This does not establish host approval,
+test CA configuration or compatibility with every physical terminal; the final modified files
+were subsequently tested by the owner on the connected Samsung and test terminal: import and
+emulation passed for all three. This reports the manual test, not a guarantee of other terminal
+configurations or host approval. Display names are Visa example, Mastercard example and American
+Express example; removing “terminal” from the names does not change Profile IDs or behavior.
+
+The guide review checked the HCE native-profile validator and private no-backup store, EMV trace
+documentation and History controls, ECR architecture and TCP transport, shared format rules, and
+in-app guide URLs. HCE guidance now explains APDU timing boundaries, deletion without erasing old
+sessions, and repeating a session's Profile ID dependency. EMV guidance names report formats and
+History filtering/Undo. Both guides caution that Redacted exports are not an anonymity guarantee.
+The retained ECR policy now distinguishes Android uninstall cleanup from desktop data that may
+remain after uninstalling; the matching ECR Markdown policy was updated together with the HTML.
+All three HTML policies were compared with their application's Markdown policy; dates remain draft
+dates pending the separately authorized publication step. Update the effective date of revised
+policy wording and its matching Markdown on publication, not merely on local review. Icon artwork,
+store track destinations and hidden ECR navigation remain unchanged. No push or Pages deployment
+was performed as part of this review.
+
+## Repeatable offline validation
+
+From the repository root run `python3 tools/check_site.py` and
+`python3 -m unittest discover -s tools`. The checker validates routes/assets, unique headings
+and anchors, JSON illustrations/download envelopes and sibling privacy mirrors without
+network access or deployment. Native importer checks and browser accessibility/layout review
+are separate gates. Never infer publication from a local successful check or commit.

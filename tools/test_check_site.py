@@ -2,7 +2,7 @@
 
 import unittest
 
-from check_site import Page, markdown_policy, normalized_text
+from check_site import Page, has_external_source_name, markdown_effective_date, markdown_policy, normalized_text, profile_guidance_errors
 
 
 class SiteParserTest(unittest.TestCase):
@@ -38,6 +38,76 @@ class SiteParserTest(unittest.TestCase):
             '<div class="policy-content"><h2>Scope</h2><p>No upload.</p></div>'
         )
         self.assertEqual("Local tool. Scope No upload.", normalized_text("".join(page.policy)))
+
+
+class PublicSourceNameTest(unittest.TestCase):
+    def test_external_name_is_rejected_in_copy_paths_and_metadata(self):
+        for value in ("BTT", "btt", "BTT_CARD_IMAGE", "archive/Btt/profile.xml"):
+            self.assertTrue(has_external_source_name(value))
+        self.assertFalse(has_external_source_name('{"source":{"format":"CUSTOM"}}'))
+
+
+class PolicyDateTest(unittest.TestCase):
+    def test_date_is_separate_and_cannot_be_replaced_by_body_text(self):
+        page = Page(
+            '<header class="policy-header"><p class="effective-date">Effective date: November 9, 2026</p>'
+            '<p class="lead">No automatic upload.</p></header>'
+        )
+        markdown = "# Policy\n\n**Effective date: November 9, 2026**\n"
+        self.assertEqual(markdown_effective_date(markdown), "".join(page.effective_date))
+        self.assertNotEqual(markdown_effective_date(markdown.replace("9,", "8,")), "".join(page.effective_date))
+        self.assertEqual("", markdown_effective_date("# Missing date"))
+
+
+class ProfileGuidanceTest(unittest.TestCase):
+    def scenario(self):
+        """One complete public physical-example scenario, independent of native crypto fixtures."""
+        return {
+            "id": "online-pin", "name": "Online PIN purchase", "transactionType": "PURCHASE",
+            "amountCondition": "ABOVE_CVM_LIMIT", "amountNote": "Use a configured test reader.",
+            "expectedCvm": "ONLINE_PIN", "expectedOutcome": "ONLINE_AUTHORIZATION",
+            "testPin": "1234", "pinNote": "The application does not verify the PIN.",
+            "terminalSetup": ["Use an authorized test reader."],
+            "knownLimitations": ["Card completion is not host approval."],
+        }
+
+    def test_complete_structured_pin_guidance_is_accepted(self):
+        self.assertEqual([], profile_guidance_errors({"testScenarios": [self.scenario()]}))
+
+    def test_amount_independent_guidance_does_not_require_a_limit_note(self):
+        scenario = self.scenario()
+        del scenario["amountNote"]
+        self.assertTrue(profile_guidance_errors({"testScenarios": [scenario]}))
+        scenario["amountCondition"] = "ANY"
+        self.assertEqual([], profile_guidance_errors({"testScenarios": [scenario]}))
+
+    def test_empty_guidance_and_non_object_scenarios_are_rejected(self):
+        for value in (None, [], "not scenarios", [None]):
+            with self.subTest(value=value):
+                self.assertTrue(profile_guidance_errors({"testScenarios": value}))
+
+    def test_missing_or_duplicate_ids_are_rejected(self):
+        scenario = self.scenario()
+        self.assertTrue(profile_guidance_errors({"testScenarios": [scenario, scenario]}))
+        scenario["id"] = ""
+        self.assertTrue(profile_guidance_errors({"testScenarios": [scenario]}))
+
+    def test_online_pin_requires_digits_and_verification_boundary(self):
+        for field, value in (("testPin", None), ("testPin", "１２３４"), ("pinNote", "Verified by app.")):
+            scenario = self.scenario()
+            scenario[field] = value
+            self.assertTrue(profile_guidance_errors({"testScenarios": [scenario]}))
+
+    def test_numeric_pin_is_not_duplicated_in_prose(self):
+        scenario = self.scenario()
+        scenario["pinNote"] += " Enter 1234."
+        self.assertTrue(profile_guidance_errors({"testScenarios": [scenario]}))
+
+    def test_setup_limits_and_public_source_names_are_checked(self):
+        for field, value in (("terminalSetup", []), ("knownLimitations", [""]), ("knownLimitations", ["BTT source"])):
+            scenario = self.scenario()
+            scenario[field] = value
+            self.assertTrue(profile_guidance_errors({"testScenarios": [scenario]}))
 
 
 if __name__ == "__main__":

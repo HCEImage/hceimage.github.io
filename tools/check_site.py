@@ -24,6 +24,8 @@ class Page(HTMLParser):
         self.h1_count = 0
         self.json_examples = []
         self.policy = []
+        self.effective_date = []
+        self._effective_date = False
         self._policy_depth = 0
         self._policy_header = False
         self._policy_lead = False
@@ -42,6 +44,8 @@ class Page(HTMLParser):
             self._policy_header = True
         if tag == "p" and self._policy_header and "lead" in attributes.get("class", "").split():
             self._policy_lead = True
+        if tag == "p" and "effective-date" in attributes.get("class", "").split():
+            self._effective_date = True
         for name in ("href", "src"):
             if attributes.get(name):
                 self.references.append(attributes[name])
@@ -56,6 +60,8 @@ class Page(HTMLParser):
     def handle_endtag(self, tag):
         if tag == "header":
             self._policy_header = False
+        if tag == "p":
+            self._effective_date = False
         if tag == "p" and self._policy_lead:
             self.policy.append(" ")
             self._policy_lead = False
@@ -70,6 +76,8 @@ class Page(HTMLParser):
             self._code = None
 
     def handle_data(self, data):
+        if self._effective_date:
+            self.effective_date.append(data)
         if self._policy_depth or self._policy_lead:
             self.policy.append(data)
         if self._code is not None:
@@ -88,6 +96,60 @@ def markdown_policy(value):
     return normalized_text(value.replace("**", "").replace("`", ""))
 
 
+def markdown_effective_date(value):
+    """Read the policy date independently of its Markdown emphasis/presentation."""
+    match = re.search(r"(?m)^\*\*Effective date: ([^*]+)\*\*$", value)
+    return normalized_text("Effective date: " + match[1]) if match else ""
+
+
+def has_external_source_name(value):
+    """Public copy/downloads must not expose the private source-tool name."""
+    return re.search(r"btt", value, re.IGNORECASE) is not None
+
+
+def profile_guidance_errors(payload):
+    """Check the public examples' guidance contract, not cryptography or native import validity."""
+    errors = []
+    scenarios = payload.get("testScenarios", [])
+    if not isinstance(scenarios, list) or not scenarios:
+        return ["missing Test guidance scenarios"]
+    ids = set()
+    for scenario in scenarios:
+        if not isinstance(scenario, dict):
+            errors.append("invalid guidance scenario")
+            continue
+        identifier = scenario.get("id", "")
+        if not isinstance(identifier, str) or not identifier or identifier in ids:
+            errors.append("missing or duplicate guidance scenario ID")
+        else:
+            ids.add(identifier)
+        for field in ("name", "transactionType", "amountCondition", "expectedCvm", "expectedOutcome"):
+            if not isinstance(scenario.get(field), str) or not scenario[field].strip():
+                errors.append(f"{identifier}: missing {field}")
+        if scenario.get("amountCondition") != "ANY" and (
+            not isinstance(scenario.get("amountNote"), str) or not scenario["amountNote"].strip()
+        ):
+            errors.append(f"{identifier}: missing amountNote for a bounded amount")
+        for field in ("terminalSetup", "knownLimitations"):
+            values = scenario.get(field)
+            if not isinstance(values, list) or not values or any(
+                not isinstance(value, str) or not value.strip() for value in values
+            ):
+                errors.append(f"{identifier}: invalid {field}")
+        pin = scenario.get("testPin")
+        note = scenario.get("pinNote", "")
+        if scenario.get("expectedCvm") == "ONLINE_PIN":
+            if not isinstance(pin, str) or not re.fullmatch(r"[0-9]{4,12}", pin):
+                errors.append(f"{identifier}: missing structured test PIN")
+            if not isinstance(note, str) or "does not verify" not in note:
+                errors.append(f"{identifier}: missing PIN verification boundary")
+        if isinstance(pin, str) and pin and isinstance(note, str) and pin in note:
+            errors.append(f"{identifier}: PIN repeated in prose")
+        if "btt" in json.dumps(scenario, ensure_ascii=False).lower():
+            errors.append(f"{identifier}: external source name in public guidance")
+    return errors
+
+
 def check_site(root):
     root = root.resolve()
     pages = {path.resolve(): Page(path.read_text()) for path in root.rglob("*.html")}
@@ -95,6 +157,8 @@ def check_site(root):
     references = 0
     for path, page in pages.items():
         relative = path.relative_to(root)
+        if has_external_source_name(path.read_text()):
+            errors.append(f"{relative}: external source name in public HTML")
         if page.h1_count != 1:
             errors.append(f"{relative}: expected one H1, found {page.h1_count}")
         if page.duplicates:
@@ -129,24 +193,33 @@ def check_site(root):
     for path in profiles:
         document = json.loads(path.read_text())
         payload = document["payload"]
+        if has_external_source_name(json.dumps(document, ensure_ascii=False)):
+            errors.append(f"{path.name}: external source name in public download")
+        if payload.get("source") != {"format": "CUSTOM"}:
+            errors.append(f"{path.name}: public downloads require CUSTOM-only provenance")
         actual = (
             document.get("format"), document.get("kind"),
             document.get("schemaVersion"), payload.get("schemaVersion"),
         )
         if actual != (
-            "com.hceimage.definition", "card-profile", 1, 2,
+            "com.hceimage.definition", "card-profile", 1, 3,
         ):
             errors.append(f"{path.name}: unexpected profile envelope/schema")
         if payload["id"] in ids:
             errors.append(f"{path.name}: duplicate Profile ID")
         ids.add(payload["id"])
+        errors.extend(f"{path.name}: {issue}" for issue in profile_guidance_errors(payload))
     for app in ("hce-test-tool", "emv-card-analyzer", "ecr-test-tool"):
         policy = root.parent / app / "play/privacy-policy.md"
         if not policy.is_file():
             errors.append(f"Missing sibling privacy policy: {policy}")
         else:
             page = pages[root / app / "privacy-policy/index.html"]
-            if markdown_policy(policy.read_text()) != normalized_text("".join(page.policy)):
+            policy_text = policy.read_text()
+            expected_date = markdown_effective_date(policy_text)
+            if not expected_date or expected_date != normalized_text("".join(page.effective_date)):
+                errors.append(f"{app}: website privacy effective date differs from application policy")
+            if markdown_policy(policy_text) != normalized_text("".join(page.policy)):
                 errors.append(f"{app}: website privacy body differs from application policy")
     return errors, len(pages), references, len(profiles)
 

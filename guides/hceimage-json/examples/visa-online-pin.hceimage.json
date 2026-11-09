@@ -1,158 +1,264 @@
 {
-  "format": "com.hceimage.definition",
-  "schemaVersion": 1,
-  "kind": "card-profile",
-  "payload": {
-    "schemaVersion": 2,
-    "id": "web-example-visa-online-pin",
-    "name": "Visa example",
-    "description": "Synthetic Visa contactless online test profile with a test-only PAN and public demonstration keys. No CVM below the configured terminal limit; online PIN above it. For authorized test terminals and host simulators only. Terminal and host configuration determine acceptance and approval.",
-    "brand": "VISA",
-    "formFactor": "PHYSICAL",
-    "technologies": [
-      "EMV_CONTACTLESS"
-    ],
-    "source": {
-      "format": "CUSTOM",
-      "author": "HCEImage",
-      "originalId": "visa-contactless-online-pin",
-      "originalDescription": "Adapted from the bundled test profile with public demonstration keys. Visa and Amex use newly invented test PANs; Mastercard retains its public synthetic PAN and matching test certificates."
-    },
-    "applications": [
-      {
-        "aid": "A0000000031010",
-        "label": "VISA CREDIT",
-        "pan": "4761739990000014",
-        "pdol": "9F66049F02069F03069F1A0295055F2A029A039C019F3704",
-        "cvmPolicy": "VISA_ONLINE_PIN",
-        "crypto": {
-          "algorithm": "VISA_CVN_22",
-          "testMasterKeyAc": "0123456789ABCDEFFEDCBA9876543210",
-          "panSequenceNumber": "01",
-          "applicationInterchangeProfile": "0020",
-          "issuerApplicationData": "1F220100A0000000000000000000000000000000000000000000000000000000",
-          "testMasterKeyAcKcv": "08D7B4"
-        }
-      }
-    ],
-    "apduRules": [
-      {
-        "id": "select-ppse",
-        "name": "SELECT PPSE",
-        "request": {
-          "cla": "00",
-          "ins": "A4",
-          "p1": "04",
-          "dataPattern": "325041592E5359532E4444463031"
-        },
-        "response": {
-          "data": "",
-          "dataTemplate": "6F2D840E325041592E5359532E4444463031A51BBF0C1861164F07A0000000031010500B5649534120435245444954",
-          "statusWord": "9000"
-        },
-        "outcome": "CONTINUE"
-      },
-      {
-        "id": "select-application",
-        "name": "SELECT application",
-        "request": {
-          "cla": "00",
-          "ins": "A4",
-          "p1": "04",
-          "dataPattern": "A0000000031010"
-        },
-        "response": {
-          "data": "",
-          "dataTemplate": "6F3E8407A0000000031010A533500B56495341204352454449549F38189F66049F02069F03069F1A0295055F2A029A039C019F3704BF0C089F5A050008400840",
-          "statusWord": "9000"
-        },
-        "outcome": "CONTINUE"
-      },
-      {
-        "id": "get-processing-options",
-        "name": "GET PROCESSING OPTIONS",
-        "request": {
-          "cla": "80",
-          "ins": "A8",
-          "p1": "00",
-          "p2": "00",
-          "dataPattern": "83*"
-        },
-        "response": {
-          "data": "",
-          "dataTemplate": "77648202002094040805050057114761739990000014D311220111438444895F3401019F10201F220100A00000000000000000000000000000000000000000000000000000009F2608{{APPLICATION_CRYPTOGRAM}}9F2701809F3602{{ATC}}9F6C02{{VISA_CTQ}}9F6E0420700000",
-          "statusWord": "9000"
-        },
-        "outcome": "CONTINUE"
-      },
-      {
-        "id": "read-record-1-5",
-        "name": "READ RECORD",
-        "request": {
-          "cla": "00",
-          "ins": "B2",
-          "p1": "05",
-          "p2": "0C"
-        },
-        "response": {
-          "data": "",
-          "dataTemplate": "700A5F280208409F0702C280",
-          "statusWord": "9000"
-        },
-        "outcome": "SUCCESS"
-      }
-    ],
-    "expectedFlow": [
-      "select-ppse",
-      "select-application",
-      "get-processing-options",
-      "read-record-1-5"
-    ],
-    "testScenarios": [
-      {
-        "id": "no-cvm",
-        "name": "No CVM purchase",
-        "transactionType": "PURCHASE",
-        "amountCondition": "BELOW_CVM_LIMIT",
-        "amountNote": "Use an amount below the terminal contactless CVM limit.",
-        "expectedCvm": "NO_CVM",
-        "expectedOutcome": "ONLINE_AUTHORIZATION",
-        "terminalSetup": [
-          "Enable Visa contactless qVSDC online processing.",
-          "Start emulation before presenting the phone.",
-          "Configure the test card/BIN table for synthetic PAN 4761739990000014 if required.",
-          "The application-cryptogram key is a public demonstration key with KCV 08D7B4; configure the host simulator accordingly if it verifies cryptograms."
+    "format": "com.hceimage.definition",
+    "schemaVersion": 1,
+    "kind": "card-profile",
+    "payload": {
+        "schemaVersion": 3,
+        "id": "web-example-visa-physical-emv-online-pin",
+        "name": "Visa Online PIN example",
+        "description": "Synthetic physical Visa EMV contactless profile requesting Online PIN, with dynamic test cryptograms and optional offline authentication.",
+        "brand": "VISA",
+        "formFactor": "PHYSICAL",
+        "technologies": [
+            "EMV_CONTACTLESS"
         ],
-        "knownLimitations": [
-          "A successful card flow requests online authorization; final approval or decline depends on the connected test host.",
-          "The PAN and cryptographic keys are public synthetic test values, not real payment credentials.",
-          "A supported AID alone does not ensure the payment application accepts the test PAN; UNKNOWN_CARD indicates a test card-table or routing limitation.",
-          "These profiles are examples, not certified scheme test cases. A host decline does not by itself mean the NFC read failed."
-        ]
-      },
-      {
-        "id": "online-pin",
-        "name": "Online PIN purchase",
-        "transactionType": "PURCHASE",
-        "amountCondition": "ABOVE_CVM_LIMIT",
-        "amountNote": "Use an amount above the terminal contactless CVM limit.",
-        "expectedCvm": "ONLINE_PIN",
-        "testPin": "123412",
-        "pinNote": "Enter the test PIN on the terminal when prompted. HCE Test Tool does not verify it; PIN validation depends on the connected test host.",
-        "expectedOutcome": "ONLINE_AUTHORIZATION",
-        "terminalSetup": [
-          "Enable Visa contactless online PIN processing.",
-          "Start emulation before presenting the phone.",
-          "Configure the test card/BIN table for synthetic PAN 4761739990000014 if required.",
-          "The application-cryptogram key is a public demonstration key with KCV 08D7B4; configure the host simulator accordingly if it verifies cryptograms."
+        "source": {
+            "format": "CUSTOM"
+        },
+        "applications": [
+            {
+                "aid": "A0000000031010",
+                "label": "VISA CREDIT",
+                "pan": "4176662220010034",
+                "pdol": "9F66049F02069F03069F1A0295055F2A029A039C019F3704",
+                "crypto": {
+                    "algorithm": "VISA_CVN_22",
+                    "testMasterKeyAc": "2315208C9110AD402315208C9110AD40",
+                    "panSequenceNumber": "03",
+                    "applicationInterchangeProfile": "2000",
+                    "issuerApplicationData": "1F2201008000000000564953414C335445535443415345000000000000000000",
+                    "testIccPrivateKey": {
+                        "modulus": "AB02DC02F1CB7D30113FE87A17D38D67A47CA6EC7A7AE10E6FE5B7D5800547B1B21A2413DD18136126D8B00F021DC7E19CF513DD87149673B3764FF701454347CCA9C8E310F9DB651DFDC9364F121002E5A795E3ECFB50678177CF4C15A11067C1006E13AE77122934A38C11F429137A9AA9AF98610BC8B4979B3FC6BC85C34CAFA2E1B818F54DD8A50B21B9CBF62BFAD4BB3F4CF6B5239F3FD23F8B93E96C84C9CE67DFD70359153855A8F735CAFBE5",
+                        "publicExponent": "03",
+                        "privateExponent": "7201E801F687A8CAB62A9AFC0FE25E45185319F2FC51EB5EF543CFE3AAAE2FCBCC116D6293656240C490755F56BE8541134E0D3E5A0DB9A277A4354F562E2CDA8871309760A692436953DB798A0C0AAC991A63ED48A78AEE9447CDD143283C3E37856837625E162ED7ACB7505FCCE75B269F65D7747EF4B60E02D514C161F8AA051BCFB5286420230C87A99BCF79E08C413E286FF77ECD578E6684D953CA5EF47DC1E189A29067C090D731442F399BF3"
+                    },
+                    "fastDda": {
+                        "cardAuthenticationRelatedData": "01000000008000",
+                        "onlineSignedDataFormat": "95",
+                        "offlineSignedDataFormat": "05"
+                    }
+                }
+            }
         ],
-        "knownLimitations": [
-          "A successful card flow requests online authorization; final approval or decline depends on the connected test host.",
-          "The PAN and cryptographic keys are public synthetic test values, not real payment credentials.",
-          "A supported AID alone does not ensure the payment application accepts the test PAN; UNKNOWN_CARD indicates a test card-table or routing limitation.",
-          "These profiles are examples, not certified scheme test cases. A host decline does not by itself mean the NFC read failed."
+        "apduRules": [
+            {
+                "id": "select-1-1",
+                "name": "SELECT PPSE",
+                "request": {
+                    "cla": "00",
+                    "ins": "A4",
+                    "p1": "04",
+                    "dataPattern": "325041592E5359532E4444463031"
+                },
+                "response": {
+                    "data": "6F42840E325041592E5359532E4444463031A530BF0C2D612B4F07A0000000031010500B56495341204352454449548701019F0A080001050200000000BF6304DF200180",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "select-2-1",
+                "name": "SELECT application",
+                "request": {
+                    "cla": "00",
+                    "ins": "A4",
+                    "p1": "04",
+                    "dataPattern": "A0000000031010"
+                },
+                "response": {
+                    "data": "6F518407A0000000031010A546500B56495341204352454449545F2D08656E6573667264659F1101019F120C564953412E43492E313032349F38189F66049F02069F03069F1A0295055F2A029A039C019F3704",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "gpo-2-2",
+                "name": "GET PROCESSING OPTIONS",
+                "request": {
+                    "cla": "80",
+                    "ins": "A8",
+                    "p1": "00",
+                    "p2": "00",
+                    "dataPattern": "83*",
+                    "dataBitPattern": "10000011??????????1?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????0010????????????????????????????????????"
+                },
+                "response": {
+                    "data": "",
+                    "dataTemplate": "776C8202200094040805050057104176662220010034D3112201115233585F3401039F10201F2201008000000000564953414C3354455354434153450000000000000000009F2608{{APPLICATION_CRYPTOGRAM}}9F2701009F3602{{ATC}}9F6C0200009F6E04207000009F7C06010412345678",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "gpo-2-3",
+                "name": "GET PROCESSING OPTIONS",
+                "request": {
+                    "cla": "80",
+                    "ins": "A8",
+                    "p1": "00",
+                    "p2": "00",
+                    "dataPattern": "83*",
+                    "dataBitPattern": "10000011??????????1????0????????????*"
+                },
+                "response": {
+                    "data": "",
+                    "dataTemplate": "776C8202200094040805050057104176662220010034D3112201115233585F3401039F10201F220100A000000000564953414C3354455354434153450000000000000000009F2608{{APPLICATION_CRYPTOGRAM}}9F2701809F3602{{ATC}}9F6C0280009F6E04207000009F7C06010412345678",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "gpo-2-4",
+                "name": "GET PROCESSING OPTIONS",
+                "request": {
+                    "cla": "80",
+                    "ins": "A8",
+                    "p1": "00",
+                    "p2": "00",
+                    "dataPattern": "83*",
+                    "dataBitPattern": "10000011??????????1????1????????????*"
+                },
+                "response": {
+                    "data": "",
+                    "dataTemplate": "777482022000940C08050500180101001001030057104176662220010034D3112201115233585F3401039F10201F220100A000000000564953414C3354455354434153450000000000000000009F2608{{APPLICATION_CRYPTOGRAM}}9F2701809F3602{{ATC}}9F6C0280009F6E04207000009F7C06010412345678",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-5",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "05",
+                    "p2": "0C"
+                },
+                "response": {
+                    "data": "700A5F280208269F07020200",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-6",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "01",
+                    "p2": "14"
+                },
+                "response": {
+                    "data": "7081FB9081F88BDF45A98C83ED7563F306059D602B44F606729E42A12DCE93D64B3F870CB142FDDF70F8C299F358D39BC7BF3FCCA3F0A54DD3143B0D53EE08465C5B969DC4E9C6AEE32469B20CD3BA4EDF0E11A4A3C967877B769EC3B9C2BD018531BC142A70D36C3B7A80257EF964EC4B7C586C01E0EC6A76F8B4B382F369E5A6D7DBEB000DAD331D334F10B9115BC06FBE1B401B690F133A86119848FA52C42AE2170FA9820F9BE1440E478695C6111A00426C069FA4D8918BED7D5BB9A641E641FEC38F037F21C74B1A9A796131A8F22D41214442910F688398BC922AF1CEE041875830F008E9D6ECDAF1426FEA04B16284DFA0BE2020541385943217",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-7",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "02",
+                    "p2": "14"
+                },
+                "response": {
+                    "data": "",
+                    "dataTemplate": "7081EC8F01949F3201039F4701039F482A4DD8A50B21B9CBF62BFAD4BB3F4CF6B5239F3FD23F8B93E96C84C9CE67DFD70359153855A8F735CAFBE59F4B81B0{{VISA_SDAD}}",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-8",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "03",
+                    "p2": "14"
+                },
+                "response": {
+                    "data": "7081BE9F4681B009C4CF29570963ACE0920B799122FD9ED72D9C6C361238A0F22EBB164AB0CFEEC4CD1D627EFB169675C16ABFFBFC7593C2B149311D7280398D667DE3F993DA7A4A8B65158076C65DEBD1979554CDCC475BDF0547008E7D934DD669C704417C60D782BF93FE7A593EFEF7C6BF8B94F62E3091E4C8F062C06DE199F50724B18D0395D66277303704FB20BB12673DAD120DF70E5A8636A399976178B5051DE4E250F799CC982B14C0640EE895421A8982D29F690701000000008000",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-9",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "01",
+                    "p2": "1C"
+                },
+                "response": {
+                    "data": "70105A0841766622200100345F2403311231",
+                    "statusWord": "9000"
+                },
+                "outcome": "SUCCESS"
+            }
+        ],
+        "expectedFlow": [
+            "select-1-1",
+            "select-2-1",
+            "gpo-2-2",
+            "gpo-2-3",
+            "gpo-2-4",
+            "readrecord-2-5",
+            "readrecord-2-6",
+            "readrecord-2-7",
+            "readrecord-2-8",
+            "readrecord-2-9"
+        ],
+        "testScenarios": [
+            {
+                "id": "online-pin",
+                "name": "Purchase requesting Online PIN",
+                "transactionType": "PURCHASE",
+                "amountCondition": "ANY",
+                "expectedCvm": "ONLINE_PIN",
+                "testPin": "123412",
+                "pinNote": "Enter the test PIN on the terminal when prompted. HCE Test Tool does not verify it; PIN validation depends on the connected test host.",
+                "expectedOutcome": "ONLINE_AUTHORIZATION",
+                "terminalSetup": [
+                    "Enable Visa EMV contactless online processing and Online PIN.",
+                    "Start emulation before presenting the phone, then read every record advertised by the current GPO AFL.",
+                    "Test both below and above the reader CVM limit, for example 10 CZK and 550 CZK. This fixed profile requests Online PIN in both online purchase cases.",
+                    "Import this complete example, select it in the Emulator and start with Card profile defaults. Start emulation before presenting the phone."
+                ],
+                "knownLimitations": [
+                    "Use the six-digit test PIN shown above only with a matching authorized test host.",
+                    "If the reader uses a special online-authentication mode, its reported CVM may differ from the card request. Verify ordinary CVM selection separately in retail mode.",
+                    "Card-side completion is not payment approval. HCE Test Tool does not verify PIN, authenticate a real device or perform host authorization.",
+                    "This downloadable example has a separate Profile ID from the Built-in profile. Importing it does not update an existing imported snapshot; keep the original JSON and choose a unique ID for additional copies."
+                ]
+            },
+            {
+                "id": "online-authentication",
+                "name": "Online purchase with offline data authentication",
+                "transactionType": "PURCHASE",
+                "amountCondition": "ANY",
+                "expectedCvm": "ONLINE_PIN",
+                "testPin": "123412",
+                "pinNote": "Enter the test PIN on the terminal when prompted. HCE Test Tool does not verify it; PIN validation depends on the connected test host.",
+                "expectedOutcome": "ONLINE_AUTHORIZATION",
+                "terminalSetup": [
+                    "Enable the Visa online-authentication branch and install the matching synthetic CA key through your reader's authorized test configuration.",
+                    "Start emulation before presenting the phone, then read every record advertised by the current GPO AFL.",
+                    "Keep this authentication-path test separate from normal retail CVM selection.",
+                    "Import this complete example, select it in the Emulator and start with Card profile defaults. Start emulation before presenting the phone."
+                ],
+                "knownLimitations": [
+                    "Successful authentication reports do not establish host authorization or Online PIN validation.",
+                    "If the reader uses a special online-authentication mode, its reported CVM may differ from the card request. Verify ordinary CVM selection separately in retail mode.",
+                    "Card-side completion is not payment approval. HCE Test Tool does not verify PIN, authenticate a real device or perform host authorization.",
+                    "This downloadable example has a separate Profile ID from the Built-in profile. Importing it does not update an existing imported snapshot; keep the original JSON and choose a unique ID for additional copies."
+                ]
+            }
         ]
-      }
-    ]
-  }
+    }
 }

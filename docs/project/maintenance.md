@@ -4,6 +4,14 @@ Material engineering decisions and delivery history. Older records retain the sc
 publication status at their recorded date; they are not current runtime documentation.
 
 
+## Release-ready website and profile examples — 2026-11-09
+
+Prepare the full site for the new HCE 1.0.0 release, not an old-release development preview. Align the catalog, PIN/security/Reset/two-presentation guidance and format reference; replace the three downloads with current physical payload-3 examples under stable URLs and distinct semantic IDs. Public provenance is CUSTOM only; public copy/downloads cannot name the external source tool.
+
+Review all three privacy mirrors against app sources. HCE explicitly describes test-only simulated verification with no biometric/unlock input, effective November 9, 2026; EMV/ECR wording/dates stay unchanged. Preserve artwork and shared design. ECR remains in development.
+
+The [verification checkpoint](verification.md#release-ready-website-and-profile-examples--2026-11-09) records native import/flow/crypto parity, thirteen web regressions, policy body/date checks and desktop/mobile review. Publish only with the matching application release, under separate approval. Nothing is pushed or deployed; older payload-2/development-preview entries below retain their historical stage.
+
 <a id="README-current-publication-status"></a>
 ## Amex development catalog alignment — 2026-11-09
 

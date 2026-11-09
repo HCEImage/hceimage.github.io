@@ -4,6 +4,10 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+## Amex development catalog alignment — 2026-11-09
+
+Local-only guide/reference alignment with the HCE 24-profile / 43-scenario development catalog: seven refreshed American Express paths, payload 3, common PIN policy, optional mobile EMV two-presentation CVM, application-key/ICC Mixed and Reset semantics, and dynamic GET DATA ATC. Public downloadable examples remain envelope 1 / payload 2 for the published application; no new source data or private CA/issuer keys are published. This introduces no collection/network-processing change and no privacy-policy effective-date change. Validation passes for nine HTML pages, 80 local references, three native profile envelopes/JSON illustrations and three policy mirrors, plus four checker unit tests. The actual HCE importer also accepts the three unchanged published downloads. Existing graphics/styles remain unchanged; the text updates use the existing guide layout. Commit is authorized; push and GitHub Pages publication are not.
+
 ## Topics
 
 - [Local final reviews](#README-local-final-reviews)

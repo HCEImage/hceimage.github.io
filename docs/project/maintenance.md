@@ -5,6 +5,10 @@ publication status at their recorded date; they are not current runtime document
 
 
 <a id="README-current-publication-status"></a>
+## Amex development catalog alignment — 2026-11-09
+
+Local-only guide/reference alignment with the HCE 24-profile / 43-scenario development catalog: seven refreshed American Express paths, payload 3, common PIN policy, optional mobile EMV two-presentation CVM, application-key/ICC Mixed and Reset semantics, and dynamic GET DATA ATC. Public downloadable examples remain envelope 1 / payload 2 for the published application; no new source data or private CA/issuer keys are published. This introduces no collection/network-processing change and no privacy-policy effective-date change. Validation passes for nine HTML pages, 80 local references, three native profile envelopes/JSON illustrations and three policy mirrors, plus four checker unit tests. The actual HCE importer also accepts the three unchanged published downloads. Existing graphics/styles remain unchanged; the text updates use the existing guide layout. Commit is authorized; push and GitHub Pages publication are not.
+
 ## Current publication status
 
 On 2026-10-11 the owner confirmed HCE 0.1.14 (15) production publication and authorized

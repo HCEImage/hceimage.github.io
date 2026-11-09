@@ -2,7 +2,16 @@
 
 import unittest
 
-from check_site import Page, has_external_source_name, markdown_effective_date, markdown_policy, normalized_text, profile_guidance_errors
+from check_site import (
+    PUBLIC_EXAMPLES,
+    Page,
+    example_inventory_errors,
+    has_external_source_name,
+    markdown_effective_date,
+    markdown_policy,
+    normalized_text,
+    profile_guidance_errors,
+)
 
 
 class SiteParserTest(unittest.TestCase):
@@ -57,6 +66,25 @@ class PolicyDateTest(unittest.TestCase):
         self.assertEqual(markdown_effective_date(markdown), "".join(page.effective_date))
         self.assertNotEqual(markdown_effective_date(markdown.replace("9,", "8,")), "".join(page.effective_date))
         self.assertEqual("", markdown_effective_date("# Missing date"))
+
+
+class ExampleInventoryTest(unittest.TestCase):
+    def test_each_supported_brand_has_its_stable_download(self):
+        self.assertEqual([], example_inventory_errors(dict(PUBLIC_EXAMPLES)))
+
+    def test_missing_brand_example_is_rejected(self):
+        examples = dict(PUBLIC_EXAMPLES)
+        del examples["jcb-online-pin.hceimage.json"]
+        self.assertTrue(example_inventory_errors(examples))
+
+    def test_extra_download_cannot_silently_duplicate_a_brand(self):
+        examples = dict(PUBLIC_EXAMPLES, extra="JCB")
+        self.assertTrue(example_inventory_errors(examples))
+
+    def test_brand_cannot_be_swapped_under_another_download_name(self):
+        examples = dict(PUBLIC_EXAMPLES)
+        examples["jcb-online-pin.hceimage.json"] = "VISA"
+        self.assertTrue(example_inventory_errors(examples))
 
 
 class ProfileGuidanceTest(unittest.TestCase):

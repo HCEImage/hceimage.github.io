@@ -150,6 +150,25 @@ def profile_guidance_errors(payload):
     return errors
 
 
+PUBLIC_EXAMPLES = {
+    "visa-online-pin.hceimage.json": "VISA",
+    "mastercard-online-pin.hceimage.json": "MASTERCARD",
+    "amex-online-pin.hceimage.json": "AMERICAN_EXPRESS",
+    "jcb-online-pin.hceimage.json": "JCB",
+}
+
+
+def example_inventory_errors(brands_by_filename):
+    """Keep every supported brand represented exactly once under its stable download name."""
+    errors = []
+    if set(brands_by_filename) != set(PUBLIC_EXAMPLES):
+        errors.append("Expected exactly one public example for each supported brand")
+    for filename, brand in brands_by_filename.items():
+        if filename not in PUBLIC_EXAMPLES or brand != PUBLIC_EXAMPLES[filename]:
+            errors.append(f"{filename}: example brand does not match its download")
+    return errors
+
+
 def check_site(root):
     root = root.resolve()
     pages = {path.resolve(): Page(path.read_text()) for path in root.rglob("*.html")}
@@ -189,9 +208,13 @@ def check_site(root):
             ):
                 errors.append(f"{relative}: missing anchor {reference}")
     profiles = list((root / "guides/hceimage-json/examples").glob("*.hceimage.json"))
+    documents = {path.name: json.loads(path.read_text()) for path in profiles}
+    errors.extend(example_inventory_errors({
+        name: document["payload"].get("brand") for name, document in documents.items()
+    }))
     ids = set()
     for path in profiles:
-        document = json.loads(path.read_text())
+        document = documents[path.name]
         payload = document["payload"]
         if has_external_source_name(json.dumps(document, ensure_ascii=False)):
             errors.append(f"{path.name}: external source name in public download")

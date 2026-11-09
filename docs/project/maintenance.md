@@ -4,6 +4,20 @@ Material engineering decisions and delivery history. Older records retain the sc
 publication status at their recorded date; they are not current runtime documentation.
 
 
+
+## JCB cleanup and local commit preparation — 2026-11-09
+
+Factor the four-brand inventory check into a small pure validator with missing/extra/mislabelled
+download regressions. Retain native import/crypto/parity and existing responsive-layout evidence.
+The JCB sample, guide text and validation changes are prepared for a local commit with HCE;
+no privacy practice, assets or CSS change and no remote deployment is authorized.
+
+## JCB sample and convention alignment — 2026-11-09
+
+Add JCB EMV Online PIN as the fourth release-ready physical example, envelope 1/payload 3, distinct web-example-jcb-physical-emv-online-pin ID and CUSTOM-only provenance. Keep matching public synthetic key/certificate material, source-aligned structured PIN and full setup/security/Reset/host limits. Preserve stable JCB Built-in IDs; this is not tokenized, contactless Magstripe or interactive device verification. Update both relevant guides, processing/key-role tables and example inventory checks using the existing two-column/mobile-single-column design.
+
+No privacy processing/wording/effective-date change is needed. All three policy mirrors still match. No external source-tool names appear in public HTML or complete downloads. Native integration includes JCB ARQC/CDA/custom/default and Built-in parity; the web checker covers exactly one example per supported brand. Nine pages/83 local references/four profiles/three policies and thirteen checker tests pass. No push or publication; local changes remain uncommitted.
+
 ## Release-ready website and profile examples — 2026-11-09
 
 Prepare the full site for the new HCE 1.0.0 release, not an old-release development preview. Align the catalog, PIN/security/Reset/two-presentation guidance and format reference; replace the three downloads with current physical payload-3 examples under stable URLs and distinct semantic IDs. Public provenance is CUSTOM only; public copy/downloads cannot name the external source tool.

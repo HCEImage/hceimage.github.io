@@ -40,14 +40,14 @@ Pages use semantic HTML and one shared stylesheet. Application icons retain dist
 artwork; tables/code remain readable at mobile widths. Internal links and anchors identify
 actual routes, not application release numbers. Release-ready pages describe the matching prepared application version; deployment is gated separately in project records. JSON examples have independent
 envelope/payload versions and must remain valid native imports, not truncated illustrations.
-The three physical downloads use payload 3 and derive from the current Visa Online PIN, Mastercard Online PIN and Amex Adaptive CVM definitions.
+The four physical downloads use payload 3 and derive from current Visa Online PIN, Mastercard Online PIN, Amex Adaptive CVM and JCB EMV Online PIN definitions.
 Their Test guidance states amount-independent or separate below/above-reader-limit scenarios, structured
 PIN references, concrete setup, temporary-key/Keep/Reset boundaries and reader/host limitations. Visa/MC fixed Online PIN requests remain explicit even below the reader limit.
 Public source metadata is CUSTOM only. Guidance edits do not alter an existing imported snapshot.
 Mastercard custom application overrides require the complete MK-AC/MK-IDN group and retain the
 matching ICC key/certificates for CDA; the Amex example includes its matching synthetic ICC signing key and requested CDA support.
 The web checker validates guidance completeness, public source-name exclusion, CUSTOM-only provenance and policy body/effective-date parity, while HCE integration tests validate actual
-import, payload-3 parity with Built-in processing, APDU flows, dynamic cryptograms, requested Mastercard/Amex CDA, custom/Reset and PIN display.
+import, payload-3 parity with Built-in processing, APDU flows, dynamic cryptograms, requested Mastercard/Amex/JCB CDA, custom/Reset and PIN display.
 
 ## Technical navigation
 

@@ -1,0 +1,266 @@
+{
+    "format": "com.hceimage.definition",
+    "schemaVersion": 1,
+    "kind": "card-profile",
+    "payload": {
+        "schemaVersion": 3,
+        "id": "web-example-jcb-physical-emv-online-pin",
+        "name": "JCB EMV Online PIN example",
+        "description": "Synthetic physical JCB EMV profile requesting Online PIN above the terminal CVM limit.",
+        "brand": "JCB",
+        "formFactor": "PHYSICAL",
+        "technologies": [
+            "EMV_CONTACTLESS"
+        ],
+        "source": {
+            "format": "CUSTOM"
+        },
+        "applications": [
+            {
+                "aid": "A0000000651010",
+                "label": "JCB Credit",
+                "pan": "3569990012312418",
+                "pdol": "9F5201",
+                "cdol1": "9F02069F03069F1A0295055F2A029A039C019F37049F35019F5303",
+                "crypto": {
+                    "algorithm": "JCB_CVN_1",
+                    "testMasterKeyAc": "3D19850DD385318A7F54FB9D370867BA",
+                    "panSequenceNumber": "00",
+                    "applicationInterchangeProfile": "1980",
+                    "keyDerivationIndex": "01",
+                    "cryptogramVersionNumber": "01",
+                    "cardVerificationResults": "A0000000",
+                    "testIccPrivateKey": {
+                        "modulus": "B06066E59FE2C4DBB4A4E2C411698E5A0956AD2696216F4EC0A457343ECDC5BC51B6BEE1685903C263A1BEAE36A03FE27C443DAB3681AD764E7E8AE6869172D44151003CD327F1BA21EBB1DC5F20E7F781D93F59CF7A05EB800C8905F76808FE1FF9CC0AEC6856996BBEFEE89F8625E3C6580A9B79D4BE180049400D07573547B4C1BBB68D9FDCD1AF3865E6B05C34B2AB8E7DA8E8DBA565F632EFD2DF956685",
+                        "publicExponent": "03",
+                        "privateExponent": "759599EE6A972DE7CDC341D80B9BB43C0639C8C464164A34806D8F7829DE83D2E1247F40F03B57D6ED167F1ECF157FEC52D8291CCF011E4EDEFF074459B64C8D80E0AAD3376FF67C169D213D94C09AA3E5662A0524047E9870977D96894BAACC14780BECFBDF60CBF26397A2FC862D1347E1F6AF131C08AFD3E941A0EC72B0E962F75704B77D4A5321AD6D290A5E50A39F07AD818143E191CA9789B54E4D5DB3"
+                    }
+                }
+            }
+        ],
+        "apduRules": [
+            {
+                "id": "select-1-1",
+                "name": "SELECT PPSE",
+                "request": {
+                    "cla": "00",
+                    "ins": "A4",
+                    "p1": "04",
+                    "dataPattern": "325041592E5359532E4444463031"
+                },
+                "response": {
+                    "data": "6F2F840E325041592E5359532E4444463031A51DBF0C1A61184F07A0000000651010500A4A434220437265646974870101",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "select-2-1",
+                "name": "SELECT application",
+                "request": {
+                    "cla": "00",
+                    "ins": "A4",
+                    "p1": "04",
+                    "dataPattern": "A0000000651010"
+                },
+                "response": {
+                    "data": "6F248407A0000000651010A519500A4A4342204372656469749F38039F52015F2D046A61656E",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "gpo-2-2",
+                "name": "GET PROCESSING OPTIONS",
+                "request": {
+                    "cla": "80",
+                    "ins": "A8",
+                    "p1": "00",
+                    "p2": "00"
+                },
+                "response": {
+                    "data": "770E8202198094081002020018010701",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-3",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "02",
+                    "p2": "14"
+                },
+                "response": {
+                    "data": "70228C1B9F02069F03069F1A0295055F2A029A039C019F37049F35019F53039F08020200",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-4",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "01",
+                    "p2": "1C"
+                },
+                "response": {
+                    "data": "701A57133569990012312418D49122010000000000000F5F2002202F",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-5",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "02",
+                    "p2": "1C"
+                },
+                "response": {
+                    "data": "70315F24034912315A0835699900123124185F3401009F0702FFC09F0D0500000000009F0E0500000000009F0F050000000000",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-6",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "03",
+                    "p2": "1C"
+                },
+                "response": {
+                    "data": "70235F280203929F6E04200100009F7C1411FFFF0123456789ABCDEF0123456789ABCDEF01",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-7",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "04",
+                    "p2": "1C"
+                },
+                "response": {
+                    "data": "7081FB9081F80256115E0830886E32F005CF4178CCB9CC84CD46697E567112CD3BB11D011C16C7163FF978BA81EBB6E72C1DEBC971BD64AA26052A278B7486D435D2110931CAD553EE8DD4D5E44339F8276DD61848EEF7804832D164D90C14465620CB5E26191EF72D1E203EDF855C32AA2E86E6ECFF1375AB4BD483216B21082E2E8CEA066A57F04A025D8A32CC9E3FCC79B46407318107329AEE0CF0C02E5553793ADE9EE2CA7B82719BA0CAF1313CA443C9713C95BACA42820D264749D28625800A97BD737D1A145883ACAD8E27B84D83816FE152F3A692BD9C51D73112101062028D030608D2AA445958843F70E6A176DC55972B2BE97C8B85BE7930",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-8",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "05",
+                    "p2": "1C"
+                },
+                "response": {
+                    "data": "700B8F01139F3201039F4A0182",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-9",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "06",
+                    "p2": "1C"
+                },
+                "response": {
+                    "data": "70219F4701039F481ADCD1AF3865E6B05C34B2AB8E7DA8E8DBA565F632EFD2DF956685",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "readrecord-2-10",
+                "name": "READ RECORD",
+                "request": {
+                    "cla": "00",
+                    "ins": "B2",
+                    "p1": "07",
+                    "p2": "1C"
+                },
+                "response": {
+                    "data": "7081B49F4681B0B9A41A2C3785701668AF6F1C72D7097E4C7A899CA973EDFE1B9C06F7446CA1503646103ED4D304259AA6AB5C4FD8FDB6C3C1CF69BBA523760C0EA6222E2B980BD86B809C7108A4D893656C21D185BA5852285A76F0EF74F5C3661590B5AA490DDE8C44BC0290051F32F814677434967FCA02E98D4C2F1514C604E67E7728D9BCB37C890ACAB8216D5F1CFFD1838CFFE26DF4C9CF2218D10C9FE6358DFBFBBA6E009C6D1878E6D21752A11BF25659F80B",
+                    "statusWord": "9000"
+                },
+                "outcome": "CONTINUE"
+            },
+            {
+                "id": "genac-2-11",
+                "name": "GENERATE AC",
+                "request": {
+                    "cla": "80",
+                    "ins": "AE"
+                },
+                "response": {
+                    "data": "",
+                    "dataTemplate": "{{JCB_RESPONSE:20}}",
+                    "statusWord": "9000"
+                },
+                "outcome": "SUCCESS"
+            }
+        ],
+        "expectedFlow": [
+            "select-1-1",
+            "select-2-1",
+            "gpo-2-2",
+            "readrecord-2-3",
+            "readrecord-2-4",
+            "readrecord-2-5",
+            "readrecord-2-6",
+            "readrecord-2-7",
+            "readrecord-2-8",
+            "readrecord-2-9",
+            "readrecord-2-10",
+            "genac-2-11"
+        ],
+        "testScenarios": [
+            {
+                "id": "online-pin",
+                "name": "EMV Online PIN purchase",
+                "amountCondition": "ABOVE_CVM_LIMIT",
+                "expectedCvm": "ONLINE_PIN",
+                "expectedOutcome": "ONLINE_AUTHORIZATION",
+                "terminalSetup": [
+                    "Enable JCB A0000000651010 and its EMV contactless kernel, Online PIN and the matching synthetic CA index 13.",
+                    "Use a purchase above the reader CVM limit; reference exchange: CZK 550.00 with a CZK 500.00 CVM limit.",
+                    "Start with Card profile defaults and start emulation before presenting the phone. Follow the returned PDOL and CDOL1, read every current AFL record and complete one first GENERATE AC request for ARQC.",
+                    "For CDA, install the matching synthetic test CA and request CDA in the first GENERATE AC. A plain-ARQC request returns the application cryptogram without a CDA signature.",
+                    "Import this complete example, select it in the Emulator and start with Card profile defaults. Start emulation before presenting the phone."
+                ],
+                "knownLimitations": [
+                    "Successful APDU reading is not a payment approval. A compatible test host is required to verify ARQC and online PIN.",
+                    "CVN01 first ARQC only. No issuer updates, second GENERATE AC, other CVNs or contactless Magstripe.",
+                    "Use only synthetic test keys. Custom application cryptogram values use this profile’s MK-AC, diversification PAN and PAN sequence number. They change dynamic cryptograms, not the stored card identity, signed records or certificates.",
+                    "Temporary overrides clear from the next-run selection when emulation starts unless Keep until app closed is enabled. The active session still uses its captured values. Reset immediately restores this profile’s defaults without editing its saved JSON.",
+                    "CDA requires the synthetic ICC private key matching the existing certificates. Changing MK-AC does not regenerate those certificates. Mixed is expected when application keys are customized while offline authentication keeps profile defaults; do not supply private CA or issuer keys.",
+                    "Reader CVM capability, PIN entry or signature handling must be checked on the reader. These instructions do not execute CVM or provision a wallet; JCB interactive two-presentation verification is not supported.",
+                    "This downloadable example has a separate Profile ID from the Built-in profile. Importing it does not update an existing imported snapshot; keep the original JSON and choose a unique ID for additional copies."
+                ],
+                "amountNote": "Use an amount above the reader CVM limit, for example 550 CZK with a 500 CZK CVM limit. Enable the expected CVM in the reader.",
+                "transactionType": "PURCHASE",
+                "testPin": "1234",
+                "pinNote": "Enter the test PIN on the terminal when prompted. HCE Test Tool does not verify it; PIN validation depends on the connected test host."
+            }
+        ]
+    }
+}

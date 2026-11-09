@@ -4,6 +4,22 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+
+## JCB final cleanup verification — 2026-11-09
+
+PASS: 17 checker unit tests, including four isolated stable-download inventory checks for
+complete/missing/extra/mislabelled examples. Static validation still covers 9 HTML pages,
+83 references, 4 profile envelopes and 3 exact privacy mirrors. HCE native integration and
+five-source JCB parity pass in the full module gate; the isolated instrumentation APK also
+assembles. Existing responsive visual evidence remains applicable because no layout, CSS
+or image changes occur in this cleanup. Prepare local commits only, without publication.
+
+## JCB fourth-example verification — 2026-11-09
+
+The native HCE importer accepts all four downloads under current payload 3 with distinct IDs. HCE integration replays JCB plain/requested-CDA first ARQC at low/high software inputs, changes the effective MK-AC, restores defaults and checks unchanged stored/security/APDU contracts plus selected PIN 1234. The published guidance targets the source-reviewed above-limit purchase, not newly claimed below-limit reader acceptance. Existing MC/Amex/Visa integration remains covered.
+
+The static checker reports nine HTML pages, 83 local references, four profile envelopes/JSON illustrations and three exact policy body/date mirrors. Thirteen checker unit tests pass. Public downloads use CUSTOM-only provenance and contain no external source-tool name. Existing schema and policy dates stay unchanged. Local browser geometry at 1280 and 360 px shows all four cards in the existing 2×2 or single-column layout, without horizontal page overflow; desktop sample area is visually reviewed. Assets/CSS are unchanged. Nothing is pushed or deployed.
+
 ## Release-ready website and profile examples — 2026-11-09
 
 Prepare the full local site for HCE 1.0.0, not as a development preview of the old production release. Guides describe the current 24-profile/43-scenario catalog, optional mapped simulated device verification, payload 3, compatibility 1/2, PIN policy, security/Reset and reader/host limits. EMV guide/trace reference matches its prepared bounded reader/privacy implementation and independent trace payload 2. ECR correctly remains in development and its retained guide/policy routes remain unlinked from navigation/sitemap.

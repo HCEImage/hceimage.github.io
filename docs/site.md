@@ -26,6 +26,8 @@ and light/dark palette. Application icon PNGs preserve the distribution artwork.
 cards, policy links and actions aligned across desktop and mobile widths. Use app-independent
 language for diagnostic boundaries, use release numbers only for explicit compatibility requirements, and distinguish
 document schema numbers from app versions.
+Long HCE and JSON guides offer shortcut links under their introductions; keep the section
+anchors stable because the in-app guidance and public links use them.
 
 ## Privacy policy ownership
 
@@ -46,7 +48,7 @@ PIN references, concrete setup, temporary-key/Keep/Reset boundaries and reader/h
 Public source metadata is CUSTOM only. Guidance edits do not alter an existing imported snapshot.
 Mastercard custom application overrides require the complete MK-AC/MK-IDN group and retain the
 matching ICC key/certificates for CDA; the Amex example includes its matching synthetic ICC signing key and requested CDA support.
-The web checker validates guidance completeness, public source-name exclusion, CUSTOM-only provenance and policy body/effective-date parity, while HCE integration tests validate actual
+The web checker validates guidance completeness, one download action per example, public source-name exclusion, CUSTOM-only provenance and policy body/effective-date parity, while HCE integration tests validate actual
 import, payload-3 parity with Built-in processing, APDU flows, dynamic cryptograms, requested Mastercard/Amex/JCB CDA, custom/Reset and PIN display.
 
 ## Technical navigation

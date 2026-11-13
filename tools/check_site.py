@@ -21,6 +21,7 @@ class Page(HTMLParser):
         self.ids = set()
         self.duplicates = set()
         self.references = []
+        self.downloads = []
         self.h1_count = 0
         self.json_examples = []
         self.policy = []
@@ -49,6 +50,8 @@ class Page(HTMLParser):
         for name in ("href", "src"):
             if attributes.get(name):
                 self.references.append(attributes[name])
+        if tag == "a" and "download" in attributes and attributes.get("href"):
+            self.downloads.append(attributes["href"])
         if tag == "div":
             if self._policy_depth:
                 self._policy_depth += 1
@@ -104,7 +107,7 @@ def markdown_effective_date(value):
 
 def has_external_source_name(value):
     """Public copy/downloads must not expose the private source-tool name."""
-    return re.search(r"btt", value, re.IGNORECASE) is not None
+    return re.search(r"btt|\bbrand\s+test\s+tool\b", value, re.IGNORECASE) is not None
 
 
 def profile_guidance_errors(payload):
@@ -145,7 +148,7 @@ def profile_guidance_errors(payload):
                 errors.append(f"{identifier}: missing PIN verification boundary")
         if isinstance(pin, str) and pin and isinstance(note, str) and pin in note:
             errors.append(f"{identifier}: PIN repeated in prose")
-        if "btt" in json.dumps(scenario, ensure_ascii=False).lower():
+        if has_external_source_name(json.dumps(scenario, ensure_ascii=False)):
             errors.append(f"{identifier}: external source name in public guidance")
     return errors
 
@@ -167,6 +170,23 @@ def example_inventory_errors(brands_by_filename):
         if filename not in PUBLIC_EXAMPLES or brand != PUBLIC_EXAMPLES[filename]:
             errors.append(f"{filename}: example brand does not match its download")
     return errors
+
+
+def example_download_errors(downloads):
+    """Check that all stable profile files have exactly one local download action."""
+    expected = {
+        "/guides/hceimage-json/examples/" + filename for filename in PUBLIC_EXAMPLES
+    }
+    paths = []
+    for download in downloads:
+        target = urlsplit(download)
+        path = unquote(target.path)
+        if target.scheme or target.netloc or not path.startswith("/"):
+            return ["Profile download actions must use local, root-relative URLs"]
+        paths.append(path)
+    if set(paths) != expected or len(paths) != len(expected):
+        return ["The JSON guide must link once to each public profile download"]
+    return []
 
 
 def check_site(root):
@@ -208,6 +228,7 @@ def check_site(root):
             ):
                 errors.append(f"{relative}: missing anchor {reference}")
     profiles = list((root / "guides/hceimage-json/examples").glob("*.hceimage.json"))
+    errors.extend(example_download_errors(pages[root / "guides/hceimage-json/index.html"].downloads))
     documents = {path.name: json.loads(path.read_text()) for path in profiles}
     errors.extend(example_inventory_errors({
         name: document["payload"].get("brand") for name, document in documents.items()

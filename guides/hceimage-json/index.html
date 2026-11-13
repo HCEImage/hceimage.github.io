@@ -29,6 +29,12 @@
         <p class="eyebrow">File formats</p>
         <h1>Understand HCEImage JSON files</h1>
         <p class="lead">Card-profile definitions and analysis traces share a recognizable envelope and filename suffix, but serve different purposes and are not interchangeable.</p>
+        <nav class="guide-actions" aria-label="File format shortcuts">
+            <a href="#envelope">Shared envelope</a>
+            <a href="#card-profile">Card-profile specification</a>
+            <a href="#profile-examples">Download profile examples</a>
+            <a href="#analysis-trace">Analysis-trace specification</a>
+        </nav>
     </header>
     <article class="guide-content">
         <section aria-labelledby="envelope">
@@ -108,8 +114,8 @@
         </section>
         <section aria-labelledby="profile-examples">
             <h2 id="profile-examples">Downloadable card-profile examples</h2>
-            <p>These complete native profiles include the application data, PAN and Track 2, DOL inputs, APDU rules and synthetic security defaults needed for contactless online test flows. They are complete physical payload-3 examples derived from the current Built-in Visa Online PIN, Mastercard Online PIN, American Express Adaptive CVM and JCB EMV Online PIN profiles. Card identities, APDU rules, synthetic key groups and matching authentication data stay consistent with those definitions; each example has a separate Profile ID and CUSTOM origin.</p>
-            <div class="guide-note"><p>All supplied values are public synthetic test fixtures, not real payment credentials. Each example retains the consistent test PAN, records and matching authentication material from its Built-in definition. The files include public synthetic test keys and the matching test signing material needed by their supported flows; no production credentials or private CA/issuer keys are included. Never use these files, PANs or keys for production payments.</p></div>
+            <p>Download four complete, importable examples for HCE Test Tool 1.0.0 or later. They match the Built-in physical profiles named below, with separate Profile IDs and CUSTOM provenance. Each file includes Test guidance for its scenario.</p>
+            <div class="guide-note"><p>Use these files only in authorized test environments. All card data and signing material are synthetic. No production credentials or private CA/issuer keys are included.</p></div>
             <div class="guide-grid profile-examples">
                 <article class="guide-card">
                     <p class="app-status">Visa · Contactless online testing</p>

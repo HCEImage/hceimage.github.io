@@ -30,11 +30,18 @@
         <h1>Test contactless terminal flows with synthetic card profiles</h1>
         <p class="app-status">Android · HCE Test Tool 1.0.0</p>
         <p class="lead">Use Android host card emulation to present a selected test profile, inspect the APDU exchange and review the resulting flow in one place.</p>
+        <nav class="guide-actions" aria-label="Guide shortcuts">
+            <a href="#test-flow">Run a test</a>
+            <a href="#simulated-device-cvm">Simulate device verification</a>
+            <a href="#history-reports">History and reports</a>
+            <a href="/guides/hceimage-json/#profile-examples">Download profile examples</a>
+        </nav>
     </header>
     <article class="guide-content">
         <section aria-labelledby="development-profiles">
             <h2 id="development-profiles">Built-in profile catalog</h2>
-            <p>The catalog contains 24 Built-in profiles with 43 Test guidance scenarios: seven Visa, five Mastercard, seven American Express and five JCB profiles. Visa separates Adaptive CVM, Online PIN, Signature, No CVM, physical Magstripe and mobile EMV/Magstripe. Mastercard separates physical Online PIN, No CVM / Signature and Magstripe from mobile EMV/Magstripe. American Express separates physical Adaptive CVM, No CVM / Signature, No CVM and Magstripe, plus Mobile EMV, Mobile EMV without CDA and Mobile Magstripe. JCB provides five selected physical EMV/Legacy scenarios.</p>
+            <p>The catalog contains 24 Built-in profiles with 43 Test guidance scenarios: seven Visa, five Mastercard, seven American Express and five JCB profiles. Within each brand, physical profiles appear before tokenized profiles, and EMV appears before Magstripe or Legacy within each form factor.</p>
+            <p>Visa separates Adaptive CVM, Online PIN, Signature, No CVM, physical Magstripe and mobile EMV/Magstripe. Mastercard separates physical Online PIN, No CVM / Signature and Magstripe from mobile EMV/Magstripe. American Express separates physical Adaptive CVM, No CVM / Signature, No CVM and Magstripe, plus Mobile EMV, Mobile EMV without CDA and Mobile Magstripe. JCB provides five selected physical EMV/Legacy scenarios.</p>
             <p>JCB Test guidance separates Online PIN, TIP-dependent Adaptive CVM, Signature, fixed Confirmed CVM and Legacy Online PIN. Documented PIN references stay in guidance unless a physical scenario explicitly requests Online PIN; confirmed CVM does not make a profile tokenized or enable interactive verification. The <a href="/guides/hceimage-json/#profile-examples">JCB EMV Online PIN download</a> demonstrates dynamic first ARQC and requested CDA with matching synthetic defaults. Legacy remains distinct from contactless Magstripe.</p>
             <p>Open each profile’s Test guidance for reader capabilities, amount conditions, a documented Test/Reference PIN and known limits. Visa Online PIN and Signature are fixed requests, including low-value transactions; Adaptive CVM follows reader capabilities and the CVM-required setting. Amounts alone do not select a reader capability. A No CVM profile above the reader limit or a successfully read Magstripe profile can still be rejected by reader policy.</p>
             <p>Eligible mobile EMV profiles separately explain the pre-verified baseline and optional simulated two-presentation verification. It is not real device authentication or wallet provisioning; Magstripe and JCB profiles do not gain interactive verification. Successful card-side checks are not payment approval or host acceptance.</p>
@@ -53,6 +60,7 @@
         </section>
         <section aria-labelledby="test-flow">
             <h2 id="test-flow">Run a test</h2>
+            <p>Use the information icon at the top right of each main tab for its quick start and tips: Emulator for setup and testing, Card profiles for the catalog and imports, History for results and reports, and Settings for NFC behavior, retention and diagnostics. Profile-specific <strong>Test guidance</strong> remains separate.</p>
             <ol>
                 <li>Open <strong>Change</strong> on the Card profile card. The picker starts with <strong>All</strong>; optionally filter by payment brand and select a profile. A second row below the brands filters by <strong>All / Built-in / Imported / Created</strong>. Both filters combine; browsing or dismissing the picker does not change the active profile or result. Picker cards match the Card profiles catalog, including complete wrapping descriptions, origin and readiness chips, and highlight the current selection. Profiles with warnings remain selectable; profiles with validation errors are excluded.</li>
                 <li>Review the profile summary and open <strong>Test guidance</strong> in its separate footer for profile-specific expectations. The information action beside Card profile opens general Emulator guidance.</li>
@@ -100,8 +108,8 @@
                 <h3 id="profile-format-title">Profile import and file format</h3>
                 <p>Review the shared envelope, card-profile payload, import checks and test-security boundaries before preparing your own synthetic profile.</p>
                 <div class="guide-actions format-actions">
-                        <a class="button-link" href="/guides/hceimage-json/#card-profile">Card-profile specification</a>
-                        <a href="/guides/hceimage-json/#profile-examples">Download profile examples</a>
+                    <a class="button-link" href="/guides/hceimage-json/#card-profile">Card-profile specification</a>
+                    <a href="/guides/hceimage-json/#profile-examples">Download profile examples</a>
                 </div>
             </aside>
         </section>

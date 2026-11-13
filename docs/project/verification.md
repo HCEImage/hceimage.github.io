@@ -4,6 +4,21 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+## HCE 1.0.0 final site review — 2026-11-13
+
+The prepared HCE guide matches the 24-profile release catalog, its ordering and four in-app
+guidance panels. Shortcut links make the two-tap workflow, history and JSON examples reachable
+without scrolling through the entire guide. Stable example URLs, IDs and file contents remain
+unchanged; all four are valid native HCE imports with envelope 1 / payload 3. The website
+checker also verifies exactly one download action per public example. EMV retains its
+independent guide/trace scope; ECR remains in development.
+
+PASS: nine pages, 91 local references, four native downloads, three exact privacy mirrors,
+and 20 checker tests. The browser renders all nine pages at 360, 768 and 1440 CSS pixels in
+light and dark modes (54 checks), with no page-width overflow or broken images. The four
+example URLs serve the expected JSON. Privacy wording and effective dates match the app
+sources and remain unchanged. No source-tool names in public pages or downloads. Commit
+locally only; push and publication remain separate.
 
 ## JCB final cleanup verification — 2026-11-09
 

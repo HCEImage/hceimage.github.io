@@ -5,6 +5,7 @@ import unittest
 from check_site import (
     PUBLIC_EXAMPLES,
     Page,
+    example_download_errors,
     example_inventory_errors,
     has_external_source_name,
     markdown_effective_date,
@@ -27,6 +28,10 @@ class SiteParserTest(unittest.TestCase):
         )
         self.assertEqual(["/guide/#field"], page.references)
         self.assertEqual([{"name": "<example>"}], page.json_examples)
+
+    def test_download_actions_are_distinct_from_view_links(self):
+        page = Page('<a href="/example.json" download>Download</a><a href="/example.json">View</a>')
+        self.assertEqual(["/example.json"], page.downloads)
 
     def test_policy_comparison_ignores_presentation_not_words(self):
         page = Page(
@@ -51,7 +56,7 @@ class SiteParserTest(unittest.TestCase):
 
 class PublicSourceNameTest(unittest.TestCase):
     def test_external_name_is_rejected_in_copy_paths_and_metadata(self):
-        for value in ("BTT", "btt", "BTT_CARD_IMAGE", "archive/Btt/profile.xml"):
+        for value in ("BTT", "btt", "BTT_CARD_IMAGE", "archive/Btt/profile.xml", "Brand Test Tool"):
             self.assertTrue(has_external_source_name(value))
         self.assertFalse(has_external_source_name('{"source":{"format":"CUSTOM"}}'))
 
@@ -69,6 +74,17 @@ class PolicyDateTest(unittest.TestCase):
 
 
 class ExampleInventoryTest(unittest.TestCase):
+    def test_download_actions_cover_all_stable_files_once(self):
+        downloads = ["/guides/hceimage-json/examples/" + name for name in PUBLIC_EXAMPLES]
+        self.assertEqual([], example_download_errors(downloads))
+        self.assertTrue(example_download_errors(downloads[:-1]))
+        self.assertTrue(example_download_errors(downloads + downloads[:1]))
+        self.assertTrue(example_download_errors(downloads[:-1] + ["/assets/replacement.json"]))
+
+    def test_external_download_cannot_impersonate_a_local_example(self):
+        downloads = ["/guides/hceimage-json/examples/" + name for name in PUBLIC_EXAMPLES]
+        self.assertTrue(example_download_errors(downloads[:-1] + ["https://example.com" + downloads[-1]]))
+
     def test_each_supported_brand_has_its_stable_download(self):
         self.assertEqual([], example_inventory_errors(dict(PUBLIC_EXAMPLES)))
 

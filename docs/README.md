@@ -1,4 +1,4 @@
-# Website documentation
+# HCEImage website documentation
 
 ## Technical specification
 
@@ -9,5 +9,6 @@ Unreleased development behavior is not a claim about the currently published app
 
 ## Project records
 
-[Project documentation](project/README.md) contains scope, roadmaps, validation procedures/results
-and maintenance/delivery history. These records are not part of the technical specification.
+[Project records](project/README.md) contain verification procedures and results, maintenance
+and delivery history, and planning where applicable. They are separate from the technical
+specification.

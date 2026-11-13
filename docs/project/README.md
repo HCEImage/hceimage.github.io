@@ -4,7 +4,7 @@ Planning, execution evidence and maintenance are separate from the technical spe
 
 ## Navigation
 
-- [Documentation](../README.md) — technical topics and the documentation entry point
+- [Technical documentation](../README.md) — current contracts and specifications
 - [Verification](verification.md) — procedures, audits, executed results and their limits
 - [Maintenance](maintenance.md) — material decisions, changes and delivery history
 

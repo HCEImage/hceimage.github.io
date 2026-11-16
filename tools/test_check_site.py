@@ -12,6 +12,7 @@ from check_site import (
     markdown_policy,
     normalized_text,
     profile_guidance_errors,
+    public_copy_errors,
 )
 
 
@@ -59,6 +60,16 @@ class PublicSourceNameTest(unittest.TestCase):
         for value in ("BTT", "btt", "BTT_CARD_IMAGE", "archive/Btt/profile.xml", "Brand Test Tool"):
             self.assertTrue(has_external_source_name(value))
         self.assertFalse(has_external_source_name('{"source":{"format":"CUSTOM"}}'))
+
+
+class PublicCopyTest(unittest.TestCase):
+    def test_app_release_numbers_and_roadmap_status_are_rejected(self):
+        for copy in ("HCE Test Tool 1.0.0", "v0.2.0", "Roadmap", "In development", "Coming soon"):
+            with self.subTest(copy=copy):
+                self.assertTrue(public_copy_errors(copy))
+
+    def test_wire_schema_and_authorized_development_language_are_preserved(self):
+        self.assertEqual([], public_copy_errors("Payload schema 3. Authorized development only."))
 
 
 class PolicyDateTest(unittest.TestCase):

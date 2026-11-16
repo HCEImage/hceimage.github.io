@@ -1,0 +1,5 @@
+# Repository maintenance material is not part of the published site.
+exclude:
+  - README.md
+  - docs/
+  - tools/

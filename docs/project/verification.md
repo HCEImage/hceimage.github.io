@@ -4,6 +4,22 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+## HCE production website handoff — 2026-11-16
+
+PASS: nine HTML routes, 91 local references, four profile downloads and three policy mirrors,
+including dates and policy bodies. All 22 checker tests pass. The Analyzer mirror matches the
+policy shipped with the current Play release; its guide and format reference describe trace
+payload 1. HCE still uses profile payload 3 and keeps its simulated-verification policy.
+The ECR policy continues to distinguish reader TCP/loopback traffic, local diagnostics and
+user-initiated exports. Neither HCE nor ECR policy wording or dates changed in this pass.
+
+The native HCE example and public-text JVM tests pass offline. All four download files and
+their URLs are unchanged. Chrome renders all nine pages at 360, 768 and 1440 CSS pixels in
+light and dark modes (54 checks), without broken images or horizontal page overflow. Public
+pages omit app release numbers, roadmap text and private source-tool names. Project records
+and validation tools are excluded from the Pages build. The checks are local, not evidence
+of a GitHub Pages deployment.
+
 ## HCE 1.0.0 final site review — 2026-11-13
 
 The prepared HCE guide matches the 24-profile release catalog, its ordering and four in-app

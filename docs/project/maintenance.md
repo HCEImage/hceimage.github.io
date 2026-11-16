@@ -3,6 +3,15 @@
 Material engineering decisions and delivery history. Older records retain the scope and
 publication status at their recorded date; they are not current runtime documentation.
 
+## HCE release website handoff — 2026-11-16
+
+The owner sent HCE 1.0.0 (16) for Google Play review. Keep the matching HCE guide, four
+payload-3 examples and policy ready for deployment after the app is available. Public pages
+describe current behavior without app release numbers or roadmap text; repository records
+and tools are excluded from Pages. The Analyzer guide, trace schema and privacy mirror use
+its released scope rather than the unreleased branch. ECR's existing policy and route
+visibility are unchanged. No remote deployment was performed.
+
 
 
 ## JCB cleanup and local commit preparation — 2026-11-09

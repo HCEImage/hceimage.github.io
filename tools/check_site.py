@@ -8,6 +8,7 @@ privacy-policy mirrors in sibling application repositories. It never publishes c
 import html
 import json
 import re
+import subprocess
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -110,6 +111,49 @@ def has_external_source_name(value):
     return re.search(r"btt|\bbrand\s+test\s+tool\b", value, re.IGNORECASE) is not None
 
 
+def public_copy_errors(value):
+    """Keep public HTML about shipped behavior, without product versions or roadmap status."""
+    errors = []
+    if has_external_source_name(value):
+        errors.append("external source name in public HTML")
+    value = html.unescape(value)
+    if re.search(r"\b(?:v)?\d+\.\d+\.\d+\b", value, re.IGNORECASE):
+        errors.append("application release number in public HTML")
+    if re.search(r"\b(?:roadmap|planned features?|in development|coming soon)\b", value, re.IGNORECASE):
+        errors.append("roadmap or development status in public HTML")
+    return errors
+
+
+def envelope_signature(document):
+    return (
+        document.get("format"), document.get("kind"),
+        document.get("schemaVersion"), document["payload"].get("schemaVersion"),
+    )
+
+
+PROFILE_ENVELOPE = ("com.hceimage.definition", "card-profile", 1, 3)
+TRACE_ENVELOPE = ("com.hceimage.diagnostic", "emv-analysis", 1, 1)
+
+# The Analyzer checkout can have a newer, unpublished policy. Match the released policy
+# until a new Analyzer release and its policy are ready for the public site.
+RELEASED_POLICY_REVISIONS = {
+    "emv-card-analyzer": "530b010276183a559f156a0a0bfe11d09a942bc2",
+}
+
+
+def read_application_policy(site_root, app):
+    repository = site_root.parent / app
+    path = "play/privacy-policy.md"
+    revision = RELEASED_POLICY_REVISIONS.get(app)
+    if revision is None:
+        return (repository / path).read_text()
+    result = subprocess.run(
+        ["git", "-C", str(repository), "show", f"{revision}:{path}"],
+        capture_output=True, text=True, check=True,
+    )
+    return result.stdout
+
+
 def profile_guidance_errors(payload):
     """Check the public examples' guidance contract, not cryptography or native import validity."""
     errors = []
@@ -196,8 +240,7 @@ def check_site(root):
     references = 0
     for path, page in pages.items():
         relative = path.relative_to(root)
-        if has_external_source_name(path.read_text()):
-            errors.append(f"{relative}: external source name in public HTML")
+        errors.extend(f"{relative}: {issue}" for issue in public_copy_errors(path.read_text()))
         if page.h1_count != 1:
             errors.append(f"{relative}: expected one H1, found {page.h1_count}")
         if page.duplicates:
@@ -228,7 +271,12 @@ def check_site(root):
             ):
                 errors.append(f"{relative}: missing anchor {reference}")
     profiles = list((root / "guides/hceimage-json/examples").glob("*.hceimage.json"))
-    errors.extend(example_download_errors(pages[root / "guides/hceimage-json/index.html"].downloads))
+    json_guide = pages[root / "guides/hceimage-json/index.html"]
+    errors.extend(example_download_errors(json_guide.downloads))
+    if [envelope_signature(example) for example in json_guide.json_examples] != [
+        PROFILE_ENVELOPE, TRACE_ENVELOPE,
+    ]:
+        errors.append("The JSON guide must illustrate the supported profile and trace envelopes")
     documents = {path.name: json.loads(path.read_text()) for path in profiles}
     errors.extend(example_inventory_errors({
         name: document["payload"].get("brand") for name, document in documents.items()
@@ -241,30 +289,24 @@ def check_site(root):
             errors.append(f"{path.name}: external source name in public download")
         if payload.get("source") != {"format": "CUSTOM"}:
             errors.append(f"{path.name}: public downloads require CUSTOM-only provenance")
-        actual = (
-            document.get("format"), document.get("kind"),
-            document.get("schemaVersion"), payload.get("schemaVersion"),
-        )
-        if actual != (
-            "com.hceimage.definition", "card-profile", 1, 3,
-        ):
+        if envelope_signature(document) != PROFILE_ENVELOPE:
             errors.append(f"{path.name}: unexpected profile envelope/schema")
         if payload["id"] in ids:
             errors.append(f"{path.name}: duplicate Profile ID")
         ids.add(payload["id"])
         errors.extend(f"{path.name}: {issue}" for issue in profile_guidance_errors(payload))
     for app in ("hce-test-tool", "emv-card-analyzer", "ecr-test-tool"):
-        policy = root.parent / app / "play/privacy-policy.md"
-        if not policy.is_file():
-            errors.append(f"Missing sibling privacy policy: {policy}")
-        else:
-            page = pages[root / app / "privacy-policy/index.html"]
-            policy_text = policy.read_text()
-            expected_date = markdown_effective_date(policy_text)
-            if not expected_date or expected_date != normalized_text("".join(page.effective_date)):
-                errors.append(f"{app}: website privacy effective date differs from application policy")
-            if markdown_policy(policy_text) != normalized_text("".join(page.policy)):
-                errors.append(f"{app}: website privacy body differs from application policy")
+        try:
+            policy_text = read_application_policy(root, app)
+        except (OSError, subprocess.CalledProcessError):
+            errors.append(f"{app}: missing application policy or required Git history")
+            continue
+        page = pages[root / app / "privacy-policy/index.html"]
+        expected_date = markdown_effective_date(policy_text)
+        if not expected_date or expected_date != normalized_text("".join(page.effective_date)):
+            errors.append(f"{app}: website privacy effective date differs from application policy")
+        if markdown_policy(policy_text) != normalized_text("".join(page.policy)):
+            errors.append(f"{app}: website privacy body differs from application policy")
     return errors, len(pages), references, len(profiles)
 
 

@@ -24,15 +24,17 @@ Static GitHub Pages content, with no application backend, analytics or build dep
 All pages share one header, navigation, footer, typography, responsive card system, color tokens
 and light/dark palette. Application icon PNGs preserve the distribution artwork. Keep the guide
 cards, policy links and actions aligned across desktop and mobile widths. Use app-independent
-language for diagnostic boundaries, use release numbers only for explicit compatibility requirements, and distinguish
-document schema numbers from app versions.
+language for diagnostic boundaries. Public pages describe shipped behavior without application
+release numbers, private reference-tool names or roadmap copy. Use document schema numbers for
+file compatibility. GitHub Pages excludes repository documentation and validation tools.
 Long HCE and JSON guides offer shortcut links under their introductions; keep the section
 anchors stable because the in-app guidance and public links use them.
 
 ## Privacy policy ownership
 
-Each HTML policy mirrors its application's `play/privacy-policy.md`, including meaningful
-wording and effective dates. Hosting visitor-IP handling is separate from application data
+Each HTML policy mirrors the corresponding app policy, including wording and effective date.
+The checker uses a pinned released Analyzer policy rather than the newer local development copy.
+Hosting visitor-IP handling is separate from application data
 processing. Policy changes require an intentional review of both copies; a documentation
 reorganization does not change data practices or advance effective dates.
 
@@ -40,7 +42,9 @@ reorganization does not change data practices or advance effective dates.
 
 Pages use semantic HTML and one shared stylesheet. Application icons retain distribution
 artwork; tables/code remain readable at mobile widths. Internal links and anchors identify
-actual routes, not application release numbers. Release-ready pages describe the matching prepared application version; deployment is gated separately in project records. JSON examples have independent
+actual routes, not application release numbers. Prepare HCE content for deployment with the
+matching app release; keep EMV guide, trace and policy aligned with the already released Analyzer.
+JSON examples have independent
 envelope/payload versions and must remain valid native imports, not truncated illustrations.
 The four physical downloads use payload 3 and derive from current Visa Online PIN, Mastercard Online PIN, Amex Adaptive CVM and JCB EMV Online PIN definitions.
 Their Test guidance states amount-independent or separate below/above-reader-limit scenarios, structured

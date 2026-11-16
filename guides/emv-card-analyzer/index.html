@@ -32,7 +32,7 @@
         <p class="lead">Run a bounded EMV analysis over Android NFC, follow the APDU exchange and preserve diagnostic results locally.</p>
     </header>
     <article class="guide-content">
-        <div class="guide-note"><p><strong>Diagnostic scope:</strong> this guide describes the bounded reading, inspection and trace workflows, including optional Kernel 8 privacy processing. These procedures are not a certified payment kernel; physical interoperability of the Kernel 8 path remains a separate validation boundary.</p><p>New native traces use envelope schema 1 and independent <code>payload.schemaVersion: 2</code>; import accepts payloads 1 and 2. Import also accepts legacy <code>payload.payloadVersion</code>; if both fields are supplied they must be valid and equal. New exports use <code>schemaVersion</code> only. Older readers may reject payload 2.</p></div>
+        <div class="guide-note"><p>Native analysis traces use envelope schema 1 and their own <code>payload.schemaVersion: 1</code>. This is independent of HCE card-profile payload schemas. Import also accepts legacy <code>payload.payloadVersion</code>; if both fields are supplied they must be valid and equal. New exports use <code>schemaVersion</code> only.</p></div>
         <section aria-labelledby="before-starting">
             <h2 id="before-starting">Before starting</h2>
             <ul>
@@ -52,24 +52,15 @@
                 <li>Keep the card in place while the application performs bounded directory selection, application selection, processing-options retrieval and supported AFL record reading.</li>
                 <li>Keep the card in place until the app reports Completed, Incomplete, Unsupported, Interrupted or Failed.</li>
             </ol>
-            <p>The information action beside <strong>Analysis</strong> opens general guidance and is unavailable while reading. Device readiness and NFC settings are also available in Settings. Starting another analysis replaces the live result; opening guidance does not start NFC.</p>
-        </section>
-        <section aria-labelledby="reading-boundaries">
-            <h2 id="reading-boundaries">Supported diagnostic boundaries</h2>
-            <p>The reader has separate bounded procedures for Visa, Mastercard, American Express, JCB EMV/Legacy, Discover/Diners D-PAS and UnionPay. JCB Legacy captures GPO and advertised AFL records and stops before GENERATE AC. Historical Mastercard, Visa and Amex magstripe procedures are not implemented. A card or terminal label does not establish which processing path is supported.</p>
-            <p>After successful core reading, UnionPay may also return its supported GET DATA object and advertised transaction log. Additional reading shares a bounded budget and does not turn an optional refusal into a core-reading failure. Transport loss or cancellation retains the evidence already captured; unread later applications can still leave the overall result Incomplete.</p>
-            <p>Explicit Kernel 8 applications support a bounded ASI 00/P-256 privacy-reading path. It retains original encrypted APDUs and separately derived record data; decryption does not verify card authenticity or integrity. Encrypted records may take longer. No GENERATE AC, CVM, offline authentication, relay resistance, storage/recovery or write procedures are performed. Physical interoperability validation remains pending.</p>
         </section>
         <section aria-labelledby="result-states">
             <h2 id="result-states">Understand the result</h2>
             <p>Completed means that the supported analysis procedure reached its normal boundary. Incomplete preserves useful data when one or more applications could not be read completely. Unsupported identifies a card technology or application outside the supported reading procedure. Interrupted identifies lost communication, while Failed provides the available technical reason.</p>
             <p>Compatibility varies between cards, devices and application profiles. An incomplete analysis does not by itself establish that a card is invalid.</p>
-            <p>History list cards match live analysis colors: blue for Completed, amber for Incomplete, Unsupported or Interrupted, and red for Failed. The detail overview with status, times and metadata stays neutral above the separate colored analysis report. Read the result name and diagnostic explanation rather than relying on color. Application names prefer captured card labels; a separately recognized product or payment scheme is not proof of card authenticity.</p>
         </section>
         <section aria-labelledby="inspect-data">
             <h2 id="inspect-data">Inspect APDU and EMV data</h2>
             <p>Application details organize discovered records and tags. The APDU timeline exposes raw commands and responses with contextual command, status-word, BER-TLV and DOL decoding where their meaning is known. All tags is an offline view of the already captured analysis, not an additional card read. Bundled Tag reference and APDU response-code screens help interpret recognized values without sending analysis data to a network service.</p>
-            <p><strong>Details</strong> expands technical application fields. <strong>All tags</strong> and <strong>Diagnostic findings</strong> are secondary summary actions. Findings distinguish Error, Warning, Information and Not evaluated, with source-APDU links. Unperformed authentication is not a passed check. Imported findings are retained observations, not independent proof that a card produced the trace. A source link closes the findings sheet before opening the APDU screen.</p>
         </section>
         <section aria-labelledby="response-timing">
             <h2 id="response-timing">Understand Card response timing</h2>

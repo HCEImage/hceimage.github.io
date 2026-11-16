@@ -3,6 +3,13 @@
 Material engineering decisions and delivery history. Older records retain the scope and
 publication status at their recorded date; they are not current runtime documentation.
 
+## Shared visual consistency — 2026-11-16
+
+Replace mixed browser/default spacing with one flow for catalogue intros, reading pages,
+adjacent notes, lists and technical examples. Use the same typography, text roles, buttons,
+cards and color tokens across routes, with a centered reading column for guides and policies.
+Keep all policy text and dates, app artwork, navigation destinations and download bytes intact.
+
 ## Current publication status — 2026-11-16
 
 The owner confirmed HCE Test Tool 1.0.0 (16) in Google Play production. The matching HCE

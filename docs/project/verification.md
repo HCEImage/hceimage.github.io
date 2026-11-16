@@ -4,6 +4,16 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+## Shared visual consistency — 2026-11-16
+
+Chrome covers all nine HTML routes at 320, 360, 768, 1024 and 1440 pixels in both color
+schemes (90 renders), plus all routes at 200% text on a 360-pixel screen. Check consistent
+paragraph, adjacent-note and section spacing, keyboard focus, download alignment and ordinary
+text/link contrast of at least 4.5:1. The page does not scroll horizontally, images load, and
+the four local download actions still return valid profile envelopes. Review representative
+screenshots of the catalogue, guides, policies and examples. This is a layout-only update:
+policy wording and dates, navigation destinations, artwork and JSON remain unchanged.
+
 ## HCE production website deployment — 2026-11-16
 
 [GitHub Pages run 43856976306](https://github.com/HCEImage/hceimage.github.io/actions/runs/43856976306)

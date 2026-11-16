@@ -21,14 +21,19 @@ Static GitHub Pages content, with no application backend, analytics or build dep
 <a id="README-visual-and-content-conventions"></a>
 ## Visual and content conventions
 
-All pages share one header, navigation, footer, typography, responsive card system, color tokens
-and light/dark palette. Application icon PNGs preserve the distribution artwork. Keep the guide
-cards, policy links and actions aligned across desktop and mobile widths. Use app-independent
+All pages share one header, navigation, footer, responsive typography and spacing scale, card
+system and light/dark palette. Use the full site width for catalogues and the same centered
+reading column for application guides, the format reference and privacy policies. The shared
+stylesheet defines spacing for paragraphs, headings, lists, callouts, captions and sections;
+do not rely on browser-default margins or add page-specific offsets. Keep controls in download
+cards aligned across columns. Only wide tables and code blocks should scroll horizontally.
+Application icons preserve the distribution artwork. Use app-independent
 language for diagnostic boundaries. Public pages describe shipped behavior without application
 release numbers, private reference-tool names or roadmap copy. Use document schema numbers for
 file compatibility. GitHub Pages excludes repository documentation and validation tools.
 Long HCE and JSON guides offer shortcut links under their introductions; keep the section
 anchors stable because the in-app guidance and public links use them.
+When changing the stylesheet, update its cache key consistently on all nine HTML pages.
 
 ## Privacy policy ownership
 

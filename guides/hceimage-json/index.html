@@ -216,7 +216,7 @@
             <h2 id="analysis-trace">EMV analysis trace</h2>
             <div class="guide-note">
                 <p><strong>Trace compatibility:</strong> EMV analysis trace export uses envelope schema 1
-                    and trace payload schema 2. Import accepts trace payloads 1 and 2.</p>
+                    and trace payload schema 1. Import accepts trace payload schema 1.</p>
             </div>
             <p>EMV Card Analyzer exports a captured diagnostic result for later inspection. Its envelope uses <code>format: com.hceimage.diagnostic</code> and <code>kind: emv-analysis</code>. The trace schema is in <code>payload.schemaVersion</code>; <code>producer.versionName</code> records the creating app release, not the document schema.</p>
             <pre tabindex="0" role="region" aria-label="Analysis-trace envelope example"><code>{
@@ -224,7 +224,7 @@
   "schemaVersion": 1,
   "kind": "emv-analysis",
   "payload": {
-    "schemaVersion": 2,
+    "schemaVersion": 1,
     "evidence": "Redacted",
     "producer": {
       "applicationId": "com.hceimage.emvcardanalyzer",
@@ -235,8 +235,7 @@
             <p class="example-caption">Structure illustration only: an importable trace also needs the result, timing, APDU exchanges and application data.</p>
             <p>Export writes only <code>payload.schemaVersion</code>. Import also accepts the legacy
                 field <code>payload.payloadVersion</code>. Supply at least one field as a supported JSON
-                integer. When both are supplied, both must be valid and equal. A reader supporting only
-                payload schema 1 rejects schema 2.</p>
+                integer. When both are supplied, both must be valid and equal.</p>
             <div class="spec-table" role="region" aria-label="EMV analysis payload fields" tabindex="0">
                 <table>
                     <thead><tr><th scope="col">Payload field</th><th scope="col">Purpose</th></tr></thead>
@@ -265,12 +264,6 @@
                 <code>applicationIndex</code>, location, specification reference and source APDUs.
                 Tag and length fields are optional. The assessment carries observations without card values.
                 An older Redacted trace can lack a recorded assessment.</p>
-            <p>Full evidence in payload schema 2 can retain previously recorded
-                <code>exchanges[].readingKernel</code> and <code>applications[].readingKernel</code> markers
-                with value 8. It can retain an exchange's <code>decryptedRecord</code> and its
-                <code>decryptedSourceApdus</code>. These are recorded evidence, with original wire responses
-                preserved in <code>response</code>. Import checks the record structure and source exchange
-                chain. Live C-8 reading is outside the Analyzer scope.</p>
             <p>Import validates identifiers, final result, timestamps, APDU framing, collection bounds and
                 evidence-specific fields before showing the preview. In JSON, <code>Partial</code> and
                 <code>Error</code> are displayed as Incomplete and Failed in the app.</p>
@@ -281,7 +274,7 @@
             <div class="guide-note">
                 <p>Full evidence can include sensitive card data and notes. Redacted JSON zeroes APDU data
                     bytes while preserving command headers, status words and timing. It removes card
-                    identifiers, decoded facts, free-form errors, notes, product and derived record data.
+                    identifiers, decoded facts, free-form errors, notes and product metadata.
                     Redacted imports can only be exported as Redacted. Import validates compatibility and
                     structure. Evidence provenance depends on the original recording.</p>
             </div>
@@ -289,7 +282,7 @@
         <section aria-labelledby="compatibility">
             <h2 id="compatibility">Compatibility boundary</h2>
             <p>The shared envelope uses schema 1. Current exports use independent payload schemas:
-                3 for HCE card profiles and 2 for EMV traces. HCE card-profile import uses
+                3 for HCE card profiles and 1 for EMV traces. HCE card-profile import uses
                 <code>payload.schemaVersion</code>. The legacy <code>payload.payloadVersion</code>
                 alias applies to EMV trace import.</p>
             <p>These files cannot be exchanged between the two importers: HCE Test Tool does not import analysis traces, and EMV Card Analyzer does not import card profiles. Renaming a file does not convert it. A profile definition is an input for controlled emulation; an analysis trace is an output from a recorded NFC read. Neither file is a payment credential, approval record or certification result.</p>

@@ -132,7 +132,7 @@ def envelope_signature(document):
 
 
 PROFILE_ENVELOPE = ("com.hceimage.definition", "card-profile", 1, 3)
-TRACE_ENVELOPE = ("com.hceimage.diagnostic", "emv-analysis", 1, 2)
+TRACE_ENVELOPE = ("com.hceimage.diagnostic", "emv-analysis", 1, 1)
 
 # The Analyzer checkout can have a newer, unpublished policy. Match the released policy
 # until a new Analyzer release and its policy are ready for the public site.

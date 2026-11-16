@@ -33,8 +33,8 @@
     </header>
     <article class="guide-content">
         <div class="guide-note">
-            <p>New analysis traces use envelope schema 1 and <code>payload.schemaVersion: 2</code>.
-                Analyzer imports trace payloads 1 and 2. See the
+            <p>New analysis traces use envelope schema 1 and <code>payload.schemaVersion: 1</code>.
+                Analyzer imports trace payload schema 1. See the
                 <a href="/guides/hceimage-json/#analysis-trace">trace reference</a> for the structure and compatibility rules.</p>
         </div>
         <section aria-labelledby="before-starting">
@@ -81,8 +81,8 @@
             </div>
             <p>Analyzer uses the full AIDs listed by the card. If the payment directory is missing or lists
                 no candidates, it tries a bounded list of AID prefixes. An explicitly unsupported application
-                mode or kernel identifier is recorded with its stop reason. Historical C-1, live C-8, other legacy
-                and magstripe reading procedures, and external contact readers are outside the reader scope.</p>
+                mode or kernel identifier is recorded with its stop reason. Historical C-1, other legacy and magstripe
+                reading procedures, and external contact readers are outside the reader scope.</p>
         </section>
         <section aria-labelledby="result-states">
             <h2 id="result-states">Understand the result</h2>

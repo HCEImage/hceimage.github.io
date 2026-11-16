@@ -4,6 +4,15 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+## HCE production website deployment — 2026-11-16
+
+[GitHub Pages run 43856976306](https://github.com/HCEImage/hceimage.github.io/actions/runs/43856976306)
+completed successfully for content commit `d44260f` after the owner confirmed the matching
+Play release. All nine HTML routes, four JSON downloads, seven shared assets, sitemap and
+robots file matched the committed bytes over HTTPS. All three policies were included in the
+comparison. The repository README, project verification record and validator script returned
+HTTP 404 on the Pages origin as expected.
+
 ## HCE production website handoff — 2026-11-16
 
 PASS: nine HTML routes, 91 local references, four profile downloads and three policy mirrors,

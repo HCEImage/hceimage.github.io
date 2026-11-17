@@ -227,27 +227,29 @@ Offline site validation and four checker tests pass. The owner authorized local 
 development notices remain and no push or deployment is performed. JCB HCE support stays
 conditional at that checkpoint, pending further source and reader verification.
 
+### EMV documentation check — 2026-11-17
+
+The local developer guide describes bounded C-2–C-7 diagnostics, currently supported application
+families, lifecycle and History workflows. The JSON reference uses envelope 1 and Full-only payload
+2 and explains the schema 1 Full import alias and APDU source bounds. The privacy page matches
+its application Markdown source. Offline checks pass for public copy, references, JSON and privacy.
+All nine pages also pass layout checks in local Chrome at 360, 768 and 1440 CSS pixels in light
+and dark modes, with four validated download links.
+
 <a id="README-development-documentation-closeout--2026-10-16"></a>
 ### Development documentation closeout — 2026-10-16
 
 Prepared locally for HCE/EMV 0.2.0 without push or publication. Guides now describe the compact
 Emulator/Analyzer, separate profile/general guidance, neutral list cards and result badges,
-mapped simulated device CVM and its two-presentation/security/lifecycle limits. The EMV guide
-separates supported bounded reading/findings, JCB Legacy, UnionPay optional data and Kernel 8
-privacy processing from payment/authentication or unperformed physical acceptance.
+mapped simulated device CVM and its two-presentation/security/lifecycle limits. At that checkpoint
+EMV documentation described bounded C-2–C-7 reading and the trace format at that checkpoint.
+The three downloadable synthetic HCE profiles were checked through the native HCE importer.
+HCE JCB emulation remained conditional at this checkpoint.
 
-Development trace documentation uses payload 2 inside envelope 1, with payload 1/2 import,
-derived-record/source boundaries and Redacted exclusions. Card-profile payloads remain 2;
-the three downloadable synthetic profiles are unchanged and checked through the native HCE
-importer. HCE JCB emulation remains conditional and is not advertised as available.
-
-Development-preview notices prevent these prepared guides from implying that the installed
-Google Play versions already contain the new features. Remove those notices only after the
-matching release is confirmed. Home/ECR scope and the existing stylesheet remain unchanged.
-The EMV privacy clarification describes local derived records and excludes ephemeral session
-keys from persistence/export; its HTML and application Markdown are checked together. It adds
-no network collection or account flow. Effective dates are not advanced as a claim of release;
-review the final policy wording/date again with the release submission.
+The October preview used notices to distinguish draft documentation from the then-published apps.
+Home/ECR scope and the existing stylesheet were unchanged.
+The check compared the EMV privacy HTML to the application Markdown. The drafts kept the
+published effective date pending release confirmation.
 
 Run `python3 tools/check_site.py` and `python3 -m unittest discover -s tools` for offline checks.
 The checker covers HTML headings/anchors, local links/assets, JSON illustrations, download

@@ -8,7 +8,6 @@ privacy-policy mirrors in sibling application repositories. It never publishes c
 import html
 import json
 import re
-import subprocess
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -132,27 +131,7 @@ def envelope_signature(document):
 
 
 PROFILE_ENVELOPE = ("com.hceimage.definition", "card-profile", 1, 3)
-TRACE_ENVELOPE = ("com.hceimage.diagnostic", "emv-analysis", 1, 1)
-
-# The Analyzer checkout can have a newer, unpublished policy. Match the released policy
-# until a new Analyzer release and its policy are ready for the public site.
-RELEASED_POLICY_REVISIONS = {
-    "emv-card-analyzer": "530b010276183a559f156a0a0bfe11d09a942bc2",
-}
-
-
-def read_application_policy(site_root, app):
-    repository = site_root.parent / app
-    path = "play/privacy-policy.md"
-    revision = RELEASED_POLICY_REVISIONS.get(app)
-    if revision is None:
-        return (repository / path).read_text()
-    result = subprocess.run(
-        ["git", "-C", str(repository), "show", f"{revision}:{path}"],
-        capture_output=True, text=True, check=True,
-    )
-    return result.stdout
-
+TRACE_ENVELOPE = ("com.hceimage.diagnostic", "emv-analysis", 1, 2)
 
 def profile_guidance_errors(payload):
     """Check the public examples' guidance contract, not cryptography or native import validity."""
@@ -277,6 +256,8 @@ def check_site(root):
         PROFILE_ENVELOPE, TRACE_ENVELOPE,
     ]:
         errors.append("The JSON guide must illustrate the supported profile and trace envelopes")
+    elif any(key in json_guide.json_examples[-1]["payload"] for key in ("evidence", "payloadVersion")):
+        errors.append("The schema 2 trace example must omit evidence and payloadVersion")
     documents = {path.name: json.loads(path.read_text()) for path in profiles}
     errors.extend(example_inventory_errors({
         name: document["payload"].get("brand") for name, document in documents.items()
@@ -297,9 +278,9 @@ def check_site(root):
         errors.extend(f"{path.name}: {issue}" for issue in profile_guidance_errors(payload))
     for app in ("hce-test-tool", "emv-card-analyzer", "ecr-test-tool"):
         try:
-            policy_text = read_application_policy(root, app)
-        except (OSError, subprocess.CalledProcessError):
-            errors.append(f"{app}: missing application policy or required Git history")
+            policy_text = (root.parent / app / "play/privacy-policy.md").read_text()
+        except OSError:
+            errors.append(f"{app}: missing application policy")
             continue
         page = pages[root / app / "privacy-policy/index.html"]
         expected_date = markdown_effective_date(policy_text)

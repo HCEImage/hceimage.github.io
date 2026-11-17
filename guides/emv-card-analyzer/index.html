@@ -33,8 +33,8 @@
     </header>
     <article class="guide-content">
         <div class="guide-note">
-            <p>New analysis traces use envelope schema 1 and <code>payload.schemaVersion: 1</code>.
-                Analyzer imports trace payload schema 1. See the
+            <p>New analysis traces use envelope schema 1 and <code>payload.schemaVersion: 2</code>.
+                Analyzer also imports schema 1 traces with Full evidence. See the
                 <a href="/guides/hceimage-json/#analysis-trace">trace reference</a> for the structure and compatibility rules.</p>
         </div>
         <section aria-labelledby="before-starting">
@@ -105,6 +105,9 @@
                 DOL fields. When multiple selections can be reliably identified, the timeline groups them
                 under application headings while preserving capture order and APDU numbers.
                 <strong>All tags</strong> browses the captured data offline.</p>
+            <p>With sufficient UnionPay context, the timeline explains <code>6F00</code> for the optional
+                offline spending amount and <code>6A83</code> for a missing transaction-log record.
+                The status word stays visible. A missing AFL record can make the core read Incomplete.</p>
         </section>
         <section aria-labelledby="diagnostic-findings">
             <h2 id="diagnostic-findings">Review diagnostic findings</h2>
@@ -134,17 +137,17 @@
                 application count. Incomplete discovery can leave the count unknown, so other outcomes show a dash.</p>
             <p>From a saved result, choose <strong>Export</strong> for a readable Markdown, HTML or PDF report
                 or a portable JSON trace. Choose <strong>History → Import</strong> to preview a trace. Inspect
-                Summary or APDU exchange, then choose <strong>Save to history</strong> to keep it or Back to discard
-                the preview.</p>
-            <p><strong>Full evidence</strong> can contain raw APDUs, decoded card data and notes.
-                <strong>Redacted</strong> removes card-derived values and notes and keeps diagnostic context such as
-                timestamps, scheme, APDU headers, status words, timing and available findings. An imported
-                Redacted trace can only be exported as Redacted. Review what the file retains before sharing it.</p>
+                Summary, including any saved note, or APDU exchange. Choose <strong>Save to history</strong>
+                to keep the record or Back to discard the preview.</p>
+            <p>Traces contain full evidence, including captured APDUs, decoded card data and notes.
+                <strong>Report</strong> offers <strong>Full evidence</strong> and <strong>Redacted</strong>.
+                Redacted reports omit card-derived values and notes and keep timestamps, scheme, APDU headers,
+                status words, timing and available findings. Review the file before sharing it.</p>
             <p>A <code>.hceimage.json</code> trace identifies itself as <code>com.hceimage.diagnostic</code> / <code>emv-analysis</code>. It is a recorded diagnostic result, not an HCE card profile.</p>
             <aside class="guide-card format-reference" aria-labelledby="trace-format-title">
                 <p class="app-status">Exchange formats · HCEImage JSON</p>
                 <h3 id="trace-format-title">Trace import and file format</h3>
-                <p>Review the shared envelope, analysis-trace payload, import checks and Full evidence or Redacted export boundaries before exchanging diagnostic files.</p>
+                <p>Review the shared envelope, analysis-trace payload and supported versions before exchanging diagnostic files.</p>
                 <div class="guide-actions format-actions">
                     <a class="button-link" href="/guides/hceimage-json/#analysis-trace">Analysis-trace specification</a>
                 </div>

@@ -10,11 +10,11 @@ Static GitHub Pages content, with no application backend, analytics or build dep
 - [Developer guides](../guides/index.html) — application workflows and exchange-format reference
 - [HCE Test Tool guide](../guides/hce-test-tool/index.html) — emulation, profile import, APDU diagnostics, history and reports
 - [EMV Card Analyzer guide](../guides/emv-card-analyzer/index.html) — contactless reading, result states, trace import and export
-- [ECR Test Tool guide](../guides/ecr-test-tool/index.html) — retained locally but omitted from navigation and sitemap
+- [ECR Test Tool guide](../guides/ecr-test-tool/index.html) — public by direct URL; omitted from navigation and sitemap
 - [HCEImage JSON guide](../guides/hceimage-json/index.html) — shared envelope and distinct card-profile and analysis-trace payloads
 - [HCE privacy policy](../hce-test-tool/privacy-policy/index.html)
 - [EMV privacy policy](../emv-card-analyzer/privacy-policy/index.html)
-- [ECR privacy policy](../ecr-test-tool/privacy-policy/index.html) — retained locally but omitted from navigation and sitemap
+- [ECR privacy policy](../ecr-test-tool/privacy-policy/index.html) — public by direct URL; omitted from navigation and sitemap
 - [Shared styles](../assets/styles.css) and [sitemap](../sitemap.xml)
 
 
@@ -37,11 +37,12 @@ When changing the stylesheet, update its cache key consistently on all nine HTML
 
 ## Privacy policy ownership
 
-Each HTML policy mirrors the corresponding app policy, including wording and effective date.
-The checker uses a pinned released Analyzer policy rather than the newer local development copy.
-Hosting visitor-IP handling is separate from application data
-processing. Policy changes require an intentional review of both copies; a documentation
-reorganization does not change data practices or advance effective dates.
+Each HTML policy mirrors its application's `play/privacy-policy.md`, including wording and
+effective date. The checker reads the current sibling checkouts for all three apps. Before
+publishing, verify that the mirrored policies describe the versions being distributed; identical
+local copies do not establish that an app has been released. Hosting visitor-IP handling is
+separate from application data processing. A documentation correction does not change data
+practices or advance effective dates.
 
 ## Sources and authoring
 

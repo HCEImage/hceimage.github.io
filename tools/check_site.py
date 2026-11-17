@@ -190,6 +190,17 @@ PUBLIC_EXAMPLES = {
 }
 
 POLICY_APPS = ("hce-test-tool", "emv-card-analyzer")
+GUIDANCE_TARGETS = (
+    "/guides/hce-test-tool/#test-flow",
+    "/guides/hce-test-tool/#import-profiles",
+    "/guides/hce-test-tool/#history-reports",
+    "/guides/hce-test-tool/#settings",
+    "/guides/emv-card-analyzer/#analysis-flow",
+    "/guides/emv-card-analyzer/#history-reports",
+    "/guides/emv-card-analyzer/#settings-safety",
+    "/guides/hceimage-json/#card-profile",
+    "/guides/hceimage-json/#analysis-trace",
+)
 PUBLIC_ROUTES = frozenset({
     "/",
     "/guides/",
@@ -208,6 +219,17 @@ def route_inventory_errors(page_routes, sitemap_routes):
         errors.append("Public HTML routes differ from the supported website inventory")
     if set(sitemap_routes) != PUBLIC_ROUTES or len(sitemap_routes) != len(PUBLIC_ROUTES):
         errors.append("Sitemap must list each supported public route exactly once")
+    return errors
+
+
+def guidance_target_errors(pages_by_route):
+    """Preserve every chapter opened by primary-tab guidance and its format references."""
+    errors = []
+    for reference in GUIDANCE_TARGETS:
+        target = urlsplit(reference)
+        page = pages_by_route.get(target.path)
+        if page is None or target.fragment not in page.ids:
+            errors.append(f"Missing in-app guidance destination: {reference}")
     return errors
 
 
@@ -258,6 +280,7 @@ def check_site(root):
         for location in sitemap.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc")
     ]
     errors.extend(route_inventory_errors(page_routes, sitemap_routes))
+    errors.extend(guidance_target_errors(dict(zip(page_routes, pages.values()))))
     references = 0
     for path, page in pages.items():
         relative = path.relative_to(root)

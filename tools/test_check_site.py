@@ -3,11 +3,13 @@
 import unittest
 
 from check_site import (
+    GUIDANCE_TARGETS,
     PUBLIC_EXAMPLES,
     PUBLIC_ROUTES,
     Page,
     example_download_errors,
     example_inventory_errors,
+    guidance_target_errors,
     has_external_source_name,
     markdown_effective_date,
     markdown_policy,
@@ -97,6 +99,32 @@ class PolicyDateTest(unittest.TestCase):
         self.assertEqual(markdown_effective_date(markdown), "".join(page.effective_date))
         self.assertNotEqual(markdown_effective_date(markdown.replace("9,", "8,")), "".join(page.effective_date))
         self.assertEqual("", markdown_effective_date("# Missing date"))
+
+
+class GuidanceDestinationTest(unittest.TestCase):
+    def pages(self):
+        sections = {}
+        for target in GUIDANCE_TARGETS:
+            route, anchor = target.split("#")
+            sections.setdefault(route, []).append(f'<h2 id="{anchor}">Chapter</h2>')
+        return {route: Page("".join(headings)) for route, headings in sections.items()}
+
+    def test_all_primary_tabs_and_format_references_have_real_chapters(self):
+        self.assertEqual([], guidance_target_errors(self.pages()))
+
+    def test_missing_settings_anchor_is_reported(self):
+        pages = self.pages()
+        page = pages["/guides/hce-test-tool/"]
+        page.ids.remove("settings")
+        self.assertEqual(
+            ["Missing in-app guidance destination: /guides/hce-test-tool/#settings"],
+            guidance_target_errors(pages),
+        )
+
+    def test_missing_format_page_is_reported(self):
+        pages = self.pages()
+        del pages["/guides/hceimage-json/"]
+        self.assertEqual(2, len(guidance_target_errors(pages)))
 
 
 class RouteInventoryTest(unittest.TestCase):

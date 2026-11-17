@@ -34,6 +34,7 @@
             <a href="#test-flow">Run a test</a>
             <a href="#simulated-device-cvm">Simulate device verification</a>
             <a href="#history-reports">History and reports</a>
+            <a href="#settings">Settings</a>
             <a href="/guides/hceimage-json/#profile-examples">Download profile examples</a>
         </nav>
     </header>
@@ -60,7 +61,7 @@
         </section>
         <section aria-labelledby="test-flow">
             <h2 id="test-flow">Run a test</h2>
-            <p>Use the information icon at the top right of each main tab for its quick start and tips: Emulator for setup and testing, Card profiles for the catalog and imports, History for results and reports, and Settings for NFC behavior, retention and diagnostics. Profile-specific <strong>Test guidance</strong> remains separate.</p>
+            <p>Use the information icon at the top right of each main tab for its quick start and tips: Emulator for setup and testing, Card profiles for the catalog and imports, History for results and reports, and Settings for NFC behavior, retention and diagnostics. This guide describes those workflows; the separate JSON specification covers card-profile structure and import compatibility. Profile-specific <strong>Test guidance</strong> explains the selected profile's scenarios and limitations.</p>
             <ol>
                 <li>Open <strong>Change</strong> on the Card profile card. The picker starts with <strong>All</strong>; optionally filter by payment brand and select a profile. A second row below the brands filters by <strong>All / Built-in / Imported / Created</strong>. Both filters combine; browsing or dismissing the picker does not change the active profile or result. Picker cards match the Card profiles catalog, including complete wrapping descriptions, origin and readiness chips, and highlight the current selection. Profiles with warnings remain selectable; profiles with validation errors are excluded.</li>
                 <li>Review the profile summary and open <strong>Test guidance</strong> in its separate footer for profile-specific expectations. The information action beside Card profile opens general Emulator guidance.</li>
@@ -122,6 +123,18 @@
                 <li>Select the new <strong>Created</strong> profile in the Emulator when you want to test it.</li>
             </ol>
             <p>Functional data and profile security defaults remain intact. The copy replaces provenance with <code>"source": { "format": "CUSTOM" }</code> and does not copy temporary Emulator overrides. Copy edits identity metadata only; it does not edit PAN, AID, tracks or certificates. Built-in profiles are protected; Imported and Created profiles can be deleted with Undo. Native profile export and an editor for emulation values are not currently available.</p>
+        </section>
+        <section aria-labelledby="settings">
+            <h2 id="settings">Configure Emulator and History</h2>
+            <p>Settings groups the controls into Emulation, Data, Preferences and About. The NFC status card shows adapter availability and whether card emulation is ready. Its shortcuts open Android NFC or contactless payment settings; enabling NFC does not start emulation.</p>
+            <ul>
+                <li><strong>Emulator behavior:</strong> Keep screen on and Stop emulation after result are on by default. Start timeout defaults to Off and applies while waiting for the first NFC interaction. Vibrate after result is off by default. Changing these controls does not start a test.</li>
+                <li><strong>History retention:</strong> keep the newest 100 sessions by default, or choose 500, 1,000 or all records. Export evidence you need before changing retention or deleting history.</li>
+                <li><strong>Theme:</strong> Dark is the default. Choose System to follow the device or select Light or Dark explicitly.</li>
+                <li><strong>Logcat detail:</strong> APDUs is the default in both debug and release builds. Sessions omits full APDU payloads; Errors records explicit processing errors only. Complete APDUs can contain unmasked synthetic test values, so review logs before sharing them.</li>
+                <li><strong>About:</strong> review the development-use notice and <a href="/hce-test-tool/privacy-policy/">privacy policy</a>. Use Settings guidance for contextual help and this chapter for the controls and their defaults.</li>
+            </ul>
+            <p>Preferences persist locally. They do not change a saved profile's data, terminal configuration or the host's authorization decisions. Temporary test-security overrides remain part of Emulator configuration, not Settings.</p>
         </section>
         <div class="guide-actions">
             <a class="button-link" href="https://play.google.com/store/apps/details?id=com.hceimage.hcetesttool">Get it on Google Play</a>

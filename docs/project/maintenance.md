@@ -3,6 +3,15 @@
 Material engineering decisions and delivery history. Older records retain the scope and
 publication status at their recorded date; they are not current runtime documentation.
 
+## Backward-compatible guide chapters — 2026-11-17
+
+Publish the existing-control Settings chapter and preserve all previously available guide,
+format, privacy and download URLs. Public wording is independent of in-app web-link placement
+and labels so it remains accurate for production HCE and EMV. The local technical contract
+records the prepared nine chapter/format targets without claiming that all app changes are
+already distributed. Scope this commit and Pages deployment to the website; leave application
+and Common work uncommitted.
+
 ## Public application scope — 2026-11-17
 
 Limit the website to HCE Test Tool and EMV Card Analyzer. Remove unrelated product pages,

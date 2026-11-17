@@ -4,6 +4,25 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+## Contextual guidance destinations — 2026-11-17
+
+The HCE guide adds the Settings chapter describing existing controls, defaults and privacy
+entry points. Both public guides describe workflows and separate file-format specifications
+without prescribing the locally prepared guidance footer or new action labels. Existing
+guide roots and anchors remain compatible with installed production HCE and EMV apps;
+the additional Settings anchor does not require an application update. The local technical
+documentation distinguishes prepared app-link destinations from released UI behavior.
+Static validation passes for seven pages, 80 local references, four profile files and
+two unchanged privacy-policy mirrors. All 31 checker tests pass, including
+the nine in-app chapter/format destinations and missing-target regressions.
+Chrome covers all seven pages at 320, 768 and 1440 pixels in light/dark modes and at
+200% text on a 360-pixel viewport in both modes: 56 combinations without horizontal
+overflow or broken content images. The new Settings section was visually reviewed at
+phone and desktop widths. Shared CSS, privacy bodies/dates and profile downloads are unchanged.
+The owner subsequently authorized publication of this backward-compatible web update
+independently of the prepared app changes. Verify the matching Pages deployment and live
+chapter anchors after pushing; HCE, EMV and Common changes remain uncommitted.
+
 ## Public application scope — 2026-11-17
 
 Local static validation passes for seven HTML pages, 78 local references, four native

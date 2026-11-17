@@ -20,6 +20,33 @@ their guides, policies and shared card-profile/analysis-trace reference are publ
 The validator checks the complete seven-page inventory against the sitemap so an
 unlinked HTML page cannot silently remain accessible.
 
+## In-app guidance destinations
+
+Public guides describe workflows and controls available in the released applications,
+without requiring a particular arrangement or label for in-app web links. Keep the
+existing guide roots, format reference, anchors and privacy URLs valid so installed
+applications remain compatible.
+
+The table below documents destinations for the locally prepared shared guidance links.
+It does not imply that every released build exposes a link on every tab. New chapters
+may be added before the corresponding app links are released; they remain useful
+through the website itself. Preserve all of these anchors when reorganizing the guides:
+
+| Application | Tab | Workflow chapter | Additional format reference |
+| --- | --- | --- | --- |
+| HCE Test Tool | Emulator | [Run a test](../guides/hce-test-tool/index.html#test-flow) | — |
+| HCE Test Tool | Card profiles | [Import a card profile](../guides/hce-test-tool/index.html#import-profiles) | [Card profile format](../guides/hceimage-json/index.html#card-profile) |
+| HCE Test Tool | History | [History and reports](../guides/hce-test-tool/index.html#history-reports) | — |
+| HCE Test Tool | Settings | [Emulator and History settings](../guides/hce-test-tool/index.html#settings) | — |
+| EMV Card Analyzer | Analyzer | [Run an analysis](../guides/emv-card-analyzer/index.html#analysis-flow) | — |
+| EMV Card Analyzer | History | [History and reports](../guides/emv-card-analyzer/index.html#history-reports) | [Analysis trace format](../guides/hceimage-json/index.html#analysis-trace) |
+| EMV Card Analyzer | Settings | [Analyzer and History settings](../guides/emv-card-analyzer/index.html#settings-safety) | — |
+
+Privacy URLs remain independent of guidance and are unchanged. The HCE Settings chapter
+describes existing controls without modifying privacy wording, policy dates or profile files.
+Do not describe the new shared final link group or its exact action labels in public
+HTML until doing so also matches the distributed applications.
+
 <a id="README-visual-and-content-conventions"></a>
 ## Visual and content conventions
 

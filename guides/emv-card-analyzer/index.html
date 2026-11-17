@@ -46,7 +46,8 @@
             </ul>
             <div class="guide-note">
                 <p>EMV Card Analyzer reads card data for diagnostics. Payment authorization, PIN/CVM,
-                    card authentication and card updates are outside this workflow.</p>
+                    card authentication and card update commands are outside this workflow. Some cards can
+                    still update internal counters when processing GPO.</p>
             </div>
         </section>
         <section aria-labelledby="analysis-flow">
@@ -102,8 +103,8 @@
                 Track 2 equivalent data.</p>
             <p>Open <strong>Details</strong> for reading progress. <strong>APDU exchange</strong> shows raw
                 commands and responses with contextual decoding of command headers, status words, BER-TLV and
-                DOL fields. When multiple selections can be reliably identified, the timeline groups them
-                under application headings while preserving capture order and APDU numbers.
+                DOL fields. When the captured SELECT exchanges establish clear boundaries, the timeline groups
+                APDUs under numbered application headings and keeps the original order and APDU numbers.
                 <strong>All tags</strong> browses the captured data offline.</p>
             <p>With sufficient UnionPay context, the timeline explains <code>6F00</code> for the optional
                 offline spending amount and <code>6A83</code> for a missing transaction-log record.
@@ -154,15 +155,23 @@
             </aside>
         </section>
         <section aria-labelledby="settings-safety">
-            <h2 id="settings-safety">Settings and data safety</h2>
+            <h2 id="settings-safety">Configure Analyzer and History</h2>
             <p>Settings shows NFC status and offers a shortcut to Android NFC settings. Keep screen on
                 and Stop analyzer after result are on by default. The optional Start timeout applies while
                 waiting for a card. History retains the newest 100 saved records by default and can keep
                 500, 1,000 or all records. Tag reference and APDU response codes are available offline.</p>
-            <p>Logcat detail defaults to Sessions in the production app. APDUs adds raw commands and responses
-                that can contain sensitive card data. Summary masks card numbers until you reveal them.
-                Check screenshots, clipboard contents, APDU details and exported files before sharing.</p>
             <p>Use the information icon on Analyzer, History or Settings for guidance specific to that screen.</p>
+        </section>
+        <section aria-labelledby="data-safety">
+            <h2 id="data-safety">Handle captured card data carefully</h2>
+            <p>Analyze only cards you are authorized to inspect. Summary masks the card number until you
+                reveal it. APDU details, decoded tags, clipboard copies and Full evidence exports can still
+                expose captured values. Choose a Redacted report to omit card-derived values and notes.
+                Review the remaining context before sharing a screenshot or diagnostic file.</p>
+            <p>Logcat detail defaults to Sessions in the Google Play app. APDUs adds raw commands and
+                responses that can contain sensitive card data. History stays on the device and is
+                excluded from Android backup and device transfer. Clearing History leaves exported
+                files, clipboard copies and system logs in place.</p>
         </section>
         <div class="guide-actions">
             <a class="button-link" href="https://play.google.com/store/apps/details?id=com.hceimage.emvcardanalyzer">Get it on Google Play</a>

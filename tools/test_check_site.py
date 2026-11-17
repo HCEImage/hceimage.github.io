@@ -4,6 +4,7 @@ import unittest
 
 from check_site import (
     PUBLIC_EXAMPLES,
+    PUBLIC_ROUTES,
     Page,
     example_download_errors,
     example_inventory_errors,
@@ -13,6 +14,7 @@ from check_site import (
     normalized_text,
     profile_guidance_errors,
     public_copy_errors,
+    route_inventory_errors,
 )
 
 
@@ -63,6 +65,19 @@ class PublicSourceNameTest(unittest.TestCase):
 
 
 class PublicCopyTest(unittest.TestCase):
+    def test_cash_register_copy_and_metadata_are_rejected(self):
+        for copy in (
+            "ECR Test Tool", "Electronic cash register simulation", "cash-register simulators",
+            "nexo Retailer", "Local POI", '<img src="/assets/ecr-test-tool.png">',
+        ):
+            with self.subTest(copy=copy):
+                self.assertTrue(public_copy_errors(copy))
+
+    def test_card_emulation_and_host_simulators_remain_in_scope(self):
+        self.assertEqual([], public_copy_errors(
+            "EMV card emulation, APDU diagnostics and an authorized test host simulator."
+        ))
+
     def test_app_release_numbers_and_roadmap_status_are_rejected(self):
         for copy in ("HCE Test Tool 1.0.0", "v0.2.0", "Roadmap", "In development", "Coming soon"):
             with self.subTest(copy=copy):
@@ -82,6 +97,25 @@ class PolicyDateTest(unittest.TestCase):
         self.assertEqual(markdown_effective_date(markdown), "".join(page.effective_date))
         self.assertNotEqual(markdown_effective_date(markdown.replace("9,", "8,")), "".join(page.effective_date))
         self.assertEqual("", markdown_effective_date("# Missing date"))
+
+
+class RouteInventoryTest(unittest.TestCase):
+    def test_supported_pages_match_the_sitemap(self):
+        self.assertEqual([], route_inventory_errors(PUBLIC_ROUTES, list(PUBLIC_ROUTES)))
+
+    def test_unlinked_extra_page_cannot_remain_published(self):
+        routes = set(PUBLIC_ROUTES) | {"/guides/retired-tool/"}
+        self.assertTrue(route_inventory_errors(routes, list(PUBLIC_ROUTES)))
+
+    def test_missing_or_duplicate_sitemap_routes_are_rejected(self):
+        routes = sorted(PUBLIC_ROUTES)
+        self.assertTrue(route_inventory_errors(PUBLIC_ROUTES, routes[:-1]))
+        self.assertTrue(route_inventory_errors(PUBLIC_ROUTES, routes + routes[:1]))
+
+    def test_missing_or_duplicate_public_pages_are_rejected(self):
+        routes = sorted(PUBLIC_ROUTES)
+        self.assertTrue(route_inventory_errors(routes[:-1], routes))
+        self.assertTrue(route_inventory_errors(routes + routes[:1], routes))
 
 
 class ExampleInventoryTest(unittest.TestCase):

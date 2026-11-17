@@ -4,6 +4,25 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+## Public application scope — 2026-11-17
+
+Local static validation passes for seven HTML pages, 78 local references, four native
+profile downloads and two exact privacy-policy mirrors. All 28 checker tests pass,
+including removed-scope copy and complete HTML/sitemap inventory regressions.
+The two remaining policies, four JSON downloads, HCE/EMV guides and shared stylesheet
+retain their previous bytes. The homepage now describes only card emulation, card analysis
+and APDU diagnostics.
+
+An isolated Chrome review covers all seven pages at 320, 768 and 1440 CSS pixels in
+light and dark modes, plus all pages at 200% text and 360 pixels in both modes:
+56 combinations without horizontal page overflow or broken content images. All pages
+retain one H1 and return HTTP 200. The mobile dark and desktop light homepage screenshots
+were visually reviewed. The browser's optional, pre-existing favicon.ico fallback is
+excluded from content-resource failures; no stylesheet or icon redesign is introduced.
+
+The owner explicitly authorized commit, push and GitHub Pages publication after these checks.
+Deployment completion must be verified independently of the successful local preview.
+
 ## Shared visual consistency — 2026-11-16
 
 Chrome covers all nine HTML routes at 320, 360, 768, 1024 and 1440 pixels in both color
@@ -29,8 +48,7 @@ PASS: nine HTML routes, 91 local references, four profile downloads and three po
 including dates and policy bodies. All 22 checker tests pass. The Analyzer mirror matches the
 policy shipped with the current Play release; its guide and format reference describe trace
 payload 1. HCE still uses profile payload 3 and keeps its simulated-verification policy.
-The ECR policy continues to distinguish reader TCP/loopback traffic, local diagnostics and
-user-initiated exports. Neither HCE nor ECR policy wording or dates changed in this pass.
+HCE policy wording and dates did not change in this pass.
 
 The native HCE example and public-text JVM tests pass offline. All four download files and
 their URLs are unchanged. Chrome renders all nine pages at 360, 768 and 1440 CSS pixels in
@@ -46,7 +64,7 @@ guidance panels. Shortcut links make the two-tap workflow, history and JSON exam
 without scrolling through the entire guide. Stable example URLs, IDs and file contents remain
 unchanged; all four are valid native HCE imports with envelope 1 / payload 3. The website
 checker also verifies exactly one download action per public example. EMV retains its
-independent guide/trace scope; ECR remains in development.
+independent guide/trace scope.
 
 PASS: nine pages, 91 local references, four native downloads, three exact privacy mirrors,
 and 20 checker tests. The browser renders all nine pages at 360, 768 and 1440 CSS pixels in
@@ -72,11 +90,11 @@ The static checker reports nine HTML pages, 83 local references, four profile en
 
 ## Release-ready website and profile examples — 2026-11-09
 
-Prepare the full local site for HCE 1.0.0, not as a development preview of the old production release. Guides describe the current 24-profile/43-scenario catalog, optional mapped simulated device verification, payload 3, compatibility 1/2, PIN policy, security/Reset and reader/host limits. EMV guide/trace reference matches its prepared bounded reader/privacy implementation and independent trace payload 2. ECR correctly remains in development and its retained guide/policy routes remain unlinked from navigation/sitemap.
+Prepare the full local site for HCE 1.0.0, not as a development preview of the old production release. Guides describe the current 24-profile/43-scenario catalog, optional mapped simulated device verification, payload 3, compatibility 1/2, PIN policy, security/Reset and reader/host limits. EMV guide/trace reference matches its prepared bounded reader/privacy implementation and independent trace payload 2.
 
 Replace all three downloads with current physical Visa Online PIN, Mastercard Online PIN and Amex Adaptive CVM definitions. Preserve stable download URLs, use distinct semantic web IDs, CUSTOM-only provenance, matching synthetic security/certificates and full structured guidance. Visa/MC request Online PIN even below the reader limit; Amex has an adaptive above-limit preference. Native integration verifies imports, payload 3, exact operational-contract parity, low/high APDUs, dynamic cryptograms, requested MC/Amex CDA, custom/default comparisons and selected-card PIN display. Old installed imports remain snapshots; old HCE versions may reject the new downloads. Publish only with the matching application release.
 
-Review all policies against their app sources. HCE adds a test-only simulated-verification explanation (no biometric/unlock credentials), effective November 9, 2026; it retains local storage, no-backup profiles, temporary override, report/log/clipboard and deliberate-sharing boundaries. EMV/ECR wording/dates remain unchanged. The checker compares body and effective date for all three mirrors and rejects external source labels in public HTML or complete JSON downloads. Internal maintenance/provenance records are not public UI copy.
+Review all policies against their app sources. HCE adds a test-only simulated-verification explanation (no biometric/unlock credentials), effective November 9, 2026; it retains local storage, no-backup profiles, temporary override, report/log/clipboard and deliberate-sharing boundaries. EMV wording/dates remain unchanged. The checker compares body and effective date for the policy mirrors and rejects external source labels in public HTML or complete JSON downloads. Internal maintenance/provenance records are not public UI copy.
 
 PASS: nine HTML routes, eighty local references, three native downloads/JSON illustrations and three policy mirrors; thirteen parser/guidance/date/source-label regressions. Local responsive review at 1280×900 and 360×900: all nine pages have no horizontal page overflow or broken images; new wrapping sample cards/download actions are visually reviewed. Existing artwork, shared CSS, typography and navigation retain the established design. No remote upload, push or Pages publication occurs. Earlier payload-2/development-preview checkpoints below are historical and superseded for this prepared site.
 
@@ -247,7 +265,7 @@ The three downloadable synthetic HCE profiles were checked through the native HC
 HCE JCB emulation remained conditional at this checkpoint.
 
 The October preview used notices to distinguish draft documentation from the then-published apps.
-Home/ECR scope and the existing stylesheet were unchanged.
+The home page and existing stylesheet were unchanged.
 The check compared the EMV privacy HTML to the application Markdown. The drafts kept the
 published effective date pending release confirmation.
 
@@ -291,11 +309,10 @@ new visual change or website deployment is needed for this submission review.
 <a id="README-follow-up-review--2026-10-11"></a>
 ### Follow-up review — 2026-10-11
 
-Reviewed all nine routes against the HCE, EMV, ECR and common project documentation,
+Reviewed the routes against the HCE, EMV and common project documentation,
 privacy policies and importer implementation. Updated the home summary, added a
 dedicated Copy workflow and provenance explanation, and documented exact profile
-identity limits and conflicting EMV trace version aliases. The retained ECR guide
-now also identifies the app as In development. Shared focus styling covers scrollable
+identity limits and conflicting EMV trace version aliases. Shared focus styling covers scrollable
 code and tables, with one stylesheet cache revision across all pages. The light-theme
 link token was slightly darkened so small accent text meets 4.5:1 contrast on the
 shared muted surfaces as well as white backgrounds.
@@ -327,8 +344,7 @@ all examples pass the actual HCE importer with payload schema 2.
 
 All nine pages render at 360/768/1440 px in light/dark themes (54 combinations), with no broken
 local links/anchors, missing images or page-width overflow. Visual checks retain shared typography,
-spacing, cards, navigation and responsive tables/code blocks. ECR remains In development with its
-guide/privacy links hidden from navigation. Public pages contain no fixed application release
+spacing, cards, navigation and responsive tables/code blocks. Public pages contain no fixed application release
 numbers. Privacy wording still matches local processing, explicit sharing and backup boundaries;
 effective dates remain unchanged. Publication requires a separate owner decision.
 
@@ -351,7 +367,7 @@ string format/kind, integer-number envelope schema and object payload. Missing/n
 typed required fields are rejected without changing valid exported documents. Application guides
 already describe the current profile/trace workflows; no new feature or privacy-date change was
 needed. Public pages remain free of concrete application release numbers, and no visual assets,
-shared styles, availability links or hidden ECR navigation were changed. The site remains a local
+shared styles or availability links were changed. The site remains a local
 draft; this review does not publish it.
 
 Serve the root with `python3 -m http.server 8080 --bind 127.0.0.1` and open
@@ -363,7 +379,7 @@ match the guide routes here. Do not treat a local preview as public availability
 <a id="README-final-local-website-review--2026-10-01"></a>
 ### Final local website review — 2026-10-01
 
-All nine HTML pages, including the retained ECR pages, were rendered in an isolated Chrome browser
+All HTML pages at that checkpoint were rendered in an isolated Chrome browser
 at 360, 768 and 1440 CSS pixels in light and dark modes (54 renders). Automated checks found no
 page-level horizontal overflow, missing images, HTTP errors, JavaScript errors or broken internal
 routes/anchors. All pages retain a single primary heading, shared stylesheet and version-free
@@ -404,16 +420,14 @@ configurations or host approval. Display names are Visa example, Mastercard exam
 Express example; removing “terminal” from the names does not change Profile IDs or behavior.
 
 The guide review checked the HCE native-profile validator and private no-backup store, EMV trace
-documentation and History controls, ECR architecture and TCP transport, shared format rules, and
+documentation and History controls, shared format rules, and
 in-app guide URLs. HCE guidance now explains APDU timing boundaries, deletion without erasing old
 sessions, and repeating a session's Profile ID dependency. EMV guidance names report formats and
 History filtering/Undo. Both guides caution that Redacted exports are not an anonymity guarantee.
-The retained ECR policy now distinguishes Android uninstall cleanup from desktop data that may
-remain after uninstalling; the matching ECR Markdown policy was updated together with the HTML.
-All three HTML policies were compared with their application's Markdown policy; dates remain draft
+The HTML policies were compared with their application's Markdown policy; dates remain draft
 dates pending the separately authorized publication step. Update the effective date of revised
 policy wording and its matching Markdown on publication, not merely on local review. Icon artwork,
-store track destinations and hidden ECR navigation remain unchanged. No push or Pages deployment
+store track destinations remain unchanged. No push or Pages deployment
 was performed as part of this review.
 
 ## Repeatable offline validation

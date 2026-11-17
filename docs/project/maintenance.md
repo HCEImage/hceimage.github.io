@@ -3,6 +3,21 @@
 Material engineering decisions and delivery history. Older records retain the scope and
 publication status at their recorded date; they are not current runtime documentation.
 
+## Public application scope — 2026-11-17
+
+Limit the website to HCE Test Tool and EMV Card Analyzer. Remove unrelated product pages,
+marketing text and icon assets rather than keeping directly reachable unlinked routes.
+The two remaining privacy mirrors and all four
+profile downloads retain their wording, dates and bytes.
+
+Validation now checks the seven public HTML routes against the sitemap and compares only
+the two supported privacy mirrors. Public copy regressions reject unrelated product marketing;
+card emulation and legitimate host-simulator guidance remain supported. Earlier records below
+retain their historical check counts. Product-specific references outside the current scope
+are removed from the local documentation as requested; previous wording remains in Git.
+The owner authorized publication after local checks and browser review. Use the existing
+GitHub Pages deployment rather than a new hosting service; verify its result after pushing.
+
 ## Shared visual consistency — 2026-11-16
 
 Replace mixed browser/default spacing with one flow for catalogue intros, reading pages,
@@ -13,8 +28,8 @@ Keep all policy text and dates, app artwork, navigation destinations and downloa
 ## Current publication status — 2026-11-16
 
 The owner confirmed HCE Test Tool 1.0.0 (16) in Google Play production. The matching HCE
-guide, native examples and updated privacy policy are live. The EMV and ECR policy files
-remain byte-identical to the previous deployed baseline. The
+guide, native examples and updated privacy policy are live. The EMV policy file
+remains byte-identical to the previous deployed baseline. The
 [deployment record](verification.md#hce-production-website-deployment--2026-11-16) describes
 the live verification. This is a repository record excluded from the public Pages build.
 
@@ -24,8 +39,7 @@ The owner sent HCE 1.0.0 (16) for Google Play review. Keep the matching HCE guid
 payload-3 examples and policy ready for deployment after the app is available. Public pages
 describe current behavior without app release numbers or roadmap text; repository records
 and tools are excluded from Pages. The Analyzer guide, trace schema and privacy mirror use
-its released scope rather than the unreleased branch. ECR's existing policy and route
-visibility are unchanged. No remote deployment was performed.
+its released scope rather than the unreleased branch. No remote deployment was performed.
 
 
 
@@ -46,7 +60,7 @@ No privacy processing/wording/effective-date change is needed. All three policy 
 
 Prepare the full site for the new HCE 1.0.0 release, not an old-release development preview. Align the catalog, PIN/security/Reset/two-presentation guidance and format reference; replace the three downloads with current physical payload-3 examples under stable URLs and distinct semantic IDs. Public provenance is CUSTOM only; public copy/downloads cannot name the external source tool.
 
-Review all three privacy mirrors against app sources. HCE explicitly describes test-only simulated verification with no biometric/unlock input, effective November 9, 2026; EMV/ECR wording/dates stay unchanged. Preserve artwork and shared design. ECR remains in development.
+Review the privacy mirrors against app sources. HCE explicitly describes test-only simulated verification with no biometric/unlock input, effective November 9, 2026; EMV wording/dates stay unchanged. Preserve artwork and shared design.
 
 The [verification checkpoint](verification.md#release-ready-website-and-profile-examples--2026-11-09) records native import/flow/crypto parity, thirteen web regressions, policy body/date checks and desktop/mobile review. Publish only with the matching application release, under separate approval. Nothing is pushed or deployed; older payload-2/development-preview entries below retain their historical stage.
 
@@ -100,8 +114,8 @@ The owner confirmed HCE Test Tool approval and production publication on 2026-10
 profile-import functionality, updated listing and screenshots are released. The previously
 published guides and policies accompany that release. The follow-up website update adds visible
 format-specification entry points and three downloadable, validated synthetic profile examples.
-No app release numbers appear in public website copy. EMV production publication was confirmed on 2026-10-06; ECR has no
-store action and its retained guide/policy routes remain absent from navigation and sitemap.
+No app release numbers appear in public website copy. EMV production publication was confirmed
+on 2026-10-06.
 
 Production publication does not establish that an existing device has received its in-place
 Play update; that preservation check remains tracked in the HCE release documentation.
@@ -123,7 +137,7 @@ persistent imported-profile defaults from the default one-use Emulator override 
 keep-until-app-close choice. Record application publication only with actual confirmation from
 the owner or Play Console, not merely because store assets or a bundle have been saved.
 
-The HCE and EMV Google Play links point to their production listings. ECR has no store action. The application cards identify supported platforms rather
+The HCE and EMV Google Play links point to their production listings. The application cards identify supported platforms rather
 than embedding app release numbers or treating distribution tracks as product capabilities.
 
 
@@ -135,8 +149,7 @@ publication on 2026-10-01 use October 1, 2026 as their effective date, aligned w
 application Markdown. Future wording changes must be reviewed for an effective-date update in
 both copies together. In particular, the revised HCE policy now
 distinguishes persistent imported-profile defaults from temporary Emulator overrides; it must be
-reviewed with the matching application release before publication. ECR policy wording is
-status-neutral and includes local platform logs and Android's connection notification. EMV policy
+reviewed with the matching application release before publication. EMV policy
 correctly identifies Sessions as the release Logcat default.
 
 GitHub Pages hosting is separate from application data processing. The policy pages identify
@@ -151,8 +164,7 @@ listing, screenshots, release notes and signed bundle in Play Console. Updated g
 pages are published independently of the application review. HCE's Play update is still pending;
 website publication does not establish that the new application is available on Google Play.
 All revised policies use the publication date in both HTML and their application Markdown copies.
-The retained ECR pages remain omitted from navigation and sitemap. Confirm live page content after
-the Pages deployment before submitting the Console changes for review.
+Confirm live page content after the Pages deployment before submitting the Console changes for review.
 
 
 <a id="README-production-follow-up--2026-10-01"></a>
@@ -182,7 +194,7 @@ synthetic downloadable profile examples matched the repository byte for byte. Al
 references resolved, the three examples parsed with envelope/payload schema 1, and no application
 release numbers appeared in public HTML. Home, availability links and all three policy texts were
 reviewed against the application documentation. Privacy wording and October 1 dates remain unchanged;
-ECR routes remain absent from navigation and sitemap. The follow-up was pushed to GitHub Pages and the two changed guides were fetched from the
+The follow-up was pushed to GitHub Pages and the two changed guides were fetched from the
 public site after deployment; both match the committed HTML byte for byte. The other twelve
 reviewed public files also match their repository copies. Website deployment is complete and
 remains separate from the pending application Play-upgrade verification.

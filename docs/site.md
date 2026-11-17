@@ -6,17 +6,19 @@ Static GitHub Pages content, with no application backend, analytics or build dep
 <a id="README-site-structure"></a>
 ## Routes and assets
 
-- [Home](../index.html) — HCE Test Tool, EMV Card Analyzer and ECR Test Tool
+- [Home](../index.html) — HCE Test Tool and EMV Card Analyzer
 - [Developer guides](../guides/index.html) — application workflows and exchange-format reference
 - [HCE Test Tool guide](../guides/hce-test-tool/index.html) — emulation, profile import, APDU diagnostics, history and reports
 - [EMV Card Analyzer guide](../guides/emv-card-analyzer/index.html) — contactless reading, result states, trace import and export
-- [ECR Test Tool guide](../guides/ecr-test-tool/index.html) — public by direct URL; omitted from navigation and sitemap
 - [HCEImage JSON guide](../guides/hceimage-json/index.html) — shared envelope and distinct card-profile and analysis-trace payloads
 - [HCE privacy policy](../hce-test-tool/privacy-policy/index.html)
 - [EMV privacy policy](../emv-card-analyzer/privacy-policy/index.html)
-- [ECR privacy policy](../ecr-test-tool/privacy-policy/index.html) — public by direct URL; omitted from navigation and sitemap
 - [Shared styles](../assets/styles.css) and [sitemap](../sitemap.xml)
 
+The public application scope is limited to HCE Test Tool and EMV Card Analyzer. Only
+their guides, policies and shared card-profile/analysis-trace reference are published.
+The validator checks the complete seven-page inventory against the sitemap so an
+unlinked HTML page cannot silently remain accessible.
 
 <a id="README-visual-and-content-conventions"></a>
 ## Visual and content conventions
@@ -33,12 +35,12 @@ release numbers, private reference-tool names or roadmap copy. Use document sche
 file compatibility. GitHub Pages excludes repository documentation and validation tools.
 Long HCE and JSON guides offer shortcut links under their introductions; keep the section
 anchors stable because the in-app guidance and public links use them.
-When changing the stylesheet, update its cache key consistently on all nine HTML pages.
+When changing the stylesheet, update its cache key consistently on all seven HTML pages.
 
 ## Privacy policy ownership
 
 Each HTML policy mirrors its application's `play/privacy-policy.md`, including wording and
-effective date. The checker reads the current sibling checkouts for all three apps. Before
+effective date. The checker reads the current sibling HCE and EMV checkouts only. Before
 publishing, verify that the mirrored policies describe the versions being distributed; identical
 local copies do not establish that an app has been released. Hosting visitor-IP handling is
 separate from application data processing. A documentation correction does not change data

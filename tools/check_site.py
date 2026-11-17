@@ -8,6 +8,7 @@ privacy-policy mirrors in sibling application repositories. It never publishes c
 import html
 import json
 import re
+import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -116,6 +117,11 @@ def public_copy_errors(value):
     if has_external_source_name(value):
         errors.append("external source name in public HTML")
     value = html.unescape(value)
+    if re.search(
+        r"\becr\b|\bcash[\s-]*registers?\b|\bnexo\b|\blocal[\s-]+poi\b|\bpokladn\w*",
+        value, re.IGNORECASE,
+    ):
+        errors.append("unrelated application or cash-register content in public HTML")
     if re.search(r"\b(?:v)?\d+\.\d+\.\d+\b", value, re.IGNORECASE):
         errors.append("application release number in public HTML")
     if re.search(r"\b(?:roadmap|planned features?|in development|coming soon)\b", value, re.IGNORECASE):
@@ -183,6 +189,27 @@ PUBLIC_EXAMPLES = {
     "jcb-online-pin.hceimage.json": "JCB",
 }
 
+POLICY_APPS = ("hce-test-tool", "emv-card-analyzer")
+PUBLIC_ROUTES = frozenset({
+    "/",
+    "/guides/",
+    "/guides/hce-test-tool/",
+    "/guides/emv-card-analyzer/",
+    "/guides/hceimage-json/",
+    "/hce-test-tool/privacy-policy/",
+    "/emv-card-analyzer/privacy-policy/",
+})
+
+
+def route_inventory_errors(page_routes, sitemap_routes):
+    """Keep published pages and sitemap limited to the supported application routes."""
+    errors = []
+    if set(page_routes) != PUBLIC_ROUTES or len(page_routes) != len(PUBLIC_ROUTES):
+        errors.append("Public HTML routes differ from the supported website inventory")
+    if set(sitemap_routes) != PUBLIC_ROUTES or len(sitemap_routes) != len(PUBLIC_ROUTES):
+        errors.append("Sitemap must list each supported public route exactly once")
+    return errors
+
 
 def example_inventory_errors(brands_by_filename):
     """Keep every supported brand represented exactly once under its stable download name."""
@@ -216,6 +243,21 @@ def check_site(root):
     root = root.resolve()
     pages = {path.resolve(): Page(path.read_text()) for path in root.rglob("*.html")}
     errors = []
+    page_routes = []
+    for path in pages:
+        relative = path.relative_to(root)
+        if relative.as_posix() == "index.html":
+            page_routes.append("/")
+        elif relative.name == "index.html":
+            page_routes.append("/" + relative.parent.as_posix() + "/")
+        else:
+            page_routes.append("/" + relative.as_posix())
+    sitemap = ET.parse(root / "sitemap.xml")
+    sitemap_routes = [
+        urlsplit(location.text).path
+        for location in sitemap.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc")
+    ]
+    errors.extend(route_inventory_errors(page_routes, sitemap_routes))
     references = 0
     for path, page in pages.items():
         relative = path.relative_to(root)
@@ -276,13 +318,16 @@ def check_site(root):
             errors.append(f"{path.name}: duplicate Profile ID")
         ids.add(payload["id"])
         errors.extend(f"{path.name}: {issue}" for issue in profile_guidance_errors(payload))
-    for app in ("hce-test-tool", "emv-card-analyzer", "ecr-test-tool"):
+    for app in POLICY_APPS:
         try:
             policy_text = (root.parent / app / "play/privacy-policy.md").read_text()
         except OSError:
             errors.append(f"{app}: missing application policy")
             continue
-        page = pages[root / app / "privacy-policy/index.html"]
+        page = pages.get(root / app / "privacy-policy/index.html")
+        if page is None:
+            errors.append(f"{app}: missing website policy")
+            continue
         expected_date = markdown_effective_date(policy_text)
         if not expected_date or expected_date != normalized_text("".join(page.effective_date)):
             errors.append(f"{app}: website privacy effective date differs from application policy")
@@ -297,5 +342,5 @@ if __name__ == "__main__":
         raise SystemExit("\n".join(issues))
     print(
         f"PASS: {page_count} HTML pages, {link_count} local references, "
-        f"{profile_count} profile envelopes, JSON illustrations and 3 policy mirrors."
+        f"{profile_count} profile envelopes, JSON illustrations and {len(POLICY_APPS)} policy mirrors."
     )

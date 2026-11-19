@@ -3,6 +3,17 @@
 Material engineering decisions and delivery history. Older records retain the scope and
 publication status at their recorded date; they are not current runtime documentation.
 
+## Single-presentation website publication — 2026-11-19
+
+Publish the owner-approved website redesign from content commit `36de02b`. The live seven-page
+site, all shared assets, four downloads and sitemap/robots match the reviewed commit: 27 public
+files in total. Both current and released app-link sets remain compatible, and privacy wording,
+effective dates and profile downloads stay unchanged. The live browser review confirms the
+homepage's prepared Emulator/Analyzer previews, secondary link rows and both walkthroughs.
+The [verification record](verification.md#single-presentation-website-deployment--2026-11-19)
+records the production-source baselines and deployment evidence. No application update,
+application/Common commit or device installation is part of this website publication.
+
 ## Single-presentation entry points — 2026-11-19
 
 Keep the Google Play button on its own row on both homepage cards. Group the single-tap

@@ -4,6 +4,21 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+## Single-presentation website deployment — 2026-11-19
+
+The owner-authorized website content commit `36de02b602836b51eb19a3bc1d6e01ca5eab607a` was
+pushed to `origin/main` and is live at [HCEImage](https://hceimage.github.io/). All 27 public files
+match that commit byte-for-byte over HTTPS: seven HTML routes, fourteen shared assets, four
+native profile downloads, sitemap and robots file. The canonical homepage also matches without
+an audit query parameter. Maintenance README, project verification and checker endpoints are
+not published (HTTP 404).
+
+The deployed HTML resolves all fourteen distinct current/production application destinations.
+Browser navigation confirms both homepage quick-start links, the four-image guides, unchanged
+JSON guide root, card-profile/trace anchors and four downloads. The prepared Emulator/Analyzer
+previews and three-link rows render on the public homepage. This is verified publication, not
+merely a successful Git push. HCE, Analyzer and Common source/checkouts are unchanged by this work.
+
 ## Single-presentation guide review — 2026-11-19
 
 Local static validation covers seven HTML pages, 135 local references, four unchanged profile

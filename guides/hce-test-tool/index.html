@@ -7,7 +7,7 @@
     <meta name="description" content="Use HCE Test Tool to emulate synthetic EMV contactless card profiles, inspect APDU exchanges and validate controlled terminal tests.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/hce-test-tool/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20261116-1">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261119-3">
     <title>HCE Test Tool developer guide · HCEImage</title>
 </head>
 <body>
@@ -27,27 +27,31 @@
     </nav>
     <header class="guide-header">
         <p class="eyebrow">HCE Test Tool</p>
-        <h1>Test contactless terminal flows with synthetic card profiles</h1>
+        <h1>Present a test card. Inspect the exchange.</h1>
         <p class="app-status">Android</p>
-        <p class="lead">Use Android host card emulation to present a selected test profile, inspect the APDU exchange and review the resulting flow in one place.</p>
+        <p class="lead">Your Android phone acts as a synthetic contactless card. Start with one presentation to an authorized test reader, then review the recorded evidence.</p>
         <nav class="guide-actions" aria-label="Guide shortcuts">
-            <a href="#test-flow">Run a test</a>
-            <a href="#simulated-device-cvm">Simulate device verification</a>
-            <a href="#history-reports">History and reports</a>
+            <a href="#before-starting">Before starting</a>
+            <a href="#test-flow">Single-tap quick start</a>
+            <a href="#inspect-exchange">Review the result</a>
+            <a href="#history-reports">History and exports</a>
             <a href="#settings">Settings</a>
-            <a href="/guides/hceimage-json/#profile-examples">Download profile examples</a>
         </nav>
+        <details class="guide-contents">
+            <summary>More guide chapters</summary>
+            <nav aria-label="More guide chapters">
+                <a href="#development-profiles">Built-in profiles and CVM</a>
+                <a href="#import-profiles">Import a profile</a>
+                <a href="#copy-profiles">Copy and manage profiles</a>
+                <a href="#security-data">Test security data</a>
+                <a href="#simulated-device-cvm">Simulated device verification</a>
+                <a href="#workspace-lifecycle">Moving between screens</a>
+                <a href="/guides/hceimage-json/#profile-examples">Download profile examples</a>
+                <a href="/guides/hceimage-json/#card-profile">Card-profile format</a>
+            </nav>
+        </details>
     </header>
     <article class="guide-content">
-        <section aria-labelledby="development-profiles">
-            <h2 id="development-profiles">Built-in profile catalog</h2>
-            <p>The catalog contains 24 Built-in profiles with 43 Test guidance scenarios: seven Visa, five Mastercard, seven American Express and five JCB profiles. Within each brand, physical profiles appear before tokenized profiles, and EMV appears before Magstripe or Legacy within each form factor.</p>
-            <p>Visa separates Adaptive CVM, Online PIN, Signature, No CVM, physical Magstripe and mobile EMV/Magstripe. Mastercard separates physical Online PIN, No CVM / Signature and Magstripe from mobile EMV/Magstripe. American Express separates physical Adaptive CVM, No CVM / Signature, No CVM and Magstripe, plus Mobile EMV, Mobile EMV without CDA and Mobile Magstripe. JCB provides five selected physical EMV/Legacy scenarios.</p>
-            <p>JCB Test guidance separates Online PIN, TIP-dependent Adaptive CVM, Signature, fixed Confirmed CVM and Legacy Online PIN. Documented PIN references stay in guidance unless a physical scenario explicitly requests Online PIN; confirmed CVM does not make a profile tokenized or enable interactive verification. The <a href="/guides/hceimage-json/#profile-examples">JCB EMV Online PIN download</a> demonstrates dynamic first ARQC and requested CDA with matching synthetic defaults. Legacy remains distinct from contactless Magstripe.</p>
-            <p>Open each profile’s Test guidance for reader capabilities, amount conditions, a documented Test/Reference PIN and known limits. Visa Online PIN and Signature are fixed requests, including low-value transactions; Adaptive CVM follows reader capabilities and the CVM-required setting. Amounts alone do not select a reader capability. A No CVM profile above the reader limit or a successfully read Magstripe profile can still be rejected by reader policy.</p>
-            <p>Eligible mobile EMV profiles separately explain the pre-verified baseline and optional simulated two-presentation verification. It is not real device authentication or wallet provisioning; Magstripe and JCB profiles do not gain interactive verification. Successful card-side checks are not payment approval or host acceptance.</p>
-            <p>Mastercard Online PIN requires a reader advertising Online PIN at the chosen amount, even below its CVM limit. Contactless Magstripe requires reader and payment-application acceptance of the legacy entry mode; above-limit terminal PIN and unverified-device-CVM retry are different paths. Mobile PIN references remain in Test guidance, not on the selected profile card. Reset restores the selected profile’s embedded security defaults without changing the saved profile.</p>
-        </section>
         <section aria-labelledby="before-starting">
             <h2 id="before-starting">Before starting</h2>
             <ul>
@@ -60,7 +64,43 @@
             </div>
         </section>
         <section aria-labelledby="test-flow">
-            <h2 id="test-flow">Run a test</h2>
+            <h2 id="test-flow">Your first single-tap test</h2>
+            <p>Use the Built-in <strong>Mastercard No CVM / Signature</strong> profile and its below-limit <strong>No CVM purchase</strong> scenario. No profile import, custom key entry or simulated device verification is needed.</p>
+            <div class="setup-strip" role="group" aria-label="Single-presentation HCE setup">
+                <div><strong>Android phone</strong><span>HCE Test Tool acts as the card</span></div>
+                <p>One NFC presentation</p>
+                <div><strong>Test reader or terminal</strong><span>Reads the synthetic profile</span></div>
+            </div>
+            <p><strong>Reader setup:</strong> enable Mastercard contactless online processing and use the matching authorized test environment. Choose a purchase below the reader's CVM-required limit. For example, use <strong>10 CZK only when the reader uses CZK and a 500 CZK CVM limit</strong>. An amount does not configure the reader, its test keys or its host.</p>
+            <ol class="quick-start-steps">
+                <li><strong>Choose the profile.</strong> In Emulator, select <strong>Card profile → Change</strong>, choose <strong>Mastercard No CVM / Signature</strong> from Built-in profiles and read its <strong>Test guidance</strong>. Leave Test security data at profile defaults.</li>
+                <li><strong>Start and present once.</strong> Prepare the purchase on the test terminal. Select <strong>Start emulation</strong>, then hold the phone's NFC antenna against the reader. Keep it steady until the terminal finishes reading and HCE reports an outcome. There is no Continue or second presentation in this scenario.</li>
+                <li><strong>Review the evidence.</strong> Remove the phone after the exchange finishes. Review the profile-check report, open the APDU timeline and inspect a command/response detail. Open History to find the saved session and add a note if useful.</li>
+            </ol>
+            <div class="guide-note"><p><strong>Expected result:</strong> the selected below-limit scenario uses No CVM; the terminal should not need a PIN or signature for that scenario. Card-side checks and the terminal's authorization result are separate. A host decline does not automatically mean emulation failed. If PIN or another presentation is requested, check the selected profile and reader configuration before repeating; do not enter a device unlock code.</p></div>
+            <div class="walkthrough-gallery" role="group" aria-label="Single-presentation HCE example screens">
+                <figure>
+                    <a href="/assets/hce-single-tap-emulator.jpg"><img src="/assets/hce-single-tap-emulator.jpg" alt="Emulator with Mastercard No CVM / Signature selected, profile defaults and the Start emulation action" width="1080" height="1920" loading="lazy"></a>
+                    <figcaption><strong>1 · Prepare</strong>Selected profile and default test security data.</figcaption>
+                </figure>
+                <figure>
+                    <a href="/assets/hce-single-tap-result.jpg"><img src="/assets/hce-single-tap-result.jpg" alt="Completed Mastercard No CVM / Signature session with passed profile checks after one presentation" width="1080" height="1920" loading="lazy"></a>
+                    <figcaption><strong>2 · Review the result</strong>Card-side profile checks, not payment approval.</figcaption>
+                </figure>
+                <figure>
+                    <a href="/assets/hce-single-tap-apdu-exchange.jpg"><img src="/assets/hce-single-tap-apdu-exchange.jpg" alt="Ordered APDU timeline for the same single-presentation Mastercard session" width="1080" height="1920" loading="lazy"></a>
+                    <figcaption><strong>3 · Follow the exchange</strong>Commands and responses in their original order.</figcaption>
+                </figure>
+                <figure>
+                    <a href="/assets/hce-single-tap-apdu-response.jpg"><img src="/assets/hce-single-tap-apdu-response.jpg" alt="Decoded GET PROCESSING OPTIONS response from the same Mastercard session, including AIP and AFL" width="1080" height="1920" loading="lazy"></a>
+                    <figcaption><strong>4 · Open a response</strong>Inspect decoded fields beside the raw data.</figcaption>
+                </figure>
+            </div>
+            <p class="media-caption">Open any screen at full size. These real UI captures use a synthetic, single-presentation example with a 10 CZK input and profile defaults; they are not a recording of a physical payment or host authorization. Reader results depend on your test setup.</p>
+            <p><strong>If reading stops:</strong> inspect the saved APDUs and stop reason. Check NFC, antenna position, the reader's application and CVM configuration, and matching test credentials. Start a fresh test only after reviewing the evidence; do not change keys just to hide a reader or host limitation.</p>
+            <details class="guide-details">
+                <summary>Profile selection, PIN and security details</summary>
+                <div class="detail-content">
             <p>Use the information icon at the top right of each main tab for its quick start and tips: Emulator for setup and testing, Card profiles for the catalog and imports, History for results and reports, and Settings for NFC behavior, retention and diagnostics. This guide describes those workflows; the separate JSON specification covers card-profile structure and import compatibility. Profile-specific <strong>Test guidance</strong> explains the selected profile's scenarios and limitations.</p>
             <ol>
                 <li>Open <strong>Change</strong> on the Card profile card. The picker starts with <strong>All</strong>; optionally filter by payment brand and select a profile. A second row below the brands filters by <strong>All / Built-in / Imported / Created</strong>. Both filters combine; browsing or dismissing the picker does not change the active profile or result. Picker cards match the Card profiles catalog, including complete wrapping descriptions, origin and readiness chips, and highlight the current selection. Profiles with warnings remain selectable; profiles with validation errors are excluded.</li>
@@ -71,6 +111,13 @@
                 <li>Start emulation and present the Android device to the reader or terminal.</li>
                 <li>Keep the device in position until the application reports a completed, failed or interrupted outcome.</li>
             </ol>
+                </div>
+            </details>
+            <div class="guide-actions next-actions" aria-label="After the first HCE test">
+                <a href="#development-profiles">Choose another scenario</a>
+                <a href="/guides/hceimage-json/#profile-examples">Try an imported example</a>
+                <a href="#simulated-device-cvm">Explore two presentations</a>
+            </div>
         </section>
         <section aria-labelledby="inspect-exchange">
             <h2 id="inspect-exchange">Inspect the exchange</h2>
@@ -86,6 +133,15 @@
         <section aria-labelledby="workspace-lifecycle">
             <h2 id="workspace-lifecycle">Keep results while moving between screens</h2>
             <p>Switching tabs, backgrounding the app or rotating the screen stops NFC emulation without restarting it automatically. The live result stays available while the app process remains alive. Start replaces it; selecting a different profile clears it. Merely browsing brand filters does not change the active profile. Saved History is independent of this temporary workspace. Applied security overrides survive tabs and rotation, but an unfinished editor draft is discarded when its screen is recreated.</p>
+        </section>
+        <section aria-labelledby="development-profiles">
+            <h2 id="development-profiles">Built-in profile catalog</h2>
+            <p>The catalog contains 24 Built-in profiles with 43 Test guidance scenarios: seven Visa, five Mastercard, seven American Express and five JCB profiles. Within each brand, physical profiles appear before tokenized profiles, and EMV appears before Magstripe or Legacy within each form factor.</p>
+            <p>Visa separates Adaptive CVM, Online PIN, Signature, No CVM, physical Magstripe and mobile EMV/Magstripe. Mastercard separates physical Online PIN, No CVM / Signature and Magstripe from mobile EMV/Magstripe. American Express separates physical Adaptive CVM, No CVM / Signature, No CVM and Magstripe, plus Mobile EMV, Mobile EMV without CDA and Mobile Magstripe. JCB provides five selected physical EMV/Legacy scenarios.</p>
+            <p>JCB Test guidance separates Online PIN, TIP-dependent Adaptive CVM, Signature, fixed Confirmed CVM and Legacy Online PIN. Documented PIN references stay in guidance unless a physical scenario explicitly requests Online PIN; confirmed CVM does not make a profile tokenized or enable interactive verification. The <a href="/guides/hceimage-json/#profile-examples">JCB EMV Online PIN download</a> demonstrates dynamic first ARQC and requested CDA with matching synthetic defaults. Legacy remains distinct from contactless Magstripe.</p>
+            <p>Open each profile’s Test guidance for reader capabilities, amount conditions, a documented Test/Reference PIN and known limits. Visa Online PIN and Signature are fixed requests, including low-value transactions; Adaptive CVM follows reader capabilities and the CVM-required setting. Amounts alone do not select a reader capability. A No CVM profile above the reader limit or a successfully read Magstripe profile can still be rejected by reader policy.</p>
+            <p>Eligible mobile EMV profiles separately explain the pre-verified baseline and optional simulated two-presentation verification. It is not real device authentication or wallet provisioning; Magstripe and JCB profiles do not gain interactive verification. Successful card-side checks are not payment approval or host acceptance.</p>
+            <p>Mastercard Online PIN requires a reader advertising Online PIN at the chosen amount, even below its CVM limit. Contactless Magstripe requires reader and payment-application acceptance of the legacy entry mode; above-limit terminal PIN and unverified-device-CVM retry are different paths. Mobile PIN references remain in Test guidance, not on the selected profile card. Reset restores the selected profile’s embedded security defaults without changing the saved profile.</p>
         </section>
         <section aria-labelledby="security-data">
             <h2 id="security-data">Handle test security data carefully</h2>

@@ -7,7 +7,7 @@
     <meta name="description" content="HCEImage develops tools for EMV contactless card emulation, payment card analysis and APDU diagnostics in controlled test environments.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20261116-1">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261119-3">
     <title>HCEImage</title>
 </head>
 <body>
@@ -26,41 +26,91 @@
         <div>
             <p class="eyebrow">Developer tools</p>
             <h1 id="hero-title"><span>Tools for testing</span> <span>contactless cards</span></h1>
-            <p class="hero-copy">HCEImage develops focused tools for EMV card emulation, payment card analysis and APDU diagnostics in controlled test environments.</p>
+            <p class="hero-copy">Simulate a test card for a contactless reader, or use your phone to inspect an authorized card. Choose the tool for your side of the NFC exchange.</p>
+            <div class="guide-actions hero-actions">
+                <a class="button-link" href="#hce-test-tool">Simulate a card</a>
+                <a class="button-link" href="#emv-card-analyzer">Read a card</a>
+                <a href="/guides/">Start with a single tap</a>
+            </div>
         </div>
     </section>
     <section class="section" id="applications" aria-labelledby="applications-title">
         <div class="section-header">
             <p class="eyebrow">Applications</p>
-            <h2 id="applications-title">Purpose-built testing tools</h2>
-            <p class="lead">Built for developers and integration engineers working with contactless cards and test readers in controlled environments.</p>
+            <h2 id="applications-title">Which side are you testing?</h2>
+            <p class="lead">Both tools keep diagnostic evidence locally. Neither makes real payments or certifies a card or terminal.</p>
         </div>
-        <article class="app-card">
-            <img class="app-icon" src="/assets/hce-test-tool.png" alt="" width="112" height="112">
-            <div>
-                <h3>HCE Test Tool</h3>
-                <p class="app-status">Android</p>
-                <p>Emulate Built-in, Imported or Created synthetic Visa, Mastercard, American Express and JCB profiles. Import a definition or copy an existing profile, configure temporary test security overrides and reset them to profile defaults. Use optional simulated device verification on supported mobile EMV profiles, inspect APDU exchanges and keep local history with notes and exportable diagnostic reports.</p>
+        <article class="app-card product-card" id="hce-test-tool">
+            <div class="product-body">
+                <div class="product-heading">
+                    <img class="app-icon" src="/assets/hce-test-tool.png" alt="" width="112" height="112">
+                    <div><p class="app-status">Simulate a card · Android</p><h3>HCE Test Tool</h3></div>
+                </div>
+                <p>Present a synthetic Visa, Mastercard, American Express or JCB profile from your phone to an authorized test reader or terminal.</p>
+                <ul class="feature-list">
+                    <li>Choose a Built-in profile, import one or create a copy.</li>
+                    <li>Inspect the APDU exchange, profile checks and saved history.</li>
+                    <li>Explore test-security overrides and supported device-CVM scenarios when you need them.</li>
+                </ul>
+                <div class="app-actions">
+                    <a class="button-link" href="https://play.google.com/store/apps/details?id=com.hceimage.hcetesttool">Get it on Google Play</a>
+                </div>
+                <div class="guide-actions">
+                    <a href="/guides/hce-test-tool/#test-flow">First single-tap test</a>
+                    <a href="/guides/hce-test-tool/">Full developer guide</a>
+                    <a href="/hce-test-tool/privacy-policy/">Privacy policy</a>
+                </div>
             </div>
-            <div class="app-actions">
-                <a class="button-link" href="https://play.google.com/store/apps/details?id=com.hceimage.hcetesttool">Get it on Google Play</a>
-                <a href="/guides/hce-test-tool/">Developer guide</a>
-                <a href="/hce-test-tool/privacy-policy/">Privacy policy</a>
-            </div>
+            <figure class="app-preview">
+                <a href="/assets/hce-single-tap-emulator.jpg"><img src="/assets/hce-single-tap-emulator.jpg" alt="HCE Test Tool Emulator ready with the synthetic Mastercard No CVM / Signature profile and default test security data" width="1080" height="1920" loading="lazy"></a>
+                <figcaption>Emulator · ready for a test</figcaption>
+            </figure>
         </article>
-        <article class="app-card">
-            <img class="app-icon" src="/assets/emv-card-analyzer.png" alt="" width="112" height="112">
-            <div>
-                <h3>EMV Card Analyzer</h3>
-                <p class="app-status">Android</p>
-                <p>An Android developer tool for inspecting supported EMV card applications, contextually decoding APDU and BER-TLV data, browsing application records and captured tags, and keeping local analysis history with notes, exportable diagnostic reports and portable traces. Clear result states and bundled offline references support controlled diagnostics; the bounded analyzer is not a payment kernel.</p>
+        <article class="app-card product-card" id="emv-card-analyzer">
+            <div class="product-body">
+                <div class="product-heading">
+                    <img class="app-icon" src="/assets/emv-card-analyzer.png" alt="" width="112" height="112">
+                    <div><p class="app-status">Read a card · Android</p><h3>EMV Card Analyzer</h3></div>
+                </div>
+                <p>Use your phone's NFC reader to inspect supported applications on a card or test medium you are authorized to analyze.</p>
+                <ul class="feature-list">
+                    <li>Review captured applications, decoded tags and diagnostic findings.</li>
+                    <li>Follow the APDU timeline without performing a payment.</li>
+                    <li>Keep local history and export a readable report or portable trace.</li>
+                </ul>
+                <div class="app-actions">
+                    <a class="button-link" href="https://play.google.com/store/apps/details?id=com.hceimage.emvcardanalyzer">Get it on Google Play</a>
+                </div>
+                <div class="guide-actions">
+                    <a href="/guides/emv-card-analyzer/#analysis-flow">First single-tap analysis</a>
+                    <a href="/guides/emv-card-analyzer/">Full developer guide</a>
+                    <a href="/emv-card-analyzer/privacy-policy/">Privacy policy</a>
+                </div>
             </div>
-            <div class="app-actions">
-                <a class="button-link" href="https://play.google.com/store/apps/details?id=com.hceimage.emvcardanalyzer">Get it on Google Play</a>
-                <a href="/guides/emv-card-analyzer/">Developer guide</a>
-                <a href="/emv-card-analyzer/privacy-policy/">Privacy policy</a>
-            </div>
+            <figure class="app-preview">
+                <a href="/assets/emv-single-tap-ready.jpg"><img src="/assets/emv-single-tap-ready.jpg" alt="EMV Card Analyzer ready to read an authorized test card with the Start analysis action" width="1080" height="1920" loading="lazy"></a>
+                <figcaption>Analyzer · ready for a read</figcaption>
+            </figure>
         </article>
+        <p class="media-caption">Real app interfaces with synthetic example data. Open an image to inspect it at full size, or follow the guide for a single-presentation walkthrough.</p>
+    </section>
+    <section class="section" aria-labelledby="next-step-title">
+        <div class="section-header">
+            <p class="eyebrow">Keep exploring</p>
+            <h2 id="next-step-title">A first test, then the details</h2>
+        </div>
+        <div class="guide-grid">
+            <article class="guide-card">
+                <h3>Follow a short walkthrough</h3>
+                <p>Start with one NFC presentation, review the result, then move on to history, diagnostics and advanced options.</p>
+                <a href="/guides/">Choose an application guide</a>
+            </article>
+            <article class="guide-card">
+                <h3>Try a profile example</h3>
+                <p>Download complete synthetic profiles for HCE Test Tool. File-format specifications are available separately when you need to inspect the structure.</p>
+                <a href="/guides/hceimage-json/#profile-examples">Browse downloadable profiles</a>
+            </article>
+        </div>
     </section>
 </main>
 <footer class="site-footer">

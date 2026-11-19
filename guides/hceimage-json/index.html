@@ -7,7 +7,7 @@
     <meta name="description" content="HCEImage JSON file guide: the shared envelope, downloadable synthetic card-profile examples and EMV Card Analyzer diagnostic traces.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/hceimage-json/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20261116-1">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261119-3">
     <title>HCEImage JSON files · Developer guides</title>
 </head>
 <body>
@@ -28,90 +28,15 @@
     <header class="guide-header">
         <p class="eyebrow">File formats</p>
         <h1>Understand HCEImage JSON files</h1>
-        <p class="lead">Card-profile definitions and analysis traces share a recognizable envelope and filename suffix, but serve different purposes and are not interchangeable.</p>
+        <p class="lead">Download a complete synthetic profile for HCE Test Tool, or inspect the format of a profile or captured analysis trace. These two file types are not interchangeable.</p>
         <nav class="guide-actions" aria-label="File format shortcuts">
-            <a href="#envelope">Shared envelope</a>
-            <a href="#card-profile">Card-profile specification</a>
             <a href="#profile-examples">Download profile examples</a>
+            <a href="#card-profile">Card-profile specification</a>
             <a href="#analysis-trace">Analysis-trace specification</a>
+            <a href="#envelope">Shared envelope</a>
         </nav>
     </header>
     <article class="guide-content">
-        <section aria-labelledby="envelope">
-            <h2 id="envelope">The shared envelope</h2>
-            <p>Both document types use the <code>.hceimage.json</code> suffix and four top-level fields. Applications check the contents, not just the filename.</p>
-            <div class="spec-table" role="region" aria-label="HCEImage envelope fields" tabindex="0">
-                <table>
-                    <thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead>
-                    <tbody>
-                        <tr><th scope="row"><code>format</code></th><td>Document family: a reusable definition or a diagnostic result.</td></tr>
-                        <tr><th scope="row"><code>schemaVersion</code></th><td>Shared envelope schema, independent of the app release and payload schema.</td></tr>
-                        <tr><th scope="row"><code>kind</code></th><td>Specific payload type within the family.</td></tr>
-                        <tr><th scope="row"><code>payload</code></th><td>JSON object interpreted by the appropriate application.</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <p>The envelope schema number does not describe the contents of <code>payload</code>. A consumer must check the expected <code>format</code> and <code>kind</code>, then validate the payload under its own schema. The envelope does not authenticate a file or guarantee that its data is safe.</p>
-            <p>Field types matter: <code>format</code> and <code>kind</code> must be JSON strings, <code>schemaVersion</code> must be an integer number rather than a quoted number, and <code>payload</code> must be a JSON object. Missing, null or incorrectly typed required fields are rejected. Additional envelope fields are ignored, but the application still validates its specific payload.</p>
-        </section>
-        <section aria-labelledby="card-profile">
-            <h2 id="card-profile">Card-profile definition</h2>
-            <p>HCE Test Tool imports a native, reusable synthetic card profile. Its envelope uses <code>format: com.hceimage.definition</code> and <code>kind: card-profile</code>. The profile schema is in <code>payload.schemaVersion</code>.</p>
-            <pre tabindex="0" role="region" aria-label="Card-profile envelope example"><code>{
-  "format": "com.hceimage.definition",
-  "schemaVersion": 1,
-  "kind": "card-profile",
-  "payload": {
-    "schemaVersion": 3,
-    "id": "example-profile",
-    "name": "Example profile"
-  }
-}</code></pre>
-            <p class="example-caption">Structure illustration only: this omits required profile fields and cannot be imported as-is.</p>
-            <div class="guide-note"><p><strong>Two independent schemas:</strong> the shared envelope uses <code>schemaVersion: 1</code>; current card profiles and downloads use <code>payload.schemaVersion: 3</code>. Import accepts payloads 1, 2 and 3. Older files retain their own schema on import and Copy. <strong>Payload schema version</strong> in profile detail and import preview refers to the inner value, not the envelope or application release.</p></div>
-            <div class="guide-note"><p><strong>Payload 3:</strong> selected JCB EMV/Legacy scenarios, optional APDU response states, personalized Visa CVN22 application keys, adaptive reader-dependent CVM and compatible Amex first-GAC CDA templates share this version. New definitions use payload 3 consistently. Payloads 1 and 2 remain readable; a reader that supports only an older version may reject new downloads. Changing the version number alone does not implement new behavior.</p></div>
-            <div class="spec-table" role="region" aria-label="Card-profile payload fields" tabindex="0">
-                <table>
-                    <thead><tr><th scope="col">Payload field</th><th scope="col">Purpose</th></tr></thead>
-                    <tbody>
-                        <tr><th scope="row"><code>id</code>, <code>name</code>, <code>description</code></th><td>Stable Profile ID and nonblank display text. IDs contain 1–64 lowercase letters, digits or hyphens, starting with a letter or digit, and must be unique in the library. Names contain at most 120 characters.</td></tr>
-                        <tr><th scope="row"><code>brand</code>, <code>formFactor</code>, <code>technologies</code></th><td>Payment brand, intended physical/tokenized test-card scenario and contactless processing paths. Form factor is separate from profile origin and CVM; a confirmed CVM result alone does not establish tokenization. All downloadable profiles are synthetic, not provisioned wallets.</td></tr>
-                        <tr><th scope="row"><code>applications[]</code></th><td>AIDs and application settings, including optional profile-default test security data in <code>crypto</code> or schema-2 <code>legacyCrypto</code>.</td></tr>
-                        <tr><th scope="row"><code>apduRules[]</code>, <code>expectedFlow[]</code></th><td>APDU request/response behavior and rule IDs expected during validation.</td></tr>
-                        <tr><th scope="row"><code>initialState</code>, <code>apduRules[].response.requiredState</code>, <code>apduRules[].response.nextState</code></th><td>Payload 3 only. Optional per-emulation state and response guard/transition. Names use 1–64 ASCII letters, digits or underscores and start with a letter; guards must be reachable from the initial state. A guard mismatch returns 6985 without changing state; a transition applies only after a successful 9000 response. Starting a new emulation restores the initial state. This is not persistent card risk, key storage or a way to implement a new payment scheme.</td></tr>
-                        <tr><th scope="row"><code>applications[].crypto.testCardKeyAc</code>, <code>testCardKeyAcKcv</code></th><td>Payload 3, Visa CVN22 only. Optional personalized 16-byte hexadecimal test application key, with an optional matching three-byte KCV. Use it instead of, never together with, <code>testMasterKeyAc</code> and its KCV. It directly derives the session key without repeating PAN/sequence-number diversification. The security editor labels it UDK-AC, keeps profile PAN/sequence number fixed and applies the usual temporary override/Reset behavior. Legacy MSD/MSI <code>legacyCrypto.testCardKey</code> is a different group. Use synthetic keys only.</td></tr>
-                        <tr><th scope="row"><code>testScenarios[]</code></th><td>Optional terminal setup, CVM and expected-outcome guidance; it does not drive the terminal or host.</td></tr>
-                        <tr><th scope="row"><code>source</code></th><td>Optional development provenance, not a signature or authenticity claim.</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <p>A complete payload needs at least one application and one APDU rule. Each <code>applications[]</code> entry has an <code>aid</code>, optional label/PAN/DOL and CVM settings, and an optional <code>crypto</code> group. The supported dynamic cryptogram groups identify their algorithm and synthetic test keys; optional three-byte KCV values are checked against the corresponding keys. Empty or partial security-data groups are not silently completed from other profiles.</p>
-            <p>Each <code>apduRules[]</code> entry gives an ID, a command matcher (<code>request</code>), a fixed or templated <code>response</code>, and an outcome. <code>expectedFlow[]</code> refers to those IDs. <code>testScenarios[]</code> may describe transaction amount conditions, expected CVM, a Test PIN and terminal setup, but those instructions do not execute a transaction. In-app import accepts supported Visa, Mastercard, American Express and JCB profiles only and checks the primary AID, brand and cryptogram algorithm together.</p>
-            <p><strong>Test PINs:</strong> in payload 1/2, <code>testPin</code>/<code>pinNote</code> belong to Online PIN scenarios. Payload 3 also accepts a substantiated reference PIN for other CVM scenarios. Test guidance presents it separately below Expected CVM; the short usage note does not repeat the numeric value: "Use only if the test terminal requests PIN. This value does not change the expected CVM and is not a device unlock code." A documented test-plan default must be distinguished from a PIN contained in the profile source. Use only substantiated synthetic test values. The terminal/test host, not HCE Test Tool, verifies online PINs. The payload-3 downloads below carry structured PIN references and profile-specific Test guidance.</p>
-            <p><strong>Profile guidance:</strong> the refreshed built-in catalog has 24 profiles and 43 scenarios. All seven Visa, five Mastercard, seven American Express and five JCB bundled definitions use payload 3. Amex separates physical EMV/magstripe and mobile EMV with or without CDA/magstripe; both mobile EMV profiles include optional simulated two-presentation guidance. The independent envelope remains v1. Guidance explains expected behavior but does not execute CVM or change a profile’s APDU/cryptographic rules. A copied profile must have a new unique ID; retired built-in IDs do not cause user-owned imports or history to be deleted. The four downloads below are complete physical examples derived from this catalog, with distinct IDs and their own embedded guidance.</p>
-            <div class="guide-note"><p><strong>Adaptive CVM:</strong> Visa CVN22 may use <code>cvmPolicy: VISA_ADAPTIVE_CVM</code>. The <code>{{VISA_CTQ}}</code> response token requests no CVM below the reader's CVM-required setting; when required, it prefers supported Online PIN, then supported signature, otherwise returns no card CVM request. Use the token in GPO and 9F69. The fDDA signer uses the same CTQ in the last two bytes of its seven-byte authentication data, preserving the first five bytes. This is bounded synthetic behavior, not a general card-risk engine, successful terminal CVM verification or payment approval. Fixed Online PIN, Signature and No CVM profiles keep their distinct requests; do not infer their policy from the amount alone.</p></div>
-            <ol>
-                <li>Prepare a complete UTF-8 native definition of at most 1 MB with synthetic test values only. Start with a <a href="#profile-examples">downloadable example</a> or use a bundled profile as a structural reference.</li>
-                <li>In HCE Test Tool, open <strong>Card profiles → Import</strong> and select the file.</li>
-                <li>Review the preview, warnings and Profile ID, then confirm. Invalid structure, unsupported brands or duplicate IDs block import.</li>
-                <li>Select the imported profile in the Emulator and review its Test guidance before starting a controlled NFC test.</li>
-            </ol>
-            <div class="guide-note"><p>Test security data embedded in a profile persists with its private imported file. Values entered later in the Emulator are separate in-memory overrides and do not edit that file. Keep the original for re-import; imported profiles are excluded from Android backup. Never use production keys or real payment credentials.</p></div>
-            <h3 id="legacy-security">Legacy per-card cryptography</h3>
-            <p>Payload schema 2 adds optional <code>applications[].legacyCrypto</code> for Visa MSD and Mastercard MSI. This group is separate from EMV <code>crypto</code>; the two groups cannot coexist in one application. Its algorithm must match the brand and a <code>MAGSTRIPE_CONTACTLESS</code> flow. Schema-1 profiles cannot contain this group.</p>
-            <pre tabindex="0" role="region" aria-label="Legacy card-key group example"><code>"legacyCrypto": {
-  "algorithm": "VISA_MSD_DCVV",
-  "testCardKey": "0123456789ABCDEFFEDCBA9876543210",
-  "testCardKeyKcv": "08D7B4"
-}</code></pre>
-            <p class="example-caption">Excerpt for a complete Visa MSD application, not a standalone import. For Mastercard MSI use <code>MASTERCARD_MSI_CVC3</code>. The public demonstration key provides no secrecy.</p>
-            <p><code>testCardKey</code> is a mandatory personalized 16-byte, two-key TDES synthetic card key, not an issuer master key. Optional <code>testCardKeyKcv</code> is six hexadecimal digits and must match the first three bytes of TDES encryption of a zero block. Import checks the key, brand, PAN/track consistency and required command inputs; an empty or incomplete group is rejected.</p>
-            <p>Visa MSD generates three decimal dCVV digits and uses the rightmost four decimal ATC digits. Mastercard MSI generates binary Track 1/2 CVC3 from the track templates read in that transaction, the UDOL unpredictable number and binary ATC; the reader inserts decimal results into its tracks. Terminal and test-host configurations must support the selected flow and matching synthetic keys.</p>
-            <p>In <strong>Test security data</strong>, leave the controls unchanged for profile defaults, enable <strong>Custom legacy cryptography key</strong> for a complete temporary card-key replacement, or use <strong>Fixed legacy verification results</strong> for deliberate test values. Custom-key and fixed-result modes are mutually exclusive. Fields are masked; summaries expose KCVs, not keys. Older profiles without <code>legacyCrypto</code> keep scripted results.</p>
-            <p>American Express AEIPS uses its existing <code>crypto</code> MK-AC group for CVN 01 EMV and CVN 02 magstripe. The selected GPO AIP and returned CDOL1 determine the branch; the response IAD reports the same CVN and CVR used in cryptogram generation. Do not add a Visa/MC legacy-key group to an Amex profile. If only application keys are customized, Mixed can correctly indicate that offline authentication still uses the profile ICC key. Reset restores the profile defaults, not a rewrite of the saved JSON. These are synthetic test implementations, not real wallet provisioning or certification.</p>
-            <p>The payload-3 implementation supports <code>{{AMEX_SDAD}}</code> for requested first-GENERATE-AC CDA in compatible format-77 profiles. It uses the existing synthetic <code>crypto.testIccPrivateKey</code> group and matching certificates, never private CA or issuer keys. A deliberately no-CDA profile does not fail merely because it omits CDA. Follow the active CDOL rather than an AIP bit alone when selecting the Amex cryptogram path. This does not add issuer scripts, second GENERATE AC or production-wallet support; the downloads below use the matching payload-3 profile contracts.</p>
-            <p>Mobile Magstripe profiles can explicitly declare optional <code>GET DATA 9F36</code> with <code>9F3602{{ATC}}</code>. It reads the current presentation counter after successful GPO without advancing it; later GENERATE AC uses the same value. This does not enable arbitrary GET DATA tags or change the payload version. A physical Amex CVN02 compatibility path can be processed as EMV by a reader when its retained AIP permits it; the reader mode label alone does not select the cryptogram algorithm. Existing imported files are not silently rewritten.</p>
-        </section>
         <section aria-labelledby="profile-examples">
             <h2 id="profile-examples">Downloadable card-profile examples</h2>
             <p>Download four complete examples for HCE Test Tool. They match the Built-in physical profiles named below, with separate Profile IDs and CUSTOM provenance. Each file includes Test guidance for its scenario.</p>
@@ -211,6 +136,81 @@
                 <li>When changing a key, recompute its supplied KCV and update the test host configuration. Keeping an old KCV deliberately causes import rejection.</li>
             </ul>
             <div class="guide-note"><p>Importable JSON cannot contain comments. Unknown payload fields such as <code>_comment</code>, <code>optional</code> or <code>mandatory</code> are also rejected. This field reference supplies the annotations without breaking the downloads; use the supported <code>description</code> and <code>testScenarios</code> fields for guidance inside the file.</p></div>
+        </section>
+        <section aria-labelledby="envelope">
+            <h2 id="envelope">The shared envelope</h2>
+            <p>Both document types use the <code>.hceimage.json</code> suffix and four top-level fields. Applications check the contents, not just the filename.</p>
+            <div class="spec-table" role="region" aria-label="HCEImage envelope fields" tabindex="0">
+                <table>
+                    <thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row"><code>format</code></th><td>Document family: a reusable definition or a diagnostic result.</td></tr>
+                        <tr><th scope="row"><code>schemaVersion</code></th><td>Shared envelope schema, independent of the app release and payload schema.</td></tr>
+                        <tr><th scope="row"><code>kind</code></th><td>Specific payload type within the family.</td></tr>
+                        <tr><th scope="row"><code>payload</code></th><td>JSON object interpreted by the appropriate application.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>The envelope schema number does not describe the contents of <code>payload</code>. A consumer must check the expected <code>format</code> and <code>kind</code>, then validate the payload under its own schema. The envelope does not authenticate a file or guarantee that its data is safe.</p>
+            <p>Field types matter: <code>format</code> and <code>kind</code> must be JSON strings, <code>schemaVersion</code> must be an integer number rather than a quoted number, and <code>payload</code> must be a JSON object. Missing, null or incorrectly typed required fields are rejected. Additional envelope fields are ignored, but the application still validates its specific payload.</p>
+        </section>
+        <section aria-labelledby="card-profile">
+            <h2 id="card-profile">Card-profile definition</h2>
+            <p>HCE Test Tool imports a native, reusable synthetic card profile. Its envelope uses <code>format: com.hceimage.definition</code> and <code>kind: card-profile</code>. The profile schema is in <code>payload.schemaVersion</code>.</p>
+            <pre tabindex="0" role="region" aria-label="Card-profile envelope example"><code>{
+  "format": "com.hceimage.definition",
+  "schemaVersion": 1,
+  "kind": "card-profile",
+  "payload": {
+    "schemaVersion": 3,
+    "id": "example-profile",
+    "name": "Example profile"
+  }
+}</code></pre>
+            <p class="example-caption">Structure illustration only: this omits required profile fields and cannot be imported as-is.</p>
+            <div class="guide-note"><p><strong>Two independent schemas:</strong> the shared envelope uses <code>schemaVersion: 1</code>; current card profiles and downloads use <code>payload.schemaVersion: 3</code>. Import accepts payloads 1, 2 and 3. Older files retain their own schema on import and Copy. <strong>Payload schema version</strong> in profile detail and import preview refers to the inner value, not the envelope or application release.</p></div>
+            <div class="guide-note"><p><strong>Payload 3:</strong> selected JCB EMV/Legacy scenarios, optional APDU response states, personalized Visa CVN22 application keys, adaptive reader-dependent CVM and compatible Amex first-GAC CDA templates share this version. New definitions use payload 3 consistently. Payloads 1 and 2 remain readable; a reader that supports only an older version may reject new downloads. Changing the version number alone does not implement new behavior.</p></div>
+            <div class="spec-table" role="region" aria-label="Card-profile payload fields" tabindex="0">
+                <table>
+                    <thead><tr><th scope="col">Payload field</th><th scope="col">Purpose</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row"><code>id</code>, <code>name</code>, <code>description</code></th><td>Stable Profile ID and nonblank display text. IDs contain 1–64 lowercase letters, digits or hyphens, starting with a letter or digit, and must be unique in the library. Names contain at most 120 characters.</td></tr>
+                        <tr><th scope="row"><code>brand</code>, <code>formFactor</code>, <code>technologies</code></th><td>Payment brand, intended physical/tokenized test-card scenario and contactless processing paths. Form factor is separate from profile origin and CVM; a confirmed CVM result alone does not establish tokenization. All downloadable profiles are synthetic, not provisioned wallets.</td></tr>
+                        <tr><th scope="row"><code>applications[]</code></th><td>AIDs and application settings, including optional profile-default test security data in <code>crypto</code> or schema-2 <code>legacyCrypto</code>.</td></tr>
+                        <tr><th scope="row"><code>apduRules[]</code>, <code>expectedFlow[]</code></th><td>APDU request/response behavior and rule IDs expected during validation.</td></tr>
+                        <tr><th scope="row"><code>initialState</code>, <code>apduRules[].response.requiredState</code>, <code>apduRules[].response.nextState</code></th><td>Payload 3 only. Optional per-emulation state and response guard/transition. Names use 1–64 ASCII letters, digits or underscores and start with a letter; guards must be reachable from the initial state. A guard mismatch returns 6985 without changing state; a transition applies only after a successful 9000 response. Starting a new emulation restores the initial state. This is not persistent card risk, key storage or a way to implement a new payment scheme.</td></tr>
+                        <tr><th scope="row"><code>applications[].crypto.testCardKeyAc</code>, <code>testCardKeyAcKcv</code></th><td>Payload 3, Visa CVN22 only. Optional personalized 16-byte hexadecimal test application key, with an optional matching three-byte KCV. Use it instead of, never together with, <code>testMasterKeyAc</code> and its KCV. It directly derives the session key without repeating PAN/sequence-number diversification. The security editor labels it UDK-AC, keeps profile PAN/sequence number fixed and applies the usual temporary override/Reset behavior. Legacy MSD/MSI <code>legacyCrypto.testCardKey</code> is a different group. Use synthetic keys only.</td></tr>
+                        <tr><th scope="row"><code>testScenarios[]</code></th><td>Optional terminal setup, CVM and expected-outcome guidance; it does not drive the terminal or host.</td></tr>
+                        <tr><th scope="row"><code>source</code></th><td>Optional development provenance, not a signature or authenticity claim.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>A complete payload needs at least one application and one APDU rule. Each <code>applications[]</code> entry has an <code>aid</code>, optional label/PAN/DOL and CVM settings, and an optional <code>crypto</code> group. The supported dynamic cryptogram groups identify their algorithm and synthetic test keys; optional three-byte KCV values are checked against the corresponding keys. Empty or partial security-data groups are not silently completed from other profiles.</p>
+            <p>Each <code>apduRules[]</code> entry gives an ID, a command matcher (<code>request</code>), a fixed or templated <code>response</code>, and an outcome. <code>expectedFlow[]</code> refers to those IDs. <code>testScenarios[]</code> may describe transaction amount conditions, expected CVM, a Test PIN and terminal setup, but those instructions do not execute a transaction. In-app import accepts supported Visa, Mastercard, American Express and JCB profiles only and checks the primary AID, brand and cryptogram algorithm together.</p>
+            <p><strong>Test PINs:</strong> in payload 1/2, <code>testPin</code>/<code>pinNote</code> belong to Online PIN scenarios. Payload 3 also accepts a substantiated reference PIN for other CVM scenarios. Test guidance presents it separately below Expected CVM; the short usage note does not repeat the numeric value: "Use only if the test terminal requests PIN. This value does not change the expected CVM and is not a device unlock code." A documented test-plan default must be distinguished from a PIN contained in the profile source. Use only substantiated synthetic test values. The terminal/test host, not HCE Test Tool, verifies online PINs. The payload-3 downloads below carry structured PIN references and profile-specific Test guidance.</p>
+            <p><strong>Profile guidance:</strong> the refreshed built-in catalog has 24 profiles and 43 scenarios. All seven Visa, five Mastercard, seven American Express and five JCB bundled definitions use payload 3. Amex separates physical EMV/magstripe and mobile EMV with or without CDA/magstripe; both mobile EMV profiles include optional simulated two-presentation guidance. The independent envelope remains v1. Guidance explains expected behavior but does not execute CVM or change a profile’s APDU/cryptographic rules. A copied profile must have a new unique ID; retired built-in IDs do not cause user-owned imports or history to be deleted. The four downloads are complete physical examples derived from this catalog, with distinct IDs and their own embedded guidance.</p>
+            <div class="guide-note"><p><strong>Adaptive CVM:</strong> Visa CVN22 may use <code>cvmPolicy: VISA_ADAPTIVE_CVM</code>. The <code>{{VISA_CTQ}}</code> response token requests no CVM below the reader's CVM-required setting; when required, it prefers supported Online PIN, then supported signature, otherwise returns no card CVM request. Use the token in GPO and 9F69. The fDDA signer uses the same CTQ in the last two bytes of its seven-byte authentication data, preserving the first five bytes. This is bounded synthetic behavior, not a general card-risk engine, successful terminal CVM verification or payment approval. Fixed Online PIN, Signature and No CVM profiles keep their distinct requests; do not infer their policy from the amount alone.</p></div>
+            <ol>
+                <li>Prepare a complete UTF-8 native definition of at most 1 MB with synthetic test values only. Start with a <a href="#profile-examples">downloadable example</a> or use a bundled profile as a structural reference.</li>
+                <li>In HCE Test Tool, open <strong>Card profiles → Import</strong> and select the file.</li>
+                <li>Review the preview, warnings and Profile ID, then confirm. Invalid structure, unsupported brands or duplicate IDs block import.</li>
+                <li>Select the imported profile in the Emulator and review its Test guidance before starting a controlled NFC test.</li>
+            </ol>
+            <div class="guide-note"><p>Test security data embedded in a profile persists with its private imported file. Values entered later in the Emulator are separate in-memory overrides and do not edit that file. Keep the original for re-import; imported profiles are excluded from Android backup. Never use production keys or real payment credentials.</p></div>
+            <h3 id="legacy-security">Legacy per-card cryptography</h3>
+            <p>Payload schema 2 adds optional <code>applications[].legacyCrypto</code> for Visa MSD and Mastercard MSI. This group is separate from EMV <code>crypto</code>; the two groups cannot coexist in one application. Its algorithm must match the brand and a <code>MAGSTRIPE_CONTACTLESS</code> flow. Schema-1 profiles cannot contain this group.</p>
+            <pre tabindex="0" role="region" aria-label="Legacy card-key group example"><code>"legacyCrypto": {
+  "algorithm": "VISA_MSD_DCVV",
+  "testCardKey": "0123456789ABCDEFFEDCBA9876543210",
+  "testCardKeyKcv": "08D7B4"
+}</code></pre>
+            <p class="example-caption">Excerpt for a complete Visa MSD application, not a standalone import. For Mastercard MSI use <code>MASTERCARD_MSI_CVC3</code>. The public demonstration key provides no secrecy.</p>
+            <p><code>testCardKey</code> is a mandatory personalized 16-byte, two-key TDES synthetic card key, not an issuer master key. Optional <code>testCardKeyKcv</code> is six hexadecimal digits and must match the first three bytes of TDES encryption of a zero block. Import checks the key, brand, PAN/track consistency and required command inputs; an empty or incomplete group is rejected.</p>
+            <p>Visa MSD generates three decimal dCVV digits and uses the rightmost four decimal ATC digits. Mastercard MSI generates binary Track 1/2 CVC3 from the track templates read in that transaction, the UDOL unpredictable number and binary ATC; the reader inserts decimal results into its tracks. Terminal and test-host configurations must support the selected flow and matching synthetic keys.</p>
+            <p>In <strong>Test security data</strong>, leave the controls unchanged for profile defaults, enable <strong>Custom legacy cryptography key</strong> for a complete temporary card-key replacement, or use <strong>Fixed legacy verification results</strong> for deliberate test values. Custom-key and fixed-result modes are mutually exclusive. Fields are masked; summaries expose KCVs, not keys. Older profiles without <code>legacyCrypto</code> keep scripted results.</p>
+            <p>American Express AEIPS uses its existing <code>crypto</code> MK-AC group for CVN 01 EMV and CVN 02 magstripe. The selected GPO AIP and returned CDOL1 determine the branch; the response IAD reports the same CVN and CVR used in cryptogram generation. Do not add a Visa/MC legacy-key group to an Amex profile. If only application keys are customized, Mixed can correctly indicate that offline authentication still uses the profile ICC key. Reset restores the profile defaults, not a rewrite of the saved JSON. These are synthetic test implementations, not real wallet provisioning or certification.</p>
+            <p>The payload-3 implementation supports <code>{{AMEX_SDAD}}</code> for requested first-GENERATE-AC CDA in compatible format-77 profiles. It uses the existing synthetic <code>crypto.testIccPrivateKey</code> group and matching certificates, never private CA or issuer keys. A deliberately no-CDA profile does not fail merely because it omits CDA. Follow the active CDOL rather than an AIP bit alone when selecting the Amex cryptogram path. This does not add issuer scripts, second GENERATE AC or production-wallet support; the downloadable profiles use the matching payload-3 profile contracts.</p>
+            <p>Mobile Magstripe profiles can explicitly declare optional <code>GET DATA 9F36</code> with <code>9F3602{{ATC}}</code>. It reads the current presentation counter after successful GPO without advancing it; later GENERATE AC uses the same value. This does not enable arbitrary GET DATA tags or change the payload version. A physical Amex CVN02 compatibility path can be processed as EMV by a reader when its retained AIP permits it; the reader mode label alone does not select the cryptogram algorithm. Existing imported files are not silently rewritten.</p>
         </section>
         <section aria-labelledby="analysis-trace">
             <h2 id="analysis-trace">EMV analysis trace</h2>

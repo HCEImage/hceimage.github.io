@@ -4,6 +4,70 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+## Single-presentation guide review — 2026-11-19
+
+Local static validation covers seven HTML pages, 135 local references, four unchanged profile
+files and two unchanged policy bodies/effective dates. All 52 checker tests pass, including six
+gallery regressions for screenshot order, full-size links, alt text, dimensions and homepage role.
+The compatibility baseline retains all 56 existing public fragment IDs and all seven routes.
+Twelve current app destinations are
+resolved from the five HCE/EMV Kotlin guidance/privacy sources; older roots and chapter links
+remain separately guarded. The selected native HCE Mastercard physical No CVM/Signature
+profile substantiates the walkthrough's name and below-limit No CVM scenario.
+
+Production-source comparison independently covers HCE 1.0.0 (16), runtime baseline `79a26e7`,
+and Analyzer 0.2.0 (6), baseline `aaeb5c171d0031abe13a8757da73d2782c46ddea` from the retained
+release records/candidate metadata. All seven unique released targets remain valid, including
+HCE's unanchored JSON guide and History fragment. The checker now retains this exact production
+URL set, with three regression tests, independently of the twelve current-source targets.
+Both production privacy sources byte-match the current application policies, and both website
+mirrors retain their original wording and effective dates. No application source is modified.
+
+The final browser review covers all seven pages at 320, 390, 768 and 1365 CSS pixels (28 layouts)
+in the active dark palette, with one H1, 16-pixel body text, no horizontal page overflow and no
+broken visible images. All fourteen distinct current/production destinations resolve to their
+intended page/chapter at 390 pixels. Both guides
+have five matching shortcut roles and three quick-start steps before advanced reference.
+Expandable chapter navigation, retained HCE PIN/security explanations, Analyzer read details
+and the four download/view pairs are present. This is website/source compatibility review,
+not a new physical NFC, terminal/host or app-installation acceptance run.
+
+Both prepared homepage images and the secondary link rows retain the owner-approved arrangement;
+the three guide/privacy actions sit below the sole Google Play button, wrapping only on narrow
+screens. Expanded chapter/PIN/read-details panels and both full-size decoded-response image links
+work. Both Play listing URLs and the GitHub privacy-statement URL return HTTP 200. All 56 preexisting
+fragments and all four native download bytes match the prior website commit. Shared CSS cache
+identity is advanced consistently on all seven pages. No script, backend, analytics or new
+application behavior is added.
+
+The initial homepage JPEGs remain available under their original asset URLs:
+
+- HCE `phone-05-apdu-response.jpg`, now `assets/hce-apdu-response.jpg` — SHA-256 `a35a4b8001999717d7777e284ec9fa9dd2bc8a33b3ffd4370dde6219e6fa47b4`
+- EMV `phone-01-analysis-summary.jpg`, now `assets/emv-analysis-summary.jpg` — SHA-256 `fddfe2201bf303725660554ef9b492b14f3369596de5b87d72847c04efb90475`
+
+The homepage pairs `assets/hce-single-tap-emulator.jpg` with `assets/emv-single-tap-ready.jpg`:
+both show the prepared workspace and its Start action. Results remain in the guide walkthroughs.
+Four new HCE captures use the
+actual bundled physical Mastercard No CVM / Signature profile, profile-default security, a
+10 CZK software input, No CVM CDOL evidence and a requested-CDA first ARQC. The real engine
+processes nine commands and passes all six profile checks. No retry scenario or first/second
+presentation grouping is present. These captures show Emulator, History summary, ordered APDUs
+and the decoded GPO response; they are not physical NFC or host-authorization evidence.
+
+Analyzer adds a clean prepared screen and a response capture scrolled to the decoded AIP/AFL.
+Its masked result and timeline are unchanged copies of `play/assets/phone-01-analysis-summary.jpg`
+and `phone-02-apdu-exchange.jpg`; the response uses that same deterministic multi-application
+fixture. All gallery images link to their full native 1080 × 1920 files, with no stitching or
+image editing. Public captions explain the synthetic example boundary.
+
+The Samsung capture runs use temporary test-only classes and the isolated `.screenshots`
+application/test packages; both final runs report `OK (1 test)`. Ordinary installations and
+history are not read or replaced. Capture packages and temporary test sources are removed, and
+the original 1080 × 2340 display size and density 450 are restored without overrides. Application
+and Common source are untouched. These initial captures were reviewed locally without a commit
+or publication. The owner subsequently approved the final layout and authorized the website
+commit and publication after the final whole-site and production-link checks.
+
 ## Contextual guidance destinations — 2026-11-17
 
 The HCE guide adds the Settings chapter describing existing controls, defaults and privacy

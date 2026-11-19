@@ -3,6 +3,45 @@
 Material engineering decisions and delivery history. Older records retain the scope and
 publication status at their recorded date; they are not current runtime documentation.
 
+## Single-presentation entry points — 2026-11-19
+
+Keep the Google Play button on its own row on both homepage cards. Group the single-tap
+walkthrough, full guide and privacy links below it, with wrapping only as space requires.
+This changes presentation, not link targets, guide content or publication status.
+
+Follow up the initial layout with consistent prepared Emulator and Analyzer homepage previews and clickable
+four-screen walkthroughs in both application guides. HCE uses the physical Mastercard below-limit
+scenario, never the two-presentation Play screenshots. Analyzer shows preparation, its synthetic
+multi-application result, APDU timeline and decoded response. Use native unedited captures from
+isolated screenshot variants; do not modify ordinary application installations or history. Share
+gallery spacing, captions and responsive columns, and explicitly distinguish examples from physical
+NFC/authorization acceptance. Keep the old image URL as well as every route and fragment.
+
+Keep the existing routes and fragments while reorganizing both application guides around
+prerequisites, a three-step first presentation and result review. HCE uses the actual Built-in
+Mastercard No CVM / Signature below-limit scenario; Analyzer uses an authorized supported EMV
+test card. Advanced profile/PIN/security explanations and the trace-schema note remain available
+after the basic workflow rather than blocking it. Both guides share chapter shortcuts and
+expandable secondary navigation.
+
+The homepage distinguishes phone-as-card from phone-as-reader, shortens the descriptions and
+adds reviewed synthetic UI screenshots. Downloads move ahead of schema detail on the
+JSON page without moving their URLs or changing their contents. Preserve current and older
+in-app guide/privacy destinations, all prior public anchors and both policy bodies/dates.
+The checker reads current application link sources and the selected native profile as well as
+its fixed compatibility contracts. The final review additionally extracts the seven exact
+destinations from both released runtime baselines and retains them in the validator. Both
+privacy mirrors and all four profile downloads are unchanged. Application/Common repositories
+remain outside this website-only change. After reviewing the local layout, the owner authorized
+the final cleanup, website commit, push and GitHub Pages publication; verify deployed bytes
+separately from local validation and the successful push.
+
+Final checks pass for seven public pages, 135 local references, four unchanged downloads and two
+exact production/current privacy mirrors. All 52 tests pass; 28 responsive layouts and all fourteen
+distinct app destinations are reviewed without overflow. Three external destinations return HTTP
+200. The deployed public files must match the reviewed content commit; do not infer publication
+from an HTTP 200 response serving the older website.
+
 ## Backward-compatible guide chapters — 2026-11-17
 
 Publish the existing-control Settings chapter and preserve all previously available guide,

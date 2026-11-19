@@ -7,7 +7,7 @@
     <meta name="description" content="Use EMV Card Analyzer for bounded contactless application reading, contextual APDU inspection, local reports and portable diagnostic traces.">
     <meta name="theme-color" content="#111318">
     <link rel="canonical" href="https://hceimage.github.io/guides/emv-card-analyzer/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20261116-1">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261119-3">
     <title>EMV Card Analyzer developer guide · HCEImage</title>
 </head>
 <body>
@@ -27,16 +27,30 @@
     </nav>
     <header class="guide-header">
         <p class="eyebrow">EMV Card Analyzer</p>
-        <h1>Inspect supported contactless card applications</h1>
+        <h1>Read a card. Understand the result.</h1>
         <p class="app-status">Android</p>
-        <p class="lead">Run a bounded EMV analysis over Android NFC, follow the APDU exchange and preserve diagnostic results locally.</p>
+        <p class="lead">Your Android phone acts as the NFC reader. Start with one presentation of an authorized contactless card, then inspect the captured applications and APDUs.</p>
+        <nav class="guide-actions" aria-label="Guide shortcuts">
+            <a href="#before-starting">Before starting</a>
+            <a href="#analysis-flow">Single-tap quick start</a>
+            <a href="#result-states">Review the result</a>
+            <a href="#history-reports">History and exports</a>
+            <a href="#settings-safety">Settings</a>
+        </nav>
+        <details class="guide-contents">
+            <summary>More guide chapters</summary>
+            <nav aria-label="More guide chapters">
+                <a href="#inspect-data">APDUs and EMV data</a>
+                <a href="#diagnostic-findings">Diagnostic findings</a>
+                <a href="#contactless-support">Supported reading</a>
+                <a href="#response-timing">Response timing</a>
+                <a href="#workspace-lifecycle">Moving between screens</a>
+                <a href="#data-safety">Captured data safety</a>
+                <a href="/guides/hceimage-json/#analysis-trace">Analysis-trace format</a>
+            </nav>
+        </details>
     </header>
     <article class="guide-content">
-        <div class="guide-note">
-            <p>New analysis traces use envelope schema 1 and <code>payload.schemaVersion: 2</code>.
-                Analyzer also imports schema 1 traces with Full evidence. See the
-                <a href="/guides/hceimage-json/#analysis-trace">trace reference</a> for the structure and compatibility rules.</p>
-        </div>
         <section aria-labelledby="before-starting">
             <h2 id="before-starting">Before starting</h2>
             <ul>
@@ -51,39 +65,51 @@
             </div>
         </section>
         <section aria-labelledby="analysis-flow">
-            <h2 id="analysis-flow">Run an analysis</h2>
-            <ol>
-                <li>Check NFC status in Settings, then open Analyzer and choose <strong>Start analysis</strong>.</li>
-                <li>Hold the contactless card against the device's NFC antenna. Analyzer discovers applications,
-                    selects supported candidates, requests processing options and reads advertised AFL records.</li>
-                <li>Keep the card in place until you see Completed, Incomplete, Unsupported, Interrupted or Failed.</li>
+            <h2 id="analysis-flow">Your first single-tap analysis</h2>
+            <p>Use a supported contactless EMV test card you are authorized to inspect, such as a Visa or Mastercard EMV card. No external reader, profile import, key entry or payment-terminal setup is needed.</p>
+            <div class="setup-strip" role="group" aria-label="Single-presentation Analyzer setup">
+                <div><strong>Authorized test card</strong><span>Provides its supported application data</span></div>
+                <p>One NFC presentation</p>
+                <div><strong>Android phone</strong><span>EMV Card Analyzer acts as the reader</span></div>
+            </div>
+            <ol class="quick-start-steps">
+                <li><strong>Prepare the phone.</strong> Check NFC status in Settings, open Analyzer and keep other NFC cards away. Stay in Analyzer during the read.</li>
+                <li><strong>Start and present once.</strong> Choose <strong>Start analysis</strong>, then hold the test card against the phone's NFC antenna. Keep it steady until Completed, Incomplete, Unsupported, Interrupted or Failed appears. One presentation can read more than one supported application; you do not need to tap again for each one.</li>
+                <li><strong>Review the evidence.</strong> Remove the card after the read ends. Review the captured applications, open <strong>Details → APDU exchange</strong> and inspect a response. Use <strong>All tags</strong> or <strong>Diagnostic findings</strong> for captured data, then open History for the saved analysis and optional note.</li>
             </ol>
+            <div class="guide-note"><p><strong>Expected result:</strong> Completed means the supported data read finished, not that a payment succeeded or the card is genuine. The app does not ask for a payment PIN or perform cardholder verification. Compatibility depends on the card application and reader; Incomplete can still preserve useful evidence.</p></div>
+            <div class="walkthrough-gallery" role="group" aria-label="Single-presentation Analyzer example screens">
+                <figure>
+                    <a href="/assets/emv-single-tap-ready.jpg"><img src="/assets/emv-single-tap-ready.jpg" alt="EMV Card Analyzer prepared for a new read with the Start analysis action" width="1080" height="1920" loading="lazy"></a>
+                    <figcaption><strong>1 · Prepare</strong>Open Analyzer before starting the read.</figcaption>
+                </figure>
+                <figure>
+                    <a href="/assets/emv-analysis-summary.jpg"><img src="/assets/emv-analysis-summary.jpg" alt="Completed synthetic analysis with two captured applications and masked card numbers" width="1080" height="1920" loading="lazy"></a>
+                    <figcaption><strong>2 · Review the result</strong>One presentation can read multiple applications.</figcaption>
+                </figure>
+                <figure>
+                    <a href="/assets/emv-apdu-exchange.jpg"><img src="/assets/emv-apdu-exchange.jpg" alt="APDU exchange timeline from the same completed analysis with ordered commands and responses" width="1080" height="1920" loading="lazy"></a>
+                    <figcaption><strong>3 · Follow the exchange</strong>Open Details to review the captured APDUs.</figcaption>
+                </figure>
+                <figure>
+                    <a href="/assets/emv-apdu-response.jpg"><img src="/assets/emv-apdu-response.jpg" alt="Decoded GET PROCESSING OPTIONS response from the same synthetic analysis" width="1080" height="1920" loading="lazy"></a>
+                    <figcaption><strong>4 · Open a response</strong>Inspect the raw response and decoded fields.</figcaption>
+                </figure>
+            </div>
+            <p class="media-caption">Open any screen at full size. These real UI captures use synthetic example data for a single analysis, not a recording of a physical card read. Your card's applications, data and diagnostic findings can differ.</p>
+            <p><strong>If reading stops:</strong> inspect the status and available findings. Check NFC and antenna position before starting a fresh analysis. Do not repeatedly present a card without reviewing the result; processing options can affect internal card counters.</p>
+            <details class="guide-details"><summary>What the read includes</summary><div class="detail-content">
+            <p>Analyzer discovers applications, selects supported candidates, requests processing options and reads advertised AFL records.</p>
             <p>After a successful UnionPay core read, Analyzer also requests additional diagnostic data and reads a
                 valid advertised transaction log of up to ten records. This may extend the read. An unavailable
                 additional object or log record can still leave the core read Completed. If the additional step is
                 interrupted, the completed application data is retained.</p>
-        </section>
-        <section aria-labelledby="contactless-support">
-            <h2 id="contactless-support">Supported contactless reading</h2>
-            <p>Analyzer implements a diagnostic subset of each reference procedure. Support depends on the card
-                application, its advertised mode and the Android NFC reader.</p>
-            <div class="spec-table" role="region" aria-label="Contactless reading procedures" tabindex="0">
-                <table>
-                    <thead><tr><th scope="col">Application family</th><th scope="col">Reference</th><th scope="col">Diagnostic scope</th></tr></thead>
-                    <tbody>
-                        <tr><th scope="row">Mastercard</th><td>Book C-2</td><td>EMV data reading, including supported Maestro and U.S. Maestro applications.</td></tr>
-                        <tr><th scope="row">Visa</th><td>Book C-3</td><td>EMV data reading, including supported Visa Electron, V PAY, Interlink and Visa U.S. Common Debit applications.</td></tr>
-                        <tr><th scope="row">American Express</th><td>Book C-4</td><td>EMV data reading.</td></tr>
-                        <tr><th scope="row">JCB</th><td>Book C-5</td><td>EMV and JCB Legacy data reading. The Legacy read ends after the supported GPO and AFL sequence.</td></tr>
-                        <tr><th scope="row">Discover / Diners</th><td>Book C-6</td><td>Supported D-PAS applications, including Discover U.S. Common Debit.</td></tr>
-                        <tr><th scope="row">UnionPay</th><td>Book C-7</td><td>Core data and bounded additional diagnostics, including supported U.S. Common Debit applications.</td></tr>
-                    </tbody>
-                </table>
+            </div></details>
+            <div class="guide-actions next-actions" aria-label="After the first analysis">
+                <a href="#inspect-data">Inspect captured data</a>
+                <a href="#history-reports">Save or share evidence</a>
+                <a href="#contactless-support">Check supported reading</a>
             </div>
-            <p>Analyzer uses the full AIDs listed by the card. If the payment directory is missing or lists
-                no candidates, it tries a bounded list of AID prefixes. An explicitly unsupported application
-                mode or kernel identifier is recorded with its stop reason. Historical C-1, other legacy and magstripe
-                reading procedures, and external contact readers are outside the reader scope.</p>
         </section>
         <section aria-labelledby="result-states">
             <h2 id="result-states">Understand the result</h2>
@@ -120,6 +146,28 @@
                 data read progressed. A Completed result may still contain observations. Missing evidence
                 or checks outside the implemented assessment can appear as Not evaluated.</p>
         </section>
+        <section aria-labelledby="contactless-support">
+            <h2 id="contactless-support">Supported contactless reading</h2>
+            <p>Analyzer implements a diagnostic subset of each reference procedure. Support depends on the card
+                application, its advertised mode and the Android NFC reader.</p>
+            <div class="spec-table" role="region" aria-label="Contactless reading procedures" tabindex="0">
+                <table>
+                    <thead><tr><th scope="col">Application family</th><th scope="col">Reference</th><th scope="col">Diagnostic scope</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">Mastercard</th><td>Book C-2</td><td>EMV data reading, including supported Maestro and U.S. Maestro applications.</td></tr>
+                        <tr><th scope="row">Visa</th><td>Book C-3</td><td>EMV data reading, including supported Visa Electron, V PAY, Interlink and Visa U.S. Common Debit applications.</td></tr>
+                        <tr><th scope="row">American Express</th><td>Book C-4</td><td>EMV data reading.</td></tr>
+                        <tr><th scope="row">JCB</th><td>Book C-5</td><td>EMV and JCB Legacy data reading. The Legacy read ends after the supported GPO and AFL sequence.</td></tr>
+                        <tr><th scope="row">Discover / Diners</th><td>Book C-6</td><td>Supported D-PAS applications, including Discover U.S. Common Debit.</td></tr>
+                        <tr><th scope="row">UnionPay</th><td>Book C-7</td><td>Core data and bounded additional diagnostics, including supported U.S. Common Debit applications.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Analyzer uses the full AIDs listed by the card. If the payment directory is missing or lists
+                no candidates, it tries a bounded list of AID prefixes. An explicitly unsupported application
+                mode or kernel identifier is recorded with its stop reason. Historical C-1, other legacy and magstripe
+                reading procedures, and external contact readers are outside the reader scope.</p>
+        </section>
         <section aria-labelledby="response-timing">
             <h2 id="response-timing">Understand Card response timing</h2>
             <p><strong>Card response</strong> measures the exchange through the NFC reader, including device
@@ -133,6 +181,11 @@
         </section>
         <section aria-labelledby="history-reports">
             <h2 id="history-reports">Use history, reports and traces</h2>
+            <div class="guide-note">
+                <p>New analysis traces use envelope schema 1 and <code>payload.schemaVersion: 2</code>.
+                    Analyzer also imports schema 1 traces with Full evidence. See the
+                    <a href="/guides/hceimage-json/#analysis-trace">trace reference</a> for the structure and compatibility rules.</p>
+            </div>
             <p>History stores analysis snapshots and optional notes locally. Filter by result, delete a
                 record with Undo, or clear History after confirmation. Completed entries show their captured
                 application count. Incomplete discovery can leave the count unknown, so other outcomes show a dash.</p>

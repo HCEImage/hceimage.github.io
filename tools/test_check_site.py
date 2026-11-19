@@ -4,9 +4,14 @@ import unittest
 
 from check_site import (
     GUIDANCE_TARGETS,
+    PUBLIC_ANCHORS,
     PUBLIC_EXAMPLES,
     PUBLIC_ROUTES,
+    RELEASED_APPLICATION_TARGETS,
+    WALKTHROUGH_IMAGES,
     Page,
+    application_target_errors,
+    application_targets,
     example_download_errors,
     example_inventory_errors,
     guidance_target_errors,
@@ -16,7 +21,11 @@ from check_site import (
     normalized_text,
     profile_guidance_errors,
     public_copy_errors,
+    public_anchor_errors,
+    quick_start_errors,
+    quick_start_profile_errors,
     route_inventory_errors,
+    walkthrough_image_errors,
 )
 
 
@@ -57,6 +66,55 @@ class SiteParserTest(unittest.TestCase):
             '<div class="policy-content"><h2>Scope</h2><p>No upload.</p></div>'
         )
         self.assertEqual("Local tool. Scope No upload.", normalized_text("".join(page.policy)))
+
+
+class WalkthroughImageTest(unittest.TestCase):
+    def pages(self):
+        return {
+            "/": Page('<a href="/assets/hce-single-tap-emulator.jpg">Emulator</a>'
+                      '<a href="/assets/emv-single-tap-ready.jpg">Analyzer</a>'),
+            **{
+                route: Page('<div class="walkthrough-gallery">' + "".join(
+                    f'<figure><a href="{source}"><img src="{source}" alt="Example UI" '
+                    'width="1080" height="1920"></a></figure>' for source in images
+                ) + '</div>')
+                for route, images in WALKTHROUGH_IMAGES.items()
+            },
+        }
+
+    def test_both_native_image_sequences_have_clickable_full_size_links(self):
+        self.assertEqual([], walkthrough_image_errors(self.pages()))
+
+    def test_missing_or_reordered_step_is_rejected(self):
+        pages = self.pages()
+        pages["/guides/hce-test-tool/"].walkthrough_images.reverse()
+        self.assertIn("order", walkthrough_image_errors(pages)[0])
+
+    def test_unlinked_thumbnail_is_rejected(self):
+        page = Page('<div class="walkthrough-gallery"><img src="/screen.jpg" alt="UI" '
+                    'width="1080" height="1920"></div>')
+        pages = self.pages()
+        pages["/guides/emv-card-analyzer/"] = page
+        self.assertTrue(any("full-size link" in error for error in walkthrough_image_errors(pages)))
+
+    def test_missing_alt_or_dimensions_is_rejected(self):
+        pages = self.pages()
+        page = pages["/guides/hce-test-tool/"]
+        source = page.walkthrough_images[0][0]
+        page.walkthrough_images[0] = (source, source, "", "540", "960")
+        self.assertTrue(any("native dimensions" in error for error in walkthrough_image_errors(pages)))
+
+    def test_homepage_does_not_fall_back_to_a_decoded_response(self):
+        pages = self.pages()
+        pages["/"] = Page('<img src="/assets/hce-apdu-response.jpg">')
+        self.assertIn("Homepage", walkthrough_image_errors(pages)[0])
+
+    def test_homepage_analyzer_does_not_fall_back_to_a_completed_result(self):
+        pages = self.pages()
+        pages["/"] = Page('<img src="/assets/hce-single-tap-emulator.jpg">'
+                          '<img src="/assets/emv-analysis-summary.jpg">')
+        self.assertEqual(["Homepage EMV preview must show the prepared Analyzer"],
+                         walkthrough_image_errors(pages))
 
 
 class PublicSourceNameTest(unittest.TestCase):
@@ -125,6 +183,150 @@ class GuidanceDestinationTest(unittest.TestCase):
         pages = self.pages()
         del pages["/guides/hceimage-json/"]
         self.assertEqual(2, len(guidance_target_errors(pages)))
+
+
+class PublicAnchorTest(unittest.TestCase):
+    def pages(self):
+        return {
+            route: Page("".join(f'<h2 id="{anchor}">Content</h2>' for anchor in anchors))
+            for route, anchors in PUBLIC_ANCHORS.items()
+        }
+
+    def test_all_preexisting_public_fragments_remain_supported(self):
+        self.assertEqual([], public_anchor_errors(self.pages()))
+
+    def test_an_older_format_fragment_is_not_removed_during_reordering(self):
+        pages = self.pages()
+        pages["/guides/hceimage-json/"].ids.remove("legacy-security")
+        self.assertEqual(
+            ["Missing stable public anchor: /guides/hceimage-json/#legacy-security"],
+            public_anchor_errors(pages),
+        )
+
+    def test_privacy_fragments_remain_independent_of_guidance(self):
+        pages = self.pages()
+        del pages["/emv-card-analyzer/privacy-policy/"]
+        self.assertEqual(10, len(public_anchor_errors(pages)))
+
+
+class ApplicationLinkSourceTest(unittest.TestCase):
+    def test_direct_guide_and_policy_urls_are_read_without_execution(self):
+        urls, errors = application_targets(
+            'val guide = "https://hceimage.github.io/guides/hce-test-tool/"\n'
+            'val policy = "https://hceimage.github.io/hce-test-tool/privacy-policy/"'
+        )
+        self.assertEqual([], errors)
+        self.assertEqual({
+            "https://hceimage.github.io/guides/hce-test-tool/",
+            "https://hceimage.github.io/hce-test-tool/privacy-policy/",
+        }, urls)
+
+    def test_kotlin_tab_mapping_expands_each_actual_fragment(self):
+        urls, errors = application_targets('''
+            get() = "https://hceimage.github.io/guides/hce-test-tool/#" + when (this) {
+                ScreenGuidance.Emulator -> "test-flow"
+                ScreenGuidance.Settings -> "settings"
+            }
+        ''')
+        self.assertEqual([], errors)
+        self.assertEqual({
+            "https://hceimage.github.io/guides/hce-test-tool/#test-flow",
+            "https://hceimage.github.io/guides/hce-test-tool/#settings",
+        }, urls)
+
+    def test_unrecognized_fragment_construction_is_not_silently_skipped(self):
+        urls, errors = application_targets('"https://hceimage.github.io/guides/hce-test-tool/#" + other')
+        self.assertEqual(set(), urls)
+        self.assertEqual(1, len(errors))
+
+    def test_changed_app_destination_must_exist_on_the_website(self):
+        pages = {"/guides/hce-test-tool/": Page('<h2 id="test-flow">Quick start</h2>')}
+        self.assertEqual([], application_target_errors({
+            "https://hceimage.github.io/guides/hce-test-tool/#test-flow",
+        }, pages))
+        self.assertEqual(2, len(application_target_errors({
+            "https://hceimage.github.io/guides/hce-test-tool/#renamed",
+            "https://hceimage.github.io/hce-test-tool/privacy-policy/",
+        }, pages)))
+
+
+class ReleasedApplicationLinkTest(unittest.TestCase):
+    def pages(self):
+        return {
+            route: Page("".join(f'<h2 id="{anchor}">Content</h2>' for anchor in anchors))
+            for route, anchors in PUBLIC_ANCHORS.items()
+        }
+
+    def test_production_binaries_keep_all_seven_original_destinations(self):
+        self.assertEqual(7, len(RELEASED_APPLICATION_TARGETS))
+        self.assertEqual([], application_target_errors(RELEASED_APPLICATION_TARGETS, self.pages()))
+
+    def test_older_hce_format_root_still_requires_a_real_page(self):
+        pages = self.pages()
+        del pages["/guides/hceimage-json/"]
+        self.assertIn("Missing application link destination: https://hceimage.github.io/guides/hceimage-json/",
+                      application_target_errors(RELEASED_APPLICATION_TARGETS, pages))
+
+    def test_production_history_fragment_cannot_be_renamed(self):
+        pages = self.pages()
+        pages["/guides/hce-test-tool/"].ids.remove("history-reports")
+        self.assertEqual([
+            "Missing application link destination: https://hceimage.github.io/guides/hce-test-tool/#history-reports",
+        ], application_target_errors(RELEASED_APPLICATION_TARGETS, pages))
+
+
+class QuickStartTest(unittest.TestCase):
+    def pages(self):
+        pages = {}
+        for route, flow, result, settings in (
+            ("/guides/hce-test-tool/", "test-flow", "inspect-exchange", "settings"),
+            ("/guides/emv-card-analyzer/", "analysis-flow", "result-states", "settings-safety"),
+        ):
+            targets = ["before-starting", flow, result, "history-reports", settings]
+            shortcuts = '<nav aria-label="Guide shortcuts">' + "".join(
+                f'<a href="#{target}">{target}</a>' for target in targets
+            ) + '</nav>'
+            sections = "".join(f'<section aria-labelledby="{target}"></section>' for target in targets)
+            steps = '<ol class="quick-start-steps"><li>Prepare</li><li>Present</li><li>Review</li></ol>'
+            pages[route] = Page(shortcuts + sections + steps)
+        return pages
+
+    def test_both_guides_share_the_same_first_use_progression(self):
+        self.assertEqual([], quick_start_errors(self.pages()))
+
+    def test_advanced_catalog_cannot_move_ahead_of_the_first_test(self):
+        pages = self.pages()
+        pages["/guides/hce-test-tool/"].section_ids.insert(0, "development-profiles")
+        self.assertEqual(1, len(quick_start_errors(pages)))
+
+    def test_missing_steps_or_asymmetric_shortcuts_are_reported(self):
+        pages = self.pages()
+        page = pages["/guides/emv-card-analyzer/"]
+        page.shortcut_targets.pop()
+        page.quick_start_steps = 2
+        self.assertEqual(2, len(quick_start_errors(pages)))
+
+
+class QuickStartProfileTest(unittest.TestCase):
+    def profile(self):
+        return {
+            "id": "mastercard-physical-emv-no-cvm-signature", "brand": "MASTERCARD",
+            "name": "Mastercard No CVM / Signature", "formFactor": "PHYSICAL",
+            "testScenarios": [{"amountCondition": "BELOW_CVM_LIMIT", "expectedCvm": "NO_CVM"}],
+        }
+
+    def test_first_test_uses_the_real_named_physical_no_cvm_scenario(self):
+        self.assertEqual([], quick_start_profile_errors(self.profile(), "Mastercard No CVM / Signature"))
+
+    def test_source_changes_cannot_silently_make_the_walkthrough_inaccurate(self):
+        for field, value in (
+            ("name", "Renamed profile"), ("formFactor", "TOKENIZED"),
+            ("brand", "VISA"), ("testScenarios", [{"amountCondition": "ANY", "expectedCvm": "ONLINE_PIN"}]),
+        ):
+            profile = self.profile()
+            profile[field] = value
+            with self.subTest(field=field):
+                self.assertTrue(quick_start_profile_errors(profile, "Mastercard No CVM / Signature"))
 
 
 class RouteInventoryTest(unittest.TestCase):

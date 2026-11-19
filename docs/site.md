@@ -20,6 +20,26 @@ their guides, policies and shared card-profile/analysis-trace reference are publ
 The validator checks the complete seven-page inventory against the sitemap so an
 unlinked HTML page cannot silently remain accessible.
 
+## First-use navigation
+
+The homepage distinguishes phone-as-card from phone-as-reader and links directly to each
+single-presentation walkthrough. The guide index keeps application walkthroughs separate from
+downloadable profiles and file-format specifications. Both application guides begin with
+prerequisites, three quick-start steps and result review, before their detailed reference.
+They share five primary shortcuts and an expandable chapter index. Profile selection/PIN/security
+details in HCE and additional reading behavior in Analyzer remain available in expandable detail.
+
+HCE's example uses the Built-in Mastercard No CVM / Signature below-limit scenario with profile
+defaults and a matching authorized terminal/test-host setup. The 10 CZK example is conditional
+on CZK and a 500 CZK reader CVM limit, not a terminal configuration command or approval promise.
+Analyzer's example uses an authorized supported EMV test card, one presentation and no payment
+PIN or external terminal. Each walkthrough separates captured evidence from payment acceptance.
+
+The JSON page starts with complete downloadable profiles; envelope and payload specifications
+remain available under their original anchors. Files and download URLs are unchanged. A
+profile import and an analysis-trace import remain different workflows, and neither is required
+for the basic walkthroughs.
+
 ## In-app guidance destinations
 
 Public guides describe workflows and controls available in the released applications,
@@ -47,6 +67,18 @@ describes existing controls without modifying privacy wording, policy dates or p
 Do not describe the new shared final link group or its exact action labels in public
 HTML until doing so also matches the distributed applications.
 
+`tools/check_site.py` resolves the current app-owned URLs from the two contextual-guidance
+sources, HCE's profile-specific Test guidance and both privacy constants. The known Kotlin
+literal/explicit tab-mapping forms are parsed without executing application code; an unresolved
+fragment prefix is an error. The fixed `GUIDANCE_TARGETS`, `PUBLIC_ROUTES` and `PUBLIC_ANCHORS`
+contracts separately retain older deployed destinations even when newer source changes.
+`RELEASED_APPLICATION_TARGETS` additionally preserves the seven exact guide/format/privacy
+destinations extracted from the released HCE and Analyzer runtime sources. In particular, HCE's
+older unanchored JSON guide remains a valid page alongside its newer card-profile chapter link.
+Visible chapter titles and section order may change, but these identifiers must not.
+The HCE quick-start name, physical Mastercard identity and below-limit No CVM scenario are
+also compared with the sibling application's native Built-in profile definition.
+
 <a id="README-visual-and-content-conventions"></a>
 ## Visual and content conventions
 
@@ -60,9 +92,27 @@ Application icons preserve the distribution artwork. Use app-independent
 language for diagnostic boundaries. Public pages describe shipped behavior without application
 release numbers, private reference-tool names or roadmap copy. Use document schema numbers for
 file compatibility. GitHub Pages excludes repository documentation and validation tools.
-Long HCE and JSON guides offer shortcut links under their introductions; keep the section
-anchors stable because the in-app guidance and public links use them.
+Both application guides and the JSON reference offer shortcut links under their introductions;
+keep the section anchors stable because the in-app guidance and public links use them.
 When changing the stylesheet, update its cache key consistently on all seven HTML pages.
+
+Both homepage application cards keep Google Play as the sole primary action. Place the single-tap
+walkthrough, full developer guide and privacy links together in one secondary row below it, in that
+order. Allow the row to wrap on narrow screens rather than overflowing. Preserve the link destinations.
+
+The homepage consistently shows the prepared Emulator and Analyzer, not completed results. Both first-use
+guides use the same four-image progression: preparation, result, APDU timeline and decoded response.
+Every thumbnail links directly to its full-size, unedited 1080 × 1920 native UI capture. Keep useful
+alternate text, intrinsic dimensions, lazy loading and shared responsive gallery/caption styling.
+Four columns become two on smaller screens without adding a carousel or JavaScript dependency.
+
+HCE images must use the same physical Mastercard No CVM / Signature profile as the written
+below-limit scenario, profile-default security and one presentation, not the two-tap Visa Mobile
+Play journey. Analyzer's result, timeline and response show one synthetic multi-application analysis;
+one presentation can read multiple applications. Captions distinguish generated UI fixtures from
+physical NFC/host acceptance. Preserve the earlier `assets/hce-apdu-response.jpg` resource too.
+Keep capture provenance in project verification rather than public application-version copy.
+The checker guards screenshot order, full-size links, alt text, dimensions and both prepared homepage previews.
 
 ## Privacy policy ownership
 

@@ -24,6 +24,14 @@ class Page(HTMLParser):
         self.references = []
         self.downloads = []
         self.h1_count = 0
+        self.section_ids = []
+        self.shortcut_targets = []
+        self.quick_start_steps = 0
+        self.walkthrough_images = []
+        self._walkthrough_depth = 0
+        self._image_link = None
+        self._guide_shortcuts = False
+        self._quick_start_list = False
         self.json_examples = []
         self.policy = []
         self.effective_date = []
@@ -36,12 +44,34 @@ class Page(HTMLParser):
 
     def handle_starttag(self, tag, attributes):
         attributes = dict(attributes)
+        if tag == "a":
+            self._image_link = attributes.get("href")
+        if tag == "div":
+            if self._walkthrough_depth:
+                self._walkthrough_depth += 1
+            elif "walkthrough-gallery" in attributes.get("class", "").split():
+                self._walkthrough_depth = 1
+        if tag == "img" and self._walkthrough_depth:
+            self.walkthrough_images.append((
+                attributes.get("src"), self._image_link, attributes.get("alt", ""),
+                attributes.get("width"), attributes.get("height"),
+            ))
         identifier = attributes.get("id")
         if identifier:
             if identifier in self.ids:
                 self.duplicates.add(identifier)
             self.ids.add(identifier)
         self.h1_count += tag == "h1"
+        if tag == "section" and attributes.get("aria-labelledby"):
+            self.section_ids.append(attributes["aria-labelledby"])
+        if tag == "nav" and attributes.get("aria-label") == "Guide shortcuts":
+            self._guide_shortcuts = True
+        if tag == "a" and self._guide_shortcuts:
+            self.shortcut_targets.append(attributes.get("href"))
+        if tag == "ol" and "quick-start-steps" in attributes.get("class", "").split():
+            self._quick_start_list = True
+        if tag == "li" and self._quick_start_list:
+            self.quick_start_steps += 1
         if tag == "header" and "policy-header" in attributes.get("class", "").split():
             self._policy_header = True
         if tag == "p" and self._policy_header and "lead" in attributes.get("class", "").split():
@@ -62,6 +92,14 @@ class Page(HTMLParser):
             self._code = []
 
     def handle_endtag(self, tag):
+        if tag == "a":
+            self._image_link = None
+        if tag == "div" and self._walkthrough_depth:
+            self._walkthrough_depth -= 1
+        if tag == "nav":
+            self._guide_shortcuts = False
+        if tag == "ol":
+            self._quick_start_list = False
         if tag == "header":
             self._policy_header = False
         if tag == "p":
@@ -190,6 +228,17 @@ PUBLIC_EXAMPLES = {
 }
 
 POLICY_APPS = ("hce-test-tool", "emv-card-analyzer")
+# Released runtime sources: HCE 79a26e7 (1.0.0) and Analyzer aaeb5c1 (0.2.0).
+# Keep roots used by those binaries even when current app guidance uses chapter fragments.
+RELEASED_APPLICATION_TARGETS = frozenset({
+    "https://hceimage.github.io/guides/hce-test-tool/",
+    "https://hceimage.github.io/guides/hce-test-tool/#history-reports",
+    "https://hceimage.github.io/guides/hceimage-json/",
+    "https://hceimage.github.io/hce-test-tool/privacy-policy/",
+    "https://hceimage.github.io/guides/emv-card-analyzer/",
+    "https://hceimage.github.io/guides/hceimage-json/#analysis-trace",
+    "https://hceimage.github.io/emv-card-analyzer/privacy-policy/",
+})
 GUIDANCE_TARGETS = (
     "/guides/hce-test-tool/#test-flow",
     "/guides/hce-test-tool/#import-profiles",
@@ -210,6 +259,146 @@ PUBLIC_ROUTES = frozenset({
     "/hce-test-tool/privacy-policy/",
     "/emv-card-analyzer/privacy-policy/",
 })
+
+# Existing public fragments are compatibility identifiers, not presentation headings.
+PUBLIC_ANCHORS = {
+    "/": {"hero-title", "applications", "applications-title"},
+    "/guides/": {"application-guides-title", "exchange-formats-title"},
+    "/guides/hce-test-tool/": {
+        "development-profiles", "before-starting", "test-flow", "inspect-exchange",
+        "history-reports", "workspace-lifecycle", "security-data", "simulated-device-cvm",
+        "import-profiles", "profile-format-title", "copy-profiles", "settings",
+    },
+    "/guides/emv-card-analyzer/": {
+        "before-starting", "analysis-flow", "contactless-support", "result-states",
+        "inspect-data", "diagnostic-findings", "response-timing", "workspace-lifecycle",
+        "history-reports", "trace-format-title", "settings-safety", "data-safety",
+    },
+    "/guides/hceimage-json/": {
+        "envelope", "card-profile", "legacy-security", "profile-examples", "analysis-trace", "compatibility",
+    },
+    "/hce-test-tool/privacy-policy/": {
+        "collection", "local-data", "test-security-data", "simulated-verification", "clipboard-logs",
+        "reports", "nfc", "children", "hosting", "changes", "contact",
+    },
+    "/emv-card-analyzer/privacy-policy/": {
+        "collection", "local-data", "scope", "copying-diagnostics", "reports", "nfc", "children",
+        "hosting", "changes", "contact",
+    },
+}
+APPLICATION_LINK_SOURCES = (
+    ("hce-test-tool", "shared/ui/src/commonMain/kotlin/com/hceimage/hcetesttool/ui/ContextualGuidanceSheet.kt"),
+    ("hce-test-tool", "shared/ui/src/commonMain/kotlin/com/hceimage/hcetesttool/ui/CardTestGuidance.kt"),
+    ("hce-test-tool", "shared/ui/src/commonMain/kotlin/com/hceimage/hcetesttool/ui/PrivacyPolicy.kt"),
+    ("emv-card-analyzer", "shared/ui/src/commonMain/kotlin/com/hceimage/emvcardanalyzer/ui/ContextualGuidance.kt"),
+    ("emv-card-analyzer", "shared/ui/src/commonMain/kotlin/com/hceimage/emvcardanalyzer/ui/DevelopmentUseNotice.kt"),
+)
+
+
+def public_anchor_errors(pages_by_route):
+    """Retain old deep links even when chapters move or their visible titles change."""
+    errors = []
+    for route, anchors in PUBLIC_ANCHORS.items():
+        actual = pages_by_route[route].ids if route in pages_by_route else set()
+        errors.extend(f"Missing stable public anchor: {route}#{anchor}" for anchor in sorted(anchors - actual))
+    return errors
+
+
+def application_targets(source):
+    """Read direct URLs and the apps' explicit Kotlin chapter-selection tables; never execute source."""
+    urls = set(re.findall(r'"(https://hceimage\.github\.io/[^"\s]*)"', source))
+    mappings = re.findall(
+        r'"(https://hceimage\.github\.io/[^"\s]*#)"\s*\+\s*when\s*\([^)]*\)\s*\{([^}]+)\}',
+        source,
+    )
+    expanded = set()
+    for prefix, branches in mappings:
+        fragments = re.findall(r'ScreenGuidance\.\w+\s*->\s*"([a-z0-9-]+)"', branches)
+        if fragments:
+            urls.discard(prefix)
+            expanded.update(prefix + fragment for fragment in fragments)
+    errors = [f"Unresolved application guidance URL: {url}" for url in sorted(urls) if url.endswith("#")]
+    return {url for url in urls if not url.endswith("#")} | expanded, errors
+
+
+def application_target_errors(urls, pages_by_route):
+    """Resolve the destinations actually used by app source against this local website."""
+    errors = []
+    for url in sorted(urls):
+        target = urlsplit(url)
+        page = pages_by_route.get(target.path)
+        if page is None or (target.fragment and unquote(target.fragment) not in page.ids):
+            errors.append(f"Missing application link destination: {url}")
+    return errors
+
+
+def quick_start_errors(pages_by_route):
+    """Keep both guides on the same prerequisites, single presentation, result progression."""
+    errors = []
+    for route, flow, result, settings in (
+        ("/guides/hce-test-tool/", "test-flow", "inspect-exchange", "settings"),
+        ("/guides/emv-card-analyzer/", "analysis-flow", "result-states", "settings-safety"),
+    ):
+        page = pages_by_route.get(route)
+        if page is None:
+            errors.append(f"Missing quick-start guide: {route}")
+            continue
+        if page.section_ids[:3] != ["before-starting", flow, result]:
+            errors.append(f"{route}: quick start and result must precede advanced reference")
+        if page.quick_start_steps != 3:
+            errors.append(f"{route}: expected three single-presentation quick-start steps")
+        if page.shortcut_targets != ["#before-starting", "#" + flow, "#" + result, "#history-reports", "#" + settings]:
+            errors.append(f"{route}: primary guide shortcuts differ from the shared navigation contract")
+    return errors
+
+
+WALKTHROUGH_IMAGES = {
+    "/guides/hce-test-tool/": (
+        "/assets/hce-single-tap-emulator.jpg", "/assets/hce-single-tap-result.jpg",
+        "/assets/hce-single-tap-apdu-exchange.jpg", "/assets/hce-single-tap-apdu-response.jpg",
+    ),
+    "/guides/emv-card-analyzer/": (
+        "/assets/emv-single-tap-ready.jpg", "/assets/emv-analysis-summary.jpg",
+        "/assets/emv-apdu-exchange.jpg", "/assets/emv-apdu-response.jpg",
+    ),
+}
+
+
+def walkthrough_image_errors(pages_by_route):
+    """Keep matching, full-size-linked native UI examples in both first-use guides."""
+    errors = []
+    for route, expected in WALKTHROUGH_IMAGES.items():
+        page = pages_by_route.get(route)
+        images = page.walkthrough_images if page else []
+        if tuple(image[0] for image in images) != expected:
+            errors.append(f"Wrong single-presentation screenshot order: {route}")
+        for source, link, alternate, width, height in images:
+            if source != link or not alternate.strip() or (width, height) != ("1080", "1920"):
+                errors.append(f"Screenshot needs a full-size link, alt text and native dimensions: {route} {source}")
+    homepage = pages_by_route.get("/")
+    if not homepage or "/assets/hce-single-tap-emulator.jpg" not in homepage.references:
+        errors.append("Homepage HCE preview must show the Emulator")
+    if not homepage or "/assets/emv-single-tap-ready.jpg" not in homepage.references:
+        errors.append("Homepage EMV preview must show the prepared Analyzer")
+    return errors
+
+
+def quick_start_profile_errors(payload, guide_source):
+    """Bind the first HCE scenario to the actual native Built-in definition, not its display name alone."""
+    errors = []
+    if payload.get("id") != "mastercard-physical-emv-no-cvm-signature" or (
+        payload.get("brand"), payload.get("formFactor")
+    ) != ("MASTERCARD", "PHYSICAL"):
+        errors.append("HCE quick start requires the selected physical Mastercard baseline")
+    if not payload.get("name") or payload["name"] not in html.unescape(guide_source):
+        errors.append("HCE quick-start profile name differs from the native catalog")
+    if not any(
+        isinstance(scenario, dict) and scenario.get("amountCondition") == "BELOW_CVM_LIMIT"
+        and scenario.get("expectedCvm") == "NO_CVM"
+        for scenario in payload.get("testScenarios", [])
+    ):
+        errors.append("HCE quick-start profile lacks the documented below-limit No CVM scenario")
+    return errors
 
 
 def route_inventory_errors(page_routes, sitemap_routes):
@@ -280,7 +469,30 @@ def check_site(root):
         for location in sitemap.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc")
     ]
     errors.extend(route_inventory_errors(page_routes, sitemap_routes))
-    errors.extend(guidance_target_errors(dict(zip(page_routes, pages.values()))))
+    pages_by_route = dict(zip(page_routes, pages.values()))
+    errors.extend(guidance_target_errors(pages_by_route))
+    errors.extend(public_anchor_errors(pages_by_route))
+    errors.extend(quick_start_errors(pages_by_route))
+    errors.extend(walkthrough_image_errors(pages_by_route))
+    errors.extend(application_target_errors(RELEASED_APPLICATION_TARGETS, pages_by_route))
+    for app, source_path in APPLICATION_LINK_SOURCES:
+        try:
+            source = (root.parent / app / source_path).read_text()
+        except OSError:
+            errors.append(f"{app}: missing guidance-link source {source_path}")
+            continue
+        targets, unresolved = application_targets(source)
+        errors.extend(unresolved)
+        if not targets:
+            errors.append(f"{app}: no website destinations found in {source_path}")
+        errors.extend(application_target_errors(targets, pages_by_route))
+    try:
+        profile = json.loads((
+            root.parent / "hce-test-tool/card-images/mastercard/mastercard-physical-emv-no-cvm-signature.hceimage.json"
+        ).read_text())["payload"]
+        errors.extend(quick_start_profile_errors(profile, (root / "guides/hce-test-tool/index.html").read_text()))
+    except (OSError, ValueError, KeyError, TypeError):
+        errors.append("HCE quick-start native profile definition is unavailable or invalid")
     references = 0
     for path, page in pages.items():
         relative = path.relative_to(root)

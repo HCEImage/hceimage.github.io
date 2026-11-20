@@ -75,7 +75,7 @@
             <ol class="quick-start-steps">
                 <li><strong>Prepare the phone.</strong> Check NFC status in Settings, open Analyzer and keep other NFC cards away. Stay in Analyzer during the read.</li>
                 <li><strong>Start and present once.</strong> Choose <strong>Start analysis</strong>, then hold the test card against the phone's NFC antenna. Keep it steady until Completed, Incomplete, Unsupported, Interrupted or Failed appears. One presentation can read more than one supported application; you do not need to tap again for each one.</li>
-                <li><strong>Review the evidence.</strong> Remove the card after the read ends. Review the captured applications, open <strong>Details → APDU exchange</strong> and inspect a response. Use <strong>All tags</strong> or <strong>Diagnostic findings</strong> for captured data, then open History for the saved analysis and optional note.</li>
+                <li><strong>Review the evidence.</strong> Remove the card after the read ends. Review the captured applications, scroll down to <strong>APDU exchange</strong> and open an entry to inspect its command and response. Use <strong>All tags</strong> or <strong>Diagnostic findings</strong> for captured data, then open History for the saved analysis and optional note.</li>
             </ol>
             <div class="guide-note"><p><strong>Expected result:</strong> Completed means the supported data read finished, not that a payment succeeded or the card is genuine. The app does not ask for a payment PIN or perform cardholder verification. Compatibility depends on the card application and reader; Incomplete can still preserve useful evidence.</p></div>
             <div class="walkthrough-gallery" role="group" aria-label="Single-presentation Analyzer example screens">
@@ -89,7 +89,7 @@
                 </figure>
                 <figure>
                     <a href="/assets/emv-apdu-exchange.jpg"><img src="/assets/emv-apdu-exchange.jpg" alt="APDU exchange timeline from the same completed analysis with ordered commands and responses" width="1080" height="1920" loading="lazy"></a>
-                    <figcaption><strong>3 · Follow the exchange</strong>Open Details to review the captured APDUs.</figcaption>
+                    <figcaption><strong>3 · Follow the exchange</strong>Scroll down to APDU exchange to review the captured commands and responses.</figcaption>
                 </figure>
                 <figure>
                     <a href="/assets/emv-apdu-response.jpg"><img src="/assets/emv-apdu-response.jpg" alt="Decoded GET PROCESSING OPTIONS response from the same synthetic analysis" width="1080" height="1920" loading="lazy"></a>
@@ -127,11 +127,18 @@
                 <strong>Product</strong> identifies a known AID prefix and appears separately. For card number and
                 expiry, Summary uses the dedicated tags when available and can fill a missing field from valid
                 Track 2 equivalent data.</p>
-            <p>Open <strong>Details</strong> for reading progress. <strong>APDU exchange</strong> shows raw
-                commands and responses with contextual decoding of command headers, status words, BER-TLV and
-                DOL fields. When the captured SELECT exchanges establish clear boundaries, the timeline groups
-                APDUs under numbered application headings and keeps the original order and APDU numbers.
+            <p>Open <strong>Details</strong> beside an application to expand its identity and reading progress.
+                Scroll below the result summary and optional note to <strong>APDU exchange</strong>.
+                Open an exchange to inspect its raw command and response with contextual decoding of
+                command headers, status words, BER-TLV and DOL fields. When the captured SELECT exchanges
+                establish clear boundaries, the timeline groups APDUs under numbered application headings
+                and keeps the original order and APDU numbers.
                 <strong>All tags</strong> browses the captured data offline.</p>
+            <p>For supported D-PAS Issuer Application Data (<code>9F10</code>) layouts with CVN
+                <code>15</code> or <code>16</code> (hexadecimal), APDU detail and Full reports decode the
+                documented issuer-data fields and card verification results. Unknown variants, reserved
+                fields and opaque issuer data remain identified as unknown. This interpretation does
+                not verify a cryptogram or authenticate the card.</p>
             <p>With sufficient UnionPay context, the timeline explains <code>6F00</code> for the optional
                 offline spending amount and <code>6A83</code> for a missing transaction-log record.
                 The status word stays visible. A missing AFL record can make the core read Incomplete.</p>
@@ -152,21 +159,31 @@
                 application, its advertised mode and the Android NFC reader.</p>
             <div class="spec-table" role="region" aria-label="Contactless reading procedures" tabindex="0">
                 <table>
-                    <thead><tr><th scope="col">Application family</th><th scope="col">Reference</th><th scope="col">Diagnostic scope</th></tr></thead>
+                    <thead><tr><th scope="col">Application / procedure</th><th scope="col">Reference</th><th scope="col">Diagnostic scope</th></tr></thead>
                     <tbody>
-                        <tr><th scope="row">Mastercard</th><td>Book C-2</td><td>EMV data reading, including supported Maestro and U.S. Maestro applications.</td></tr>
+                        <tr><th scope="row">Mastercard</th><td>Book C-2</td><td>EMV data reading, including supported Maestro, U.S. Maestro and Cirrus applications.</td></tr>
                         <tr><th scope="row">Visa</th><td>Book C-3</td><td>EMV data reading, including supported Visa Electron, V PAY, Interlink and Visa U.S. Common Debit applications.</td></tr>
                         <tr><th scope="row">American Express</th><td>Book C-4</td><td>EMV data reading.</td></tr>
                         <tr><th scope="row">JCB</th><td>Book C-5</td><td>EMV and JCB Legacy data reading. The Legacy read ends after the supported GPO and AFL sequence.</td></tr>
-                        <tr><th scope="row">Discover / Diners</th><td>Book C-6</td><td>Supported D-PAS applications, including Discover U.S. Common Debit.</td></tr>
+                        <tr><th scope="row">Discover / Diners D-PAS</th><td>Book C-6</td><td>Supported D-PAS applications, including Discover U.S. Common Debit.</td></tr>
+                        <tr><th scope="row">Discover ZIP</th><td>D-PAS Card Application Specification, ZIP procedure</td><td>Separate data reading of advertised AFL records and Track 1/2. Optional captured DCVV is not cryptographically verified.</td></tr>
                         <tr><th scope="row">UnionPay</th><td>Book C-7</td><td>Core data and bounded additional diagnostics, including supported U.S. Common Debit applications.</td></tr>
                     </tbody>
                 </table>
             </div>
             <p>Analyzer uses the full AIDs listed by the card. If the payment directory is missing or lists
                 no candidates, it tries a bounded list of AID prefixes. An explicitly unsupported application
-                mode or kernel identifier is recorded with its stop reason. Historical C-1, other legacy and magstripe
-                reading procedures, and external contact readers are outside the reader scope.</p>
+                mode or kernel identifier is recorded with its stop reason.</p>
+            <p>Discover ZIP is read only when its supported application is advertised by the payment directory;
+                it is not added to the fallback list. It follows its own SELECT, GPO and AFL-record procedure,
+                rather than claiming to execute Book C-6. Completed requires all advertised records and
+                correctly encoded Track 1 and Track 2 with consistent card identity and expiry.
+                Invalid optional DCVV data can leave the read Incomplete; captured DCVV is not
+                cryptographically verified.</p>
+            <p>JCB Legacy and Discover ZIP are bounded data reads, not complete legacy payment flows.
+                ZIP does not reconstruct tracks or send checksum, GENERATE AC, PIN or card-update commands.
+                Historical C-1, other legacy/magstripe procedures and external contact readers remain
+                outside the reader scope.</p>
         </section>
         <section aria-labelledby="response-timing">
             <h2 id="response-timing">Understand Card response timing</h2>

@@ -3,6 +3,16 @@
 Material engineering decisions and delivery history. Older records retain the scope and
 publication status at their recorded date; they are not current runtime documentation.
 
+## Prepared EMV guide maintenance update — 2026-11-20
+
+Add Cirrus, separate Discover ZIP reading limits and recognized D-PAS IAD decoding. Correct the
+instructions that confused expanded application Details with the lower APDU timeline. Preserve
+all routes, fragments, production/current application destinations and Play privacy URLs.
+Privacy wording/dates, trace format, homepage, HCE guide, styles, media and downloads are
+unchanged. The seven-page validator and all 52 tests pass. The
+[compatibility evidence](verification.md#emv-021-guide-preparation) records the source baselines;
+keep this committed guide update local until publication with the matching EMV release.
+
 ## Single-presentation website publication — 2026-11-19
 
 Publish the owner-approved website redesign from content commit `36de02b`. The live seven-page

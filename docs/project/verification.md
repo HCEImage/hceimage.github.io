@@ -4,6 +4,38 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+<a id="emv-021-guide-preparation"></a>
+## Prepared EMV maintenance guide update — 2026-11-20
+
+Prepare the owner-approved guide changes for EMV 0.2.1 while retaining the published website
+baseline at `88e2e4b64284a231a31988ee14925619f7318b73`. Add Cirrus to Mastercard support and
+separate advertised Discover ZIP data reading from modern D-PAS/Book C-6. Document its AFL,
+Track 1/2 and optional unverified DCVV limits, including malformed-data Incomplete outcomes.
+Explain recognized D-PAS IAD CVN 15/16 decoding without cryptographic verification and preserve
+unknown variants/fields. Correct the quick-start, gallery caption and inspection instructions:
+Details expands an application, while APDU exchange is below the result and optional note.
+
+Review the wording against the checked-in analyzer reading/findings contracts and the Common
+IAD implementation. The public guide describes current functionality without application release
+numbers, roadmap status or external test-tool names. This record alone carries release timing.
+No privacy-policy body/date, trace schema/reference, homepage, CSS, image or downloadable profile
+changes are needed. Application and Common sources, binaries and runtime link strings are unchanged.
+
+Static validation passes for seven HTML pages, 135 local references, four profile envelopes,
+JSON illustrations and two exact application/privacy mirrors. All 52 checker tests pass.
+Compare with the pre-edit Git baseline: every public route and all 59 actual fragment IDs
+are identical, including the fixed 56-fragment compatibility baseline. Resolve all twelve
+current-source destinations and independently extract seven released destinations from HCE
+`79a26e7` and Analyzer `aaeb5c171d0031abe13a8757da73d2782c46ddea`: fourteen unique app targets,
+all valid. The twelve localized Play listing files retain their two policy URLs, which resolve
+unchanged; this checks repository copy/URL compatibility, not authenticated Console settings.
+
+All non-guide public files are byte-identical to the baseline. No navigation destination,
+heading ID, privacy URL, download name or schema version is changed. Shared presentation and
+existing gallery behavior remain intact; this text/table update does not repeat the earlier
+full responsive browser sweep. Commit locally without pushing. Publication stays pending until
+EMV 0.2.1 production availability is confirmed and a deployment is authorized and verified.
+
 ## Single-presentation website deployment — 2026-11-19
 
 The owner-authorized website content commit `36de02b602836b51eb19a3bc1d6e01ca5eab607a` was

@@ -4,6 +4,31 @@ Repeatable validation procedures and retained execution evidence. Dated checkpoi
 their own stage, not a current capability promise. The technical contract remains authoritative;
 software checks, physical interoperability and host/certification acceptance are different gates.
 
+<a id="emv-021-guide-publication"></a>
+## EMV maintenance guide publication — 2026-11-20
+
+The owner explicitly authorizes publication of the prepared guide. Push website content commit
+`9e56f56a9196c17b416a1b914bbc754522cf5c64` to `origin/main`; the existing GitHub Pages
+[build and deployment](https://github.com/HCEImage/hceimage.github.io/actions/runs/44721301666) completes successfully.
+The EMV guide is live at <https://hceimage.github.io/guides/emv-card-analyzer/> with Cirrus,
+separate Discover ZIP scope, known D-PAS IAD interpretation and corrected APDU navigation.
+
+Independently fetch all 27 public files over HTTPS after deployment. Every file matches the
+prepared commit byte-for-byte: seven HTML pages, fourteen assets, four profile downloads,
+sitemap and robots file. Unqueried canonical homepage and EMV guide responses also match,
+so the result does not depend solely on a cache-busting query or an HTTP 200 status.
+
+All fourteen distinct current/released application destinations resolve against the actual live
+HTML, with all 59 previous fragment IDs preserved. The two Play privacy URLs retain their
+published routes, bodies and effective dates. The homepage, HCE guide, trace reference,
+shared CSS, images and downloadable JSON files are unchanged. The pre-publication validator
+and all 52 tests pass. Raw HTTP/hash evidence is retained privately outside the repository.
+
+Publish only the prepared website commit. Application/Common source, signed AABs and their
+release status are unchanged by this operation; app approval and production upgrade acceptance
+are tracked separately in the Analyzer project. Record this successful deployment in a local
+documentation commit without an additional push or second content deployment.
+
 <a id="emv-021-guide-preparation"></a>
 ## Prepared EMV maintenance guide update — 2026-11-20
 

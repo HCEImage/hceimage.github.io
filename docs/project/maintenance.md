@@ -3,6 +3,16 @@
 Material engineering decisions and delivery history. Older records retain the scope and
 publication status at their recorded date; they are not current runtime documentation.
 
+## EMV maintenance guide publication — 2026-11-20
+
+Publish the owner-approved guide from `9e56f56` through the existing GitHub Pages deployment.
+Verify all 27 served files against the prepared commit, including unqueried canonical pages,
+all fourteen current/production app destinations and 59 retained fragment IDs. Keep privacy
+bodies/dates, interchange formats, HCE content and media unchanged. The
+[publication evidence](verification.md#emv-021-guide-publication) records the successful run.
+Keep the verification record as a local documentation commit; application/Common repositories
+and release artifacts are outside this website publication.
+
 ## Prepared EMV guide maintenance update — 2026-11-20
 
 Add Cirrus, separate Discover ZIP reading limits and recognized D-PAS IAD decoding. Correct the
